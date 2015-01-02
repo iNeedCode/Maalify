@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Last name:
+  = @member.last_name
+%p
+  %b First name:
+  = @member.first_name
+%p
+  %b Aims:
+  = @member.aims_id
+%p
+  %b Wassiyyat:
+  = @member.wassiyyat
+%p
+  %b Date of birth:
+  = @member.date_of_birth
+%p
+  %b Street:
+  = @member.street
+%p
+  %b City:
+  = @member.city
+%p
+  %b Plz:
+  = @member.plz
+%p
+  %b Mobile no:
+  = @member.mobile_no
+%p
+  %b Occupation:
+  = @member.occupation
+
+= link_to 'Edit', edit_member_path(@member)
+\|
+= link_to 'Back', members_path

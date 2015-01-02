@@ -20,4 +20,24 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  table:
+    show: "Show"
+    edit: "Edit"
+    delete: "Delete"
+  member:
+    last_name: "Lastname"
+    first_name: "Firstname"
+    aims: "AIMS-ID"
+    wasiyyat: "Wasiyyat"
+    date_of_birth: "DoB"
+    street: "Street"
+    city: "City"
+    plz: "Zip"
+    email: "Mail"
+    landline: "Landline"
+    mobile_no: "Mobil No."
+    occupation: "Occupation"
+  view:
+    member:
+      new: "Add Member"
+      title: "Members"
