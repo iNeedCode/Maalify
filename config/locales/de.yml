@@ -3,12 +3,19 @@ de:
     show: "Anzeigen"
     edit: "Bearbeiten"
     delete: "Löschen"
+  income:
+    amount: "Betrag"
+    starting_date: "Beginn"
   member:
     last_name: "Nachname"
     first_name: "Vorname"
-    aims: "AIMS-ID"
+    aims: "Aims-Id"
+    aims_abbr: "Aims-Id"
     wasiyyat: "Wasiyyat"
+    wasiyyat_abbr: "W"
+    age: "Alter"
     date_of_birth: "Geburtsdatum"
+    date_of_birth_abbr: "Geb"
     street: "Straße"
     city: "Stadt"
     email: "Email"
@@ -17,9 +24,19 @@ de:
     mobile_no: "Mobilnummer"
     occupation: "Tätigkeit"
   view:
+    save: "Sichern"
+    show: "Anzeigen"
+    edit: "Bearbeiten"
+    delete: "Löschen"
+    back: "Zurück"
     member:
-      new: "Mitglied hinzufügen"    
+      edit: "Mitglied bearbeiten"
+      new: "Mitglied hinzufügen"   
       title: "Mitglieder"
+    income:
+      new: "Einkommen hinzufügen"    
+      title: "Einkommen"
+      edit: "Einkommen bearbeiten"
   date:
     abbr_day_names:
     - So

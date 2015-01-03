@@ -1,0 +1,7 @@
+%h1
+	= t('view.income.new')
+	%small= @income.member.full_name
+
+= render 'form'
+
+= link_to t('view.back'), member_incomes_path, :class => "btn btn-default btn-xs"

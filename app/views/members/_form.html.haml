@@ -1,4 +1,4 @@
-= form_for @member do |f|
+= form_for @member, :html => {:class => "formform-inline"} do |f|
   - if @member.errors.any?
     #error_explanation
       %h2= "#{pluralize(@member.errors.count, "error")} prohibited this member from being saved:"
@@ -6,41 +6,41 @@
         - @member.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :aims_id
-    = f.text_field :aims_id
-  .field
-    = f.label :wassiyyat
-    = f.check_box :wassiyyat
-  .field
-    = f.label :date_of_birth
-    = f.date_select :date_of_birth
-  .field
-    = f.label :street
-    = f.text_field :street
-  .field
-    = f.label :city
-    = f.text_field :city
-  .field
-    = f.label :email
-    = f.text_field :email    
-  .field
-    = f.label :plz
-    = f.number_field :plz
-  .field
-    = f.label :landline
-    = f.text_field :landline
-  .field
-    = f.label :mobile_no
-    = f.text_field :mobile_no
-  .field
-    = f.label :occupation
-    = f.text_field :occupation
+  .form-group
+    = f.label :last_name, t('member.last_name')
+    = f.text_field :last_name, :class => "form-control"
+  .form-group
+    = f.label :first_name, t('member.first_name')
+    = f.text_field :first_name, :class => "form-control"
+  .form-group
+    = f.label :aims_id, t('member.aims_id')
+    = f.text_field :aims_id, :class => "form-control"
+  .form-group
+    = f.label :wassiyyat, t('member.wassiyyat')
+    = f.check_box :wassiyyat, :class => "form-control"
+  .form-group
+    = f.label :date_of_birth, t('member.date_of_birth')
+    = f.text_field :date_of_birth, :class => "form-control",:placeholder => "YYYY-MM-DD"
+  .form-group
+    = f.label :street, t('member.street')
+    = f.text_field :street, :class => "form-control"
+  .form-group
+    = f.label :city, t('member.city')
+    = f.text_field :city, :class => "form-control"
+  .form-group
+    = f.label :email, t('member.email')
+    = f.text_field :email, :class => "form-control"  
+  .form-group
+    = f.label :plz, t('member.plz')
+    = f.number_field :plz, :class => "form-control"
+  .form-group
+    = f.label :landline, t('member.landline')
+    = f.text_field :landline, :class => "form-control"
+  .form-group
+    = f.label :mobile_no, t('member.mobile_no')
+    = f.text_field :mobile_no, :class => "form-control"
+  .form-group
+    = f.label :occupation, t('member.occupation')
+    = f.text_field :occupation, :class => "form-control"
   .actions
-    = f.submit 'Save'
+    = f.submit t('view.save'), :class => "btn btn-success"

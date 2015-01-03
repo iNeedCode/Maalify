@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150101171450) do
+ActiveRecord::Schema.define(version: 20150103182558) do
+
+  create_table "incomes", force: :cascade do |t|
+    t.integer  "amount"
+    t.date     "starting_date"
+    t.integer  "member_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "incomes", ["member_id"], name: "index_incomes_on_member_id"
 
   create_table "members", primary_key: "aims_id", force: :cascade do |t|
     t.string   "last_name"
