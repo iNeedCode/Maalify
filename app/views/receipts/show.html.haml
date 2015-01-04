@@ -1,0 +1,14 @@
+%h2
+  = t('view.receipt.title')
+  %small= @receipt.member.full_name
+
+%p
+  %b= t('receipt.id')
+  = @receipt.receipt_id
+%p
+  %b= t('receipt.date')
+  = @receipt.date
+
+
+= link_to t('view.edit'), edit_member_receipt_path(params[:member_id], @receipt.id), :class => "btn btn-default btn-xs"
+= link_to t('view.back'), member_receipts_path, :class => "btn btn-default btn-xs"

@@ -1,0 +1,33 @@
+%h1
+  = t('view.receipt.title')
+  %small= link_to Member.find(params[:member_id]).full_name, member_path(params[:member_id])
+
+%table.table.table-striped.table-bordered.table-hover.table-condensed
+  %thead
+    %tr
+      %th= t('receipt.id')
+      %th= t('receipt.date')
+      %th= t('receipt.total')
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @receipts.each do |receipt|
+      %tr
+        %td= receipt.receipt_id
+        %td= receipt.date
+        %td= receipt.total
+        %td
+          =link_to member_receipt_path(params[:member_id], receipt.id), :title => "#{t('table.show')}" do
+            %span.glyphicon.glyphicon-search        
+        %td
+          = link_to edit_member_receipt_path(params[:member_id], receipt.id), :title => "#{t('table.edit')}" do
+            %span.glyphicon.glyphicon-edit            
+        %td
+          = link_to member_receipt_path(params[:member_id], receipt.id), :method => :delete, :data => { :confirm => 'Are you sure?' }, :title => "#{t('table.delete')}" do
+            %span.glyphicon.glyphicon-trash.color-red     
+
+%br
+
+= link_to t('view.receipt.new'), new_member_receipt_path, :class => "btn btn-primary"

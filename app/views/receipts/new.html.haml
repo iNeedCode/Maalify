@@ -1,0 +1,8 @@
+%h1
+	= t('view.receipt.new')
+	%small= @receipt.member.full_name
+
+= render 'form'
+
+%br
+= link_to t('view.back'), member_receipts_path, :class => "btn btn-default btn-xs"

@@ -1,0 +1,18 @@
+= form_for([@member, @receipt], :html => {:class => "formform-inline"}) do |f|
+  - if @receipt.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@receipt.errors.count, "error")} prohibited this receipt from being saved:"
+      %ul
+        - @receipt.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :receipt_id, t('receipt.id')
+    = f.text_field :receipt_id, :class => "form-control"
+  .form-group
+    = f.label :date, t('receipt.date')
+    %br
+    = f.date_select :date, :class => "form-control"
+
+  .actions
+    = f.submit t('view.save'), :class => "btn btn-success"

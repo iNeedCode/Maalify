@@ -2,6 +2,7 @@ class Member < ActiveRecord::Base
 
 # Assoziations
 	has_many :incomes
+	has_many :receipts
 
 # Methods
 	def full_name

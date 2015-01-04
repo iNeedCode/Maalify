@@ -24,6 +24,13 @@ en:
     show: "Show"
     edit: "Edit"
     delete: "Delete"
+  income:
+    amount: "Amount"
+    starting_date: "As of"    
+  receipt:
+    date: "Date"
+    id: "Receipt number"  
+    total: "Total"    
   member:
     last_name: "Lastname"
     first_name: "Firstname"
@@ -50,3 +57,7 @@ en:
     member:
       new: "Add Member"
       title: "Members"
+    receipt:
+      edit: "Edit receipt"
+      new: "Add receipt"   
+      title: "Receipt"       

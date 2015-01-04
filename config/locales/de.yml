@@ -6,6 +6,10 @@ de:
   income:
     amount: "Betrag"
     starting_date: "Beginn"
+  receipt:
+    date: "Datum"
+    id: "Belegnummer"  
+    total: "Summe"
   member:
     last_name: "Nachname"
     first_name: "Vorname"
@@ -37,6 +41,10 @@ de:
       new: "Einkommen hinzufügen"    
       title: "Einkommen"
       edit: "Einkommen bearbeiten"
+    receipt:
+      edit: "Beleg bearbeiten"
+      new: "Beleg hinzufügen"   
+      title: "Beleg"      
   date:
     abbr_day_names:
     - So

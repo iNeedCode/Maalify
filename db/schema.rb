@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150103182558) do
+ActiveRecord::Schema.define(version: 20150104000030) do
 
   create_table "incomes", force: :cascade do |t|
     t.integer  "amount"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20150103182558) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "receipts", primary_key: "receipt_id", force: :cascade do |t|
+    t.date     "date"
+    t.integer  "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "receipts", ["member_id"], name: "index_receipts_on_member_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
