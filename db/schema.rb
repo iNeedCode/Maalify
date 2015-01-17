@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150104000030) do
+ActiveRecord::Schema.define(version: 20150117140233) do
+
+  create_table "donation_types", force: :cascade do |t|
+    t.date     "start_date"
+    t.string   "name"
+    t.date     "end_date"
+    t.string   "donation_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "donation_types", ["name"], name: "index_donation_types_on_name", unique: true
 
   create_table "incomes", force: :cascade do |t|
     t.integer  "amount"
@@ -38,6 +49,16 @@ ActiveRecord::Schema.define(version: 20150104000030) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "receipt_items", force: :cascade do |t|
+    t.integer  "receipt_id"
+    t.integer  "DonationType_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "receipt_items", ["DonationType_id"], name: "index_receipt_items_on_DonationType_id"
+  add_index "receipt_items", ["receipt_id"], name: "index_receipt_items_on_receipt_id"
 
   create_table "receipts", primary_key: "receipt_id", force: :cascade do |t|
     t.date     "date"
