@@ -3,6 +3,7 @@ class CreateReceiptItems < ActiveRecord::Migration
     create_table :receipt_items do |t|
       t.references :receipt, index: true
       t.references :DonationType, index: true
+      t.integer :amount
 
       t.timestamps null: false
     end

@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20150117140233) do
   create_table "receipt_items", force: :cascade do |t|
     t.integer  "receipt_id"
     t.integer  "DonationType_id"
+    t.integer  "amount"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

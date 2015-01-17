@@ -17,6 +17,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
 group :development do
+  gem 'awesome_print'
   gem 'better_errors'
   gem 'guard-bundler'
   gem 'guard-rails'
