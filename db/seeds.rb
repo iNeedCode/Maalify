@@ -14,6 +14,7 @@ def delete_all_models()
 	Income.delete_all
 	Receipt.delete_all
 	ReceiptItem.delete_all
+	Donation.delete_all
 end
 
 delete_all_models()
@@ -38,4 +39,8 @@ r2 = Receipt.create(:receipt_id=>12346, :date=>"2014-03-01", :member_id=>"14649"
 r1.items.create(amount: 120)
 r2.items.create(amount: 40)
 
-puts "created dataseed"
+Donation.create start_date: "01.11.2014", end_date: "31.10.2015", name: "Majlis", budget: true, organization: "Khuddam", formula: '0,01*12'
+Donation.create start_date: "01.11.2014", end_date: "31.10.2015", name: "ijtema", budget: true, organization: "Khuddam", formula: '0,025'
+Donation.create start_date: "01.11.2014", end_date: "31.10.2015", name: "Ishaat", budget: false, organization: "Khuddam", formula: '3'
+
+ap "created dataseed"
