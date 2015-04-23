@@ -11,20 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118113220) do
+ActiveRecord::Schema.define(version: 20150117140233) do
 
-  create_table "donations", force: :cascade do |t|
+  create_table "donation_types", force: :cascade do |t|
     t.date     "start_date"
     t.string   "name"
     t.date     "end_date"
-    t.boolean  "budget"
-    t.string   "formula"
-    t.string   "organization"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "donation_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "donations", ["name"], name: "index_donations_on_name", unique: true
+  add_index "donation_types", ["name"], name: "index_donation_types_on_name", unique: true
 
   create_table "incomes", force: :cascade do |t|
     t.integer  "amount"

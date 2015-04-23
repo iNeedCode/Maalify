@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :donations
+  resources :donation_types
 
   get 'set_language/english'
   get 'set_language/german'

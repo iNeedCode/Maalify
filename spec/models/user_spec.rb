@@ -1,6 +1,6 @@
 describe User do
 
-  before(:each) { @user = User.new(email: 'user@example.com')  }
+  before(:each) { @user = User.new(email: 'user@example.com') }
 
   subject { @user }
 
