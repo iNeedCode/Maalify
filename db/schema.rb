@@ -54,13 +54,13 @@ ActiveRecord::Schema.define(version: 20150118113220) do
 
   create_table "receipt_items", force: :cascade do |t|
     t.integer  "receipt_id"
-    t.integer  "DonationType_id"
+    t.integer  "donation_id"
     t.integer  "amount"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "receipt_items", ["DonationType_id"], name: "index_receipt_items_on_DonationType_id"
+  add_index "receipt_items", ["donation_id"], name: "index_receipt_items_on_donation_id"
   add_index "receipt_items", ["receipt_id"], name: "index_receipt_items_on_receipt_id"
 
   create_table "receipts", primary_key: "receipt_id", force: :cascade do |t|
