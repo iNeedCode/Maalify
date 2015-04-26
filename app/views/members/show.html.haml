@@ -33,14 +33,24 @@
   %b= t('member.occupation')
   = @member.occupation
 
-%p
-  - if @member.current_income.present?
+- if @member.current_income.present?
+  %p
     %b Aktuelles Einkommen:
     = number_to_currency(@member.current_income.amount, locale: :de)
-  %br
-  = link_to member_incomes_path(params[:id]), :class => "btn btn-primary"  do
-    %span.glyphicon.glyphicon-arrow-right
+
+%hr
+
+%p
+  %h4 Aktionen:
+  = link_to member_incomes_path(params[:id]), :class => "btn btn-default"  do
+    %span.glyphicon.glyphicon-euro
     = t('view.income.title')
+
+
+  - if @member.receipts.present?
+    = link_to member_receipts_path(params[:id]), :class => "btn btn-default"  do
+      %span.glyphicon.glyphicon-tasks
+        = t('view.receipt.title')
 
 = link_to 'Edit', edit_member_path(@member), :class => "btn btn-default btn-xs"
 = link_to 'Back', members_path, :class => "btn btn-default btn-xs"
