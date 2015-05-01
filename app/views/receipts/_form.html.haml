@@ -11,8 +11,15 @@
     = f.text_field :receipt_id, :class => "form-control"
   .form-group
     = f.label :date, t('receipt.date')
-    %br
     = f.date_select :date, :class => "form-control"
+
+  = f.fields_for :items do |builder|
+    = render 'item_fields', f: builder
+
+  .form-group
+    = link_to_add_fields "Add Item", f, :items
+
+
 
   .actions
     = f.submit t('view.save'), :class => "btn btn-success"

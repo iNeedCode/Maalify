@@ -42,13 +42,13 @@
 
 %p
   %h4 Aktionen:
-  = link_to member_incomes_path(params[:id]), :class => "btn btn-default"  do
+  = link_to member_incomes_path(params[:id]), :class => "btn btn-primary"  do
     %span.glyphicon.glyphicon-euro
     = t('view.income.title')
 
 
   - if @member.receipts.present?
-    = link_to member_receipts_path(params[:id]), :class => "btn btn-default"  do
+    = link_to member_receipts_path(params[:id]), :class => "btn btn-primary"  do
       %span.glyphicon.glyphicon-tasks
         = t('view.receipt.title')
 

@@ -7,7 +7,7 @@
   = number_to_currency(@income.amount, locale: :de)
 %p
   %b= t('income.starting_date')
-  = @income.starting_date.strftime("%d.%m.%Y") 
+  = @income.starting_date.strftime("%B %Y")
 %p
   %b Member:
   = @income.member.full_name

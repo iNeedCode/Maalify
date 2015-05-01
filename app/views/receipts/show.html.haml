@@ -7,7 +7,7 @@
   = @receipt.receipt_id
 %p
   %b= t('receipt.date')
-  = @receipt.date
+  = @receipt.date.strftime("%d. %B %Y")
 
 %table.table.table-bordered.table-condensed.table-hover
   %thead

@@ -12,6 +12,6 @@
   .form-group
     = f.label :starting_date, t('income.starting_date')
     %br
-    = f.date_select :starting_date, :class => "form-control"
+    = f.date_select :starting_date, :discard_day => true, :start_year => Date.today.year-1, :class => "form-control"
   .form-group
     = f.submit t('view.save'), :class => "btn btn-success"

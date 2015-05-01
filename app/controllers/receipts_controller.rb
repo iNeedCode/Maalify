@@ -48,6 +48,6 @@ private
     end
 
     def receipt_params
-      params.require(:receipt).permit(:receipt_id, :date, :member_id)
+      params.require(:receipt).permit(:receipt_id, :date, :member_id, items_attributes: [:id, :amount, :donation_id, :_destroy])
     end
 end
