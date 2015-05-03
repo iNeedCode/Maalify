@@ -3,21 +3,15 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-$(document).ready ->
+$(document).on 'ready page:load', ->
   $("#tajnied-table").DataTable
-    
-    # ajax: ...,
-    dom: "C<\"clear\">lfrtip"
     autoWidth: true
-    # pagingType: "full_numbers"
+    pagingType: "simple"
     processing: true
-    tableTools:
-      sSwfPath: "/swf/copy_csv_xls_pdf.swf"
+    stateSave: true
+    language:
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+    dom: 'C<"clear">lfrtip'
 
-
-
-# 
-
-# Optional, if you want full pagination controls.
-# Check dataTables documentation to learn more about available options.
-# http://datatables.net/reference/option/pagingType
+#    tableTools:
+#      sSwfPath: "http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"

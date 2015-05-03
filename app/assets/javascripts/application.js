@@ -21,7 +21,7 @@
 //= require_tree .
 
 
-$(document).ready(function(){
+$(document).on('ready page:load', function() {
     $('a').tooltip({
     	'placement': 'left',
 			delay: { "show": 1, "hide": 100 }
