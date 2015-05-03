@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150101171450) do
+ActiveRecord::Schema.define(version: 20150118113220) do
+
+  create_table "donations", force: :cascade do |t|
+    t.date     "start_date"
+    t.string   "name"
+    t.date     "end_date"
+    t.boolean  "budget"
+    t.string   "formula"
+    t.string   "organization"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "donations", ["name"], name: "index_donations_on_name", unique: true
+
+  create_table "incomes", force: :cascade do |t|
+    t.integer  "amount"
+    t.date     "starting_date"
+    t.integer  "member_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "incomes", ["member_id"], name: "index_incomes_on_member_id"
 
   create_table "members", primary_key: "aims_id", force: :cascade do |t|
     t.string   "last_name"
@@ -28,6 +51,26 @@ ActiveRecord::Schema.define(version: 20150101171450) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "receipt_items", force: :cascade do |t|
+    t.integer  "receipt_id"
+    t.integer  "donation_id"
+    t.integer  "amount"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "receipt_items", ["donation_id"], name: "index_receipt_items_on_donation_id"
+  add_index "receipt_items", ["receipt_id"], name: "index_receipt_items_on_receipt_id"
+
+  create_table "receipts", primary_key: "receipt_id", force: :cascade do |t|
+    t.date     "date"
+    t.integer  "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "receipts", ["member_id"], name: "index_receipts_on_member_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

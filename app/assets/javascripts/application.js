@@ -20,3 +20,10 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+
+$(document).ready(function(){
+    $('a').tooltip({
+    	'placement': 'left',
+			delay: { "show": 1, "hide": 100 }
+    });
+});

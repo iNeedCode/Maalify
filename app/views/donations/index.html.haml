@@ -1,0 +1,31 @@
+%h1 Listing donations
+
+%table
+  %thead
+    %tr
+      %th Start date
+      %th Name
+      %th End date
+      %th Budget
+      %th Formula
+      %th Organization
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @donations.each do |donation|
+      %tr
+        %td= donation.start_date
+        %td= donation.name
+        %td= donation.end_date
+        %td= donation.budget
+        %td= donation.formula
+        %td= donation.organization
+        %td= link_to 'Show', donation
+        %td= link_to 'Edit', edit_donation_path(donation)
+        %td= link_to 'Destroy', donation, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Donation', new_donation_path

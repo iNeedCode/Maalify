@@ -1,0 +1,31 @@
+%h2
+  = t('view.receipt.title')
+  %small= link_to @receipt.member.full_name, member_path(@receipt.member)
+
+%p
+  %b= t('receipt.id')
+  = @receipt.receipt_id
+%p
+  %b= t('receipt.date')
+  = @receipt.date.strftime("%d. %B %Y")
+
+%table.table.table-bordered.table-condensed.table-hover
+  %thead
+    %th= t('receipt_item.number')
+    %th= t('receipt_item.donation')
+    %th= t('receipt_item.amount')
+  %tbody
+    - @receipt.items.each_with_index do |item, index|
+      %tr
+        %td= index + 1
+        %td= item.donation.name
+        %td= number_to_currency(item.amount, locale: :de)
+
+
+%p
+  %b= t('receipt.total')
+  = number_to_currency(@receipt.total, locale: :de)
+
+
+= link_to t('view.edit'), edit_member_receipt_path(params[:member_id], @receipt.id), :class => "btn btn-default btn-xs"
+= link_to t('view.back'), member_receipts_path, :class => "btn btn-default btn-xs"

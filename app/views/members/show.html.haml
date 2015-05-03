@@ -1,36 +1,56 @@
-%p#notice= notice
+%h1
+  = t('view.member.title')
+  %small= @member.full_name
 
 %p
-  %b Last name:
+  %b= t('member.last_name')
   = @member.last_name
 %p
-  %b First name:
+  %b= t('member.first_name')
   = @member.first_name
 %p
-  %b Aims:
+  %b= t('member.aims')
   = @member.aims_id
 %p
-  %b Wassiyyat:
+  %b= t('member.wasiyyat')
   = @member.wassiyyat
 %p
-  %b Date of birth:
+  %b= t('member.date_of_birth')
   = @member.date_of_birth
 %p
-  %b Street:
+  %b= t('member.street')
   = @member.street
 %p
-  %b City:
+  %b= t('member.city')
   = @member.city
 %p
-  %b Plz:
+  %b= t('member.plz')
   = @member.plz
 %p
-  %b Mobile no:
+  %b= t('member.mobile_no')
   = @member.mobile_no
 %p
-  %b Occupation:
+  %b= t('member.occupation')
   = @member.occupation
 
-= link_to 'Edit', edit_member_path(@member)
-\|
-= link_to 'Back', members_path
+- if @member.current_income.present?
+  %p
+    %b Aktuelles Einkommen:
+    = number_to_currency(@member.current_income.amount, locale: :de)
+
+%hr
+
+%p
+  %h4 Aktionen:
+  = link_to member_incomes_path(params[:id]), :class => "btn btn-primary"  do
+    %span.glyphicon.glyphicon-euro
+    = t('view.income.title')
+
+
+  - if @member.receipts.present?
+    = link_to member_receipts_path(params[:id]), :class => "btn btn-primary"  do
+      %span.glyphicon.glyphicon-tasks
+        = t('view.receipt.title')
+
+= link_to 'Edit', edit_member_path(@member), :class => "btn btn-default btn-xs"
+= link_to 'Back', members_path, :class => "btn btn-default btn-xs"

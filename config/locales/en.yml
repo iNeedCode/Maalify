@@ -24,12 +24,23 @@ en:
     show: "Show"
     edit: "Edit"
     delete: "Delete"
+  income:
+    amount: "Amount"
+    starting_date: "As of"    
+  receipt:
+    date: "Date"
+    id: "Receipt number"  
+    total: "Total"    
   member:
     last_name: "Lastname"
     first_name: "Firstname"
-    aims: "AIMS-ID"
+    aims: "Aims-Id"
+    aims_abbr: "Id"
+    age: "Age"
     wasiyyat: "Wasiyyat"
-    date_of_birth: "DoB"
+    wasiyyat_abbr: "W"
+    date_of_birth: "Date of birth"
+    date_of_birth_abbr: "DoB"
     street: "Street"
     city: "City"
     plz: "Zip"
@@ -38,6 +49,15 @@ en:
     mobile_no: "Mobil No."
     occupation: "Occupation"
   view:
+    save: "Save"
+    show: "Show"
+    edit: "Edit"
+    delete: "Delete"
+    back: "Back"  
     member:
       new: "Add Member"
       title: "Members"
+    receipt:
+      edit: "Edit receipt"
+      new: "Add receipt"   
+      title: "Receipt"       

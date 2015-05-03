@@ -4,7 +4,7 @@ class MembersController < ApplicationController
   respond_to :html
 
   def index
-    @members = Member.all
+    @members = Member.all.order(:last_name, :first_name)
     respond_with(@members)
   end
 
@@ -42,6 +42,6 @@ class MembersController < ApplicationController
     end
 
     def member_params
-      params.require(:member).permit(:last_name, :first_name, :aims_id, :wassiyyat, :date_of_birth, :street, :city, :plz, :mobile_no, :occupation)
+      params.require(:member).permit(:last_name, :first_name, :aims_id, :wassiyyat, :date_of_birth, :street, :city, :email, :landline, :plz, :mobile_no, :occupation)
     end
 end

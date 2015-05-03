@@ -1,0 +1,17 @@
+= form_for([@member, @income], :html => {:class => "formform-inline"}) do |f|
+  - if @income.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@income.errors.count, "error")} prohibited this income from being saved:"
+      %ul
+        - @income.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :amount, t('income.amount')
+    = f.number_field :amount, :class => "form-control"
+  .form-group
+    = f.label :starting_date, t('income.starting_date')
+    %br
+    = f.date_select :starting_date, :discard_day => true, :start_year => Date.today.year-1, :class => "form-control"
+  .form-group
+    = f.submit t('view.save'), :class => "btn btn-success"

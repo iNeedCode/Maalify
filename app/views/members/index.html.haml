@@ -1,13 +1,15 @@
-%h1= t('view.member.title')
+%h1
+  = t('view.member.title')
+  %small= "(#{@members.size})"
 
 %table#tajnied-table.table.table-striped.table-bordered.table-hover.table-condensed
   %thead
     %tr
-      %th= t('member.aims')
+      %th= t('member.aims_abbr')
       %th= t('member.last_name')
       %th= t('member.first_name')
-      %th= t('member.wasiyyat')
-      %th= t('member.date_of_birth')
+      %th= t('member.wasiyyat_abbr')
+      %th= t('member.age')
       %th= t('member.street')
       %th= t('member.plz')
       %th= t('member.city')
@@ -25,8 +27,8 @@
         %td= member.aims_id
         %td= member.last_name
         %td= member.first_name
-        %td= member.wassiyyat
-        %td= member.date_of_birth.strftime("%d.%m.%Y") 
+        %td= show_boolean_value_as_glyphicon(member.wassiyyat)
+        %td= member.age
         %td= member.street
         %td= member.plz
         %td= member.city
