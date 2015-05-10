@@ -13,22 +13,27 @@ class Member < ActiveRecord::Base
     incomes.order(starting_date: :desc).first
   end
 
-  def age
-    now = Time.now.utc.to_date
-    now.year - date_of_birth.year - (date_of_birth.to_date.change(:year => now.year) > now ? 1 : 0)
+  def age(_date = Time.now.utc.to_date)
+    _date.year - date_of_birth.year - (date_of_birth.to_date.change(:year => _date.year) > _date ? 1 : 0)
   end
 
   def tanzeem
+    new_year_of_khuddam_begins = Date.parse("01-11-#{Date.today.year}")
+    day_before_khuddam_year_begins = Date.parse("31-10-#{Date.today.year}")
+    new_year_of_ansar_begins = Date.parse("01-01-#{Date.today.year}")
+    day_before_ansar_year_begins = Date.parse("31-12-#{Date.today.year}")
+
     if age < 7 then
       'Kind'
-    elsif age >= 7 && age <= 15
-      'Tifl'
-    elsif age > 15 && age < 40
-      'Khadim'
-    elsif age >= 40
+    elsif age(new_year_of_ansar_begins) >= 40
       'Nasir'
+    elsif age(day_before_khuddam_year_begins) >= 15 && age(day_before_ansar_year_begins) <= 40
+      'Khadim'
+    elsif age >= 7 && age(new_year_of_khuddam_begins) <= 15
+      'Tifl'
     end
 
   end
 
 end
+
