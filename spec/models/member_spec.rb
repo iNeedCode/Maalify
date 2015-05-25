@@ -10,21 +10,21 @@ RSpec.describe Member, :type => :model do
       Timecop.freeze(Date.parse("01-05-2015")) # freeze Date to 01.05.2015
     end
 
-    context "GENERAL" do
+    context "General" do
       it "should have a valid factory and a valid tanzeem method" do
         expect(@member).to be_valid
         expect(@member).to respond_to(:tanzeem)
       end
     end
 
-    context "KIND" do
+    context "Kind" do
       it "should return 'Kind' for age < 7" do
         @member.date_of_birth = "2008-05-02"
         expect(@member.tanzeem).to eq('Kind')
       end
     end
 
-    context "ATFAL" do
+    context "Atfal" do
       it "should return 'Tifl' for age >= 7" do
         @member.date_of_birth = Date.parse("2008-05-01")
         expect(@member.tanzeem).to eq('Tifl')
