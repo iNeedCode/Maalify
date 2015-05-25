@@ -60,4 +60,12 @@ en:
     receipt:
       edit: "Edit receipt"
       new: "Add receipt"   
-      title: "Receipt"       
+      title: "Receipt"
+    donation:
+      new: "New Chanda"
+  donation:
+    formula: "Formula"
+    organization: "Organization"
+
+    budget: "Budget"
+    name: "Chanda"

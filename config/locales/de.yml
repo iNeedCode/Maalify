@@ -44,7 +44,9 @@ de:
     receipt:
       edit: "Beleg bearbeiten"
       new: "Beleg hinzufügen"   
-      title: "Beleg"      
+      title: "Beleg"
+    donation:
+      new: "Neue Chanda"
   date:
     abbr_day_names:
     - So
@@ -246,3 +248,8 @@ de:
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d. %B, %H:%M Uhr'
     pm: nachmittags
+  donation:
+    formula: "Formel"
+    budget: "Bugdet"
+    name: "Chanda"
+    organization: "Unterorganisation"

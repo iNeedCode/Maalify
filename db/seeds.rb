@@ -10,9 +10,9 @@ end
 delete_all_models()
 
 # ========= CREATE DONATION TYPES
-d1 = Donation.create start_date: "01.11.2014", end_date: "31.10.2015", name: "Majlis", budget: true, organization: "Khuddam", formula: '0,01*12'
-d2 = Donation.create start_date: "01.11.2014", end_date: "31.10.2015", name: "ijtema", budget: true, organization: "Khuddam", formula: '0,025'
-d3 = Donation.create start_date: "01.11.2014", end_date: "31.10.2015", name: "Ishaat", budget: false, organization: "Khuddam", formula: '3'
+d1 = Donation.create name: "Majlis", budget: true, organization: "Khuddam", formula: '0,01*12'
+d2 = Donation.create name: "ijtema", budget: true, organization: "Khuddam", formula: '0,025'
+d3 = Donation.create name: "Ishaat", budget: false, organization: "Khuddam", formula: '3'
 
 # ========= CREATE MEMBERS
 m1 = Member.create(:last_name => "Malik", :first_name => "Akhlaq", :wassiyyat => true,

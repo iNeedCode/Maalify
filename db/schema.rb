@@ -11,12 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118113220) do
+ActiveRecord::Schema.define(version: 20150525135540) do
 
   create_table "donations", force: :cascade do |t|
-    t.date     "start_date"
     t.string   "name"
-    t.date     "end_date"
     t.boolean  "budget"
     t.string   "formula"
     t.string   "organization"

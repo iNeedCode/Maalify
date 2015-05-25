@@ -42,6 +42,6 @@ class DonationsController < ApplicationController
     end
 
     def donation_params
-      params.require(:donation).permit(:start_date, :name, :end_date, :budget, :formula, :organization)
+      params.require(:donation).permit(:name, :budget, :formula, :organization)
     end
 end
