@@ -62,6 +62,7 @@ en:
       new: "Add receipt"   
       title: "Receipt"
     donation:
+      title: "Chanda"
       new: "New Chanda"
   donation:
     formula: "Formula"

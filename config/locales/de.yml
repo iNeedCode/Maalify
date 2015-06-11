@@ -46,6 +46,7 @@ de:
       new: "Beleg hinzufügen"   
       title: "Beleg"
     donation:
+      title: "Chanda"
       new: "Neue Chanda"
   date:
     abbr_day_names:
