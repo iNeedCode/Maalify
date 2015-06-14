@@ -24,15 +24,18 @@ class Member < ActiveRecord::Base
     day_before_ansar_year_begins = Date.parse("31-12-#{Date.today.year}")
 
     if age < 7 then
-      'Kind'
+      return 'Kind'
     elsif age(new_year_of_ansar_begins) >= 40
-      'Nasir'
+      return 'Nasir'
     elsif age(day_before_khuddam_year_begins) >= 15 && age(day_before_ansar_year_begins) <= 40
-      'Khadim'
+      return 'Khadim'
     elsif age >= 7 && age(new_year_of_khuddam_begins) <= 15
-      'Tifl'
+      return 'Tifl'
     end
+  end
 
+  def list_of_possible_donation_types
+    Donation.where(organization: tanzeem)
   end
 
 end
