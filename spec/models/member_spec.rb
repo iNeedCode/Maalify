@@ -3,13 +3,15 @@ require 'awesome_print'
 
 RSpec.describe Member, :type => :model do
 
+
   describe 'List of possible Donation Types Method' do
-    before(:all) do
+    before(:suite) do
       Donation.create name: "Majlis Khuddam", budget: true, organization: "Khadim", formula: '0,01*12'
       Donation.create name: "ijtema Khuddam", budget: true, organization: "Khadim", formula: '0,025'
       Donation.create name: "Ishaat Khuddam", budget: false, organization: "Khadim", formula: '3'
       Donation.create name: "Majlis Atfal", budget: false, organization: "Tifl", formula: '13'
       Donation.create name: "Ijtema Atfal", budget: false, organization: "Tifl", formula: '6'
+      Donation.create name: "Ijtema Nasir", budget: false, organization: "Nasir", formula: '6'
     end
 
     before(:each) do
@@ -29,6 +31,14 @@ RSpec.describe Member, :type => :model do
       d = Donation.where(organization: 'Tifl')
       expect(@member.list_of_possible_donation_types).to eq(d)
     end
+
+    it "should return only 'Nasir' Donation types" do
+      Timecop.freeze(Date.parse("01-11-2015"))
+      @member.date_of_birth = "1948-11-01"
+      d = Donation.where(organization: 'Nasir')
+      expect(@member.list_of_possible_donation_types).to eq(d)
+    end
+
   end
 
   describe 'Tanzeem Method' do
