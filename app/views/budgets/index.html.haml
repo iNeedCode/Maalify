@@ -1,0 +1,39 @@
+%h1
+  = t('view.budget.title')
+
+%table#budget-table.table.table-striped.table-bordered.table-hover.table-condensed
+  %thead
+    %tr
+      %th= t('budget.title')
+      %th= t('budget.promise')
+      %th= t('budget.start_date')
+      %th= t('budget.end_date')
+      %th= t('view.member.title')
+      %th= t('view.donation.title')
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @budgets.each do |budget|
+      %tr
+        %td= budget.title
+        %td= budget.promise
+        %td= budget.start_date
+        %td= budget.end_date
+        %td= budget.member.full_name
+        %td= budget.donation.name
+        %td
+          =link_to budget, :title => "#{t('table.show')}" do
+            %span.glyphicon.glyphicon-search
+        %td
+          = link_to edit_budget_path(budget), :title => "#{t('table.edit')}" do
+            %span.glyphicon.glyphicon-edit
+        %td
+          = link_to budget, :method => :delete, :data => { :confirm => 'Are you sure?' }, :title => "#{t('table.delete')}" do
+            %span.glyphicon.glyphicon-trash.color-red
+
+%br
+
+= link_to "#{t('view.budget.new')}", new_budget_path, :class => "btn btn-primary"
+

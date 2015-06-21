@@ -3,6 +3,8 @@ class Member < ActiveRecord::Base
 # Assoziations
   has_many :incomes
   has_many :receipts
+  has_many :budgets
+  has_many :donations, through: :budgets
 
 # Methods
   def full_name

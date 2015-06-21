@@ -48,6 +48,9 @@ de:
     donation:
       title: "Chanda"
       new: "Neue Chanda"
+    budget:
+      title: "Budget"
+      new: "Neues Budget"
   date:
     abbr_day_names:
     - So

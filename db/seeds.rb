@@ -41,5 +41,10 @@ r1.items.create(amount: 33, donation: d2)
 r2.items.create(amount: 42, donation: d1)
 r3.items.create(amount: 46, donation: d3)
 
+# ========= CREATE BUDGET FOR MEMBER
+Budget.create title: "MKAD 2014-15", promise: 0, start_date: "2014-11-01", end_date: "2015-10-31", member: m2, donation: d1
+Budget.create title: "MKAD 2014-15", promise: 0, start_date: "2014-11-01", end_date: "2015-10-31", member: m2, donation: d2
+Budget.create title: "MKAD 2014-15", promise: 0, start_date: "2014-11-01", end_date: "2015-10-31", member: m2, donation: d3
+
 
 ap "created dataseed"

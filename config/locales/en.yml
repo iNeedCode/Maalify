@@ -64,6 +64,9 @@ en:
     donation:
       title: "Chanda"
       new: "New Chanda"
+    budget:
+      title: "Budget"
+      new: "New Budget"
   donation:
     formula: "Formula"
     organization: "Organization"

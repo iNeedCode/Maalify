@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :budgets
+
   resources :donations
 
   get 'set_language/english'

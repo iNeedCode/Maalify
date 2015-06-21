@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @budget.title
+%p
+  %b Promise:
+  = @budget.promise
+%p
+  %b Start date:
+  = @budget.start_date
+%p
+  %b End date:
+  = @budget.end_date
+%p
+  %b Member:
+  = @budget.member
+%p
+  %b Donation:
+  = @budget.donation
+
+= link_to 'Edit', edit_budget_path(@budget)
+\|
+= link_to 'Back', budgets_path
