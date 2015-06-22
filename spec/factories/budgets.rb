@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :budget do
-    title "MyString"
-promise 1
-start_date "2015-06-21"
-end_date "2015-06-21"
-member nil
-donation nil
+    title "MKAD-2014-15"
+    promise 1
+    start_date "2014-11-01"
+    end_date "2015-10-31"
+    association :member, factory: :member
+    association :donation, factory: :majlis_khuddam_donation
   end
 
 end

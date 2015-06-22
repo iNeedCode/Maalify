@@ -6,6 +6,7 @@
       %th= t('donation.name')
       %th= t('donation.budget')
       %th= t('donation.formula')
+      %th= t('donation.minimum_budget')
       %th= t('donation.organization')
       %th
       %th
@@ -17,6 +18,7 @@
         %td= donation.name
         %td= show_boolean_value_as_glyphicon donation.budget
         %td= donation.formula
+        %td= number_to_currency(donation.minimum_budget, locale: :de)
         %td= donation.organization
         %td
           =link_to donation, :title => "#{t('table.show')}" do

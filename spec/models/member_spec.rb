@@ -3,16 +3,16 @@ require 'awesome_print'
 
 RSpec.describe Member, :type => :model do
 
+  before(:suite) do
+    Donation.create name: "Majlis Khuddam", budget: true, organization: "Khadim", formula: '0,01*12'
+    Donation.create name: "ijtema Khuddam", budget: true, organization: "Khadim", formula: '0,025'
+    Donation.create name: "Ishaat Khuddam", budget: false, organization: "Khadim", formula: '3'
+    Donation.create name: "Majlis Atfal", budget: false, organization: "Tifl", formula: '13'
+    Donation.create name: "Ijtema Atfal", budget: false, organization: "Tifl", formula: '6'
+    Donation.create name: "Ijtema Nasir", budget: false, organization: "Nasir", formula: '6'
+  end
 
   describe 'List of possible Donation Types Method' do
-    before(:suite) do
-      Donation.create name: "Majlis Khuddam", budget: true, organization: "Khadim", formula: '0,01*12'
-      Donation.create name: "ijtema Khuddam", budget: true, organization: "Khadim", formula: '0,025'
-      Donation.create name: "Ishaat Khuddam", budget: false, organization: "Khadim", formula: '3'
-      Donation.create name: "Majlis Atfal", budget: false, organization: "Tifl", formula: '13'
-      Donation.create name: "Ijtema Atfal", budget: false, organization: "Tifl", formula: '6'
-      Donation.create name: "Ijtema Nasir", budget: false, organization: "Nasir", formula: '6'
-    end
 
     before(:each) do
       @member = FactoryGirl.create(:member)

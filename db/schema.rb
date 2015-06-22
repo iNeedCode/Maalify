@@ -15,13 +15,13 @@ ActiveRecord::Schema.define(version: 20150621191216) do
 
   create_table "budgets", force: :cascade do |t|
     t.string   "title"
-    t.integer  "promise"
+    t.integer  "promise",     default: 0
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "member_id"
     t.integer  "donation_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "budgets", ["donation_id"], name: "index_budgets_on_donation_id"
@@ -32,8 +32,9 @@ ActiveRecord::Schema.define(version: 20150621191216) do
     t.boolean  "budget"
     t.string   "formula"
     t.string   "organization"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "minimum_budget", default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "donations", ["name"], name: "index_donations_on_name", unique: true

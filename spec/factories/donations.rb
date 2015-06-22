@@ -1,11 +1,28 @@
 FactoryGirl.define do
+
   factory :donation do
-    start_date "2015-01-18"
-name "MyString"
-end_date "2015-01-18"
-budget false
-formula "MyString"
-organization "MyString"
+    budget true
+    organization 'Khuddam'
+  end
+
+  factory :majlis_khuddam_donation, parent: :donation do
+    name 'Majlis'
+    formula '0.01*12'
+    minimum_budget 36
+  end
+
+  factory :ijtema_khuddam_donation, parent: :donation do
+    name 'Majlis'
+    formula '0.025'
+    minimum_budget 24
+  end
+
+  factory :ishaat_khuddam_donation, parent: :donation do
+    name 'Ishaat'
+    budget false
+    formula ''
+    organization 'Khuddam'
+    minimum_budget 3
   end
 
 end

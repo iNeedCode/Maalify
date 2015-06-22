@@ -18,9 +18,9 @@
     - @budgets.each do |budget|
       %tr
         %td= budget.title
-        %td= budget.promise
-        %td= budget.start_date
-        %td= budget.end_date
+        %td= number_to_currency(budget.promise, locale: :de)
+        %td= budget.start_date.strftime("%d. %b %Y")
+        %td= budget.end_date.strftime("%d. %b %Y")
         %td= budget.member.full_name
         %td= budget.donation.name
         %td

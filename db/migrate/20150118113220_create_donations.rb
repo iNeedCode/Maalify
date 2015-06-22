@@ -7,6 +7,7 @@ class CreateDonations < ActiveRecord::Migration
       t.boolean :budget
       t.string :formula
       t.string :organization
+      t.integer :minimum_budget, default: 0
 
       t.timestamps null: false
     end
