@@ -13,7 +13,7 @@ delete_all_models()
 # ========= CREATE DONATION TYPES
 d1 = Donation.create name: 'Majlis', organization: 'Khuddam', budget: true, formula: '0.01*12', minimum_budget: 36
 d2 = Donation.create name: 'ijtema', organization: 'Khuddam', budget: true, formula: '0.025', minimum_budget: 24
-d3 = Donation.create name: 'Ishaat', organization: 'Khuddam', budget: false, formula: '3', minimum_budget: 3
+d3 = Donation.create name: 'Ishaat', organization: 'Khuddam', budget: false, formula: '', minimum_budget: 3
 
 # ========= CREATE MEMBERS
 m1 = Member.create(last_name: 'Malik', first_name: 'Akhlaq', wassiyyat: true,

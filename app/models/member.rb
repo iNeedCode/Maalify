@@ -15,6 +15,10 @@ class Member < ActiveRecord::Base
     incomes.order(starting_date: :desc).first
   end
 
+  def oldest_income
+    incomes.order(starting_date: :asc).first
+  end
+
   def age(_date = Time.now.utc.to_date)
     _date.year - date_of_birth.year - (date_of_birth.to_date.change(:year => _date.year) > _date ? 1 : 0)
   end
