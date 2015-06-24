@@ -37,6 +37,27 @@ RSpec.describe Budget, :type => :model do
       @member.incomes[0].starting_date = "2015-01-01"
       expect(@budget).to_not be_valid
     end
+
+    it '[Budget] should include latest income if current income is not starting with the budget start_date' do
+      @member.incomes << Income.create(starting_date: '2015-01-01', amount: 1200, member: @member)
+      @member.incomes << Income.create(starting_date: '2015-04-01', amount: 900, member: @member)
+
+      budget = FactoryGirl.create(:budget, donation: @donation, member: @member)
+      expect(budget.get_all_incomes_for_budget_duration.size).to eq(3)
+    end
+
+    xit '[Budget] should get an adapted promise for income change between the budget range', skip_before: true, focus: true do
+      Member.delete_all
+      Donation.delete_all
+      member = FactoryGirl.create(:member)
+      donation = FactoryGirl.create(:majlis_khuddam_donation)
+      income = FactoryGirl.create(:income, member: member)
+      member.incomes << Income.create(starting_date: '2015-01-01', amount: 1200, member: member)
+
+      budget = FactoryGirl.create(:budget, donation: donation, member: member)
+
+      expect(budget.promise).to eq(140)
+    end
   end
 
   describe 'Tests with a none budget based donation types' do

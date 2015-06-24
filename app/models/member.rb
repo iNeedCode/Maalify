@@ -1,7 +1,7 @@
 class Member < ActiveRecord::Base
 
 # Assoziations
-  has_many :incomes
+  has_many :incomes, -> {order "starting_date ASC"}
   has_many :receipts
   has_many :budgets
   has_many :donations, through: :budgets
