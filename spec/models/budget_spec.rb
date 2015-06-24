@@ -8,16 +8,17 @@ RSpec.describe Budget, :type => :model do
       @member = FactoryGirl.create(:member)
       @donation = FactoryGirl.create(:majlis_khuddam_donation)
       @income = FactoryGirl.create(:income, member: @member)
-      @budget = FactoryGirl.create(:budget, donation: @donation, member: @member)
+      @budget = FactoryGirl.build(:budget, donation: @donation, member: @member)
     end
 
     it "[Majlis Khuddam] should calculation the budget with current income and formula passed into donation" do
+      @budget.save
       expect(@budget.promise).to eq(120)
     end
 
     it "[Majlis Khuddam] should use the minimum_budget if the current_income is to low" do
-      @income.amount = 100
-      @income.save
+      @budget.save
+      @member.incomes.first.amount=100
       @budget.calculate_budget
       expect(@budget.promise).to eq(@donation.minimum_budget)
     end
@@ -46,17 +47,31 @@ RSpec.describe Budget, :type => :model do
       expect(budget.get_all_incomes_for_budget_duration.size).to eq(3)
     end
 
-    xit '[Budget] should get an adapted promise for income change between the budget range', skip_before: true, focus: true do
+    it '[Budget] should get an adapted promise for income change between the budget range', skip_before: true do
       Member.delete_all
       Donation.delete_all
       member = FactoryGirl.create(:member)
       donation = FactoryGirl.create(:majlis_khuddam_donation)
       income = FactoryGirl.create(:income, member: member)
       member.incomes << Income.create(starting_date: '2015-01-01', amount: 1200, member: member)
+      member.incomes << Income.create(starting_date: '2015-03-01', amount: 1000, member: member)
 
       budget = FactoryGirl.create(:budget, donation: donation, member: member)
 
-      expect(budget.promise).to eq(140)
+      expect(budget.promise).to eq(123)
+    end
+
+    it '[Budget] should get mininum_promise if income drops drastically', skip_before: true do
+      Member.delete_all
+      Donation.delete_all
+      member = FactoryGirl.create(:member)
+      donation = FactoryGirl.create(:majlis_khuddam_donation)
+      income = FactoryGirl.create(:income, member: member)
+      member.incomes << Income.create(starting_date: '2015-01-01', amount: 100, member: member)
+
+      budget = FactoryGirl.create(:budget, donation: donation, member: member)
+
+      expect(budget.promise).to eq(36)
     end
   end
 

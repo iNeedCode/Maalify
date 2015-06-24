@@ -7,7 +7,7 @@ class Receipt < ActiveRecord::Base
 
 # Validations
   validates_associated :items, presence: true
-  validates :receipt_id, uniqueness: true
+  validates :receipt_id, uniqueness: true, presence: true
 
 
 # Methods

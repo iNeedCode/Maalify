@@ -17,15 +17,30 @@ class Budget < ActiveRecord::Base
       self.promise = donation.minimum_budget.to_i
     else
       incomes = get_all_incomes_for_budget_duration
- #debugger
       calculator = Dentaku::Calculator.new
-      computed_promise = calculator.evaluate("#{donation.formula} * #{incomes.first.amount}").to_i
+      total_budget = 0
+      total_days_of_budget = (end_date - start_date+1).to_f
 
-      if computed_promise >= donation.minimum_budget
-        self.promise = computed_promise
+      #debugger
+      if incomes.size == 1
+        total_budget = calculator.evaluate("#{donation.formula} * #{incomes.first.amount}").to_i
       else
-        self.promise = donation.minimum_budget
+        incomes.size > 1
+        incomes.each_with_index do |inc, i|
+          next_income_date = incomes[i+1].nil? ? end_date : incomes[i+1].starting_date
+          if start_date > inc.starting_date
+            start_date_actual = start_date
+          else
+            start_date_actual = inc.starting_date
+          end
+          days_diff = (next_income_date - start_date_actual).to_f
+          total_budget += calculator.evaluate("#{inc.amount} * #{donation.formula} / #{total_days_of_budget} * #{days_diff}").to_i
+        end
+
       end
+
+      total_budget = donation.minimum_budget if total_budget < donation.minimum_budget
+      self.promise = total_budget
     end
     save
   end
