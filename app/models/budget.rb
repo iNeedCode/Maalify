@@ -71,5 +71,15 @@ class Budget < ActiveRecord::Base
     errors.add(:member, "no income of member before starting budget date")
   end
 
+  def no_budget_range_from_the_same_donation_type_is_avaiable
+    all_budgets = Budget.where(donation: b.donation)
+    already_exist = all_budgets.select do |b|
+      (b.start_date..b.end_date).to_a.include? start_date
+    end
+    unless already_exist.nil?
+      errors.add(:budget, "budget time range already exists")
+    end
+  end
+
 
 end

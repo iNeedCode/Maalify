@@ -5,7 +5,7 @@ class Income < ActiveRecord::Base
 
 # Validations
   validates_presence_of :amount, :starting_date
-  validate :no_starting_dates
+  validate :newly_added_income_is_also_the_newest?
 
 # Callbacks
 # TODO: http://ruby-journal.com/how-to-track-changes-with-after-callbacks-in-rails-3-or-newer/
@@ -18,10 +18,11 @@ class Income < ActiveRecord::Base
 
 private
 
-  def no_starting_dates
-    latest_income = Income.where(member: member_id).select{|i|i}.max(&:starting_date)
-    return true if latest_income.nil?
-    if latest_income.starting_date >= starting_date
+  def newly_added_income_is_also_the_newest?
+    latest_income_date = Income.where(member: member_id).maximum(:starting_date)
+    return true if latest_income_date.nil?
+    #debugger
+    if !latest_income_date.nil? && latest_income_date >= starting_date
       errors.add(:income, "newest income should be also the latest income of the member '#{member.full_name}''")
     end
   end
