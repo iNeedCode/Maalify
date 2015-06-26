@@ -3,6 +3,21 @@ require 'awesome_print'
 
 RSpec.describe Budget, :type => :model do
 
+  describe 'General tests for the Budget model' do
+    before(:each) do
+      @member = FactoryGirl.create(:member)
+      @donation = FactoryGirl.create(:majlis_khuddam_donation)
+      @income = FactoryGirl.create(:income, member: @member)
+      @budget = FactoryGirl.build(:budget, donation: @donation, member: @member)
+    end
+
+    it "should not valid if the start_date > end_date" do
+      @budget.start_date="2015-05-02"
+      @budget.end_date="2014-05-01"
+      expect(@budget).to_not be_valid
+    end
+  end
+
   describe 'Tests with a budget based donation types' do
     before(:each) do
       @member = FactoryGirl.create(:member)
@@ -40,25 +55,21 @@ RSpec.describe Budget, :type => :model do
     end
 
     it '[Budget] should get all incomes which are in between of the start_date and end_date' do
-      # debugger
       @member.incomes << [Income.new(starting_date: '2015-01-01', amount: 1200, member: @member),
-                             Income.new(starting_date: '2015-04-01', amount: 1400, member: @member)]
+                          Income.new(starting_date: '2015-04-01', amount: 1400, member: @member)]
       budget = FactoryGirl.create(:budget, donation: @donation, member: @member)
       expect(budget.get_all_incomes_for_budget_duration.size).to eq(3)
     end
 
-    it '[Budget] should get an adapted promise for income change between the budget range', focus: true, skip_before: true do
+    it '[Budget] should get an adapted promise for income change between the budget range', skip_before: true do
       Member.delete_all
       Donation.delete_all
       member = FactoryGirl.create(:member)
       donation = FactoryGirl.create(:majlis_khuddam_donation)
-      #income = FactoryGirl.create(:income, member: member)
-
       member.incomes << Income.new(starting_date: '2015-01-01', amount: 1200, member_id: 12345)
       member.incomes << Income.new(starting_date: '2015-03-01', amount: 1000, member_id: 12345)
 
       budget = FactoryGirl.create(:budget, donation: donation, member: member)
-
       expect(budget.promise).to eq(123)
     end
 
@@ -73,6 +84,18 @@ RSpec.describe Budget, :type => :model do
 
       expect(budget.promise).to eq(36)
     end
+
+    xit '[Budget] should throw an exception if the a donation period already occupied' do
+      @budget.save
+      member = FactoryGirl.build(:member)
+      donation_ijtema = FactoryGirl.build(:ijtema_khuddam_donation)
+      member.incomes << Income.new(starting_date: '2014-01-01', amount: 100, member: member)
+
+      budget = FactoryGirl.create(:budget, donation: donation_ijtema, member: member)
+      budget1 = FactoryGirl.build(:budget, start_date: '2014-01-01', end_date: '2015-10-31', donation: donation_ijtema, member: member)
+      expect(budget1).to_not be_valid
+      ap Budget.all
+    end
   end
 
   describe 'Tests with a none budget based donation types' do
@@ -80,15 +103,17 @@ RSpec.describe Budget, :type => :model do
       @member = FactoryGirl.create(:member)
       @donation = FactoryGirl.create(:ishaat_khuddam_donation)
       FactoryGirl.create(:income, member: @member)
-      @budget = FactoryGirl.create(:budget, donation: @donation, member: @member)
+      @budget = FactoryGirl.build(:budget, donation: @donation, member: @member)
     end
 
     it "[Majlis Ishaat] should get the minimum_budget of donation set as promise in budget" do
+      @budget.save
       expect(@budget.promise).to eq(3)
     end
 
     it "[Income] should be valid if there is no income" do
       @member.incomes.delete_all
+
       expect(@budget).to be_valid
     end
   end

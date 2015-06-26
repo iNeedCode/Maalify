@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :ijtema_khuddam_donation, parent: :donation do
-    name 'Majlis'
+    name 'Ijtema'
     formula '0.025'
     minimum_budget 24
   end

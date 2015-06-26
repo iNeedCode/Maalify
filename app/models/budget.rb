@@ -7,6 +7,8 @@ class Budget < ActiveRecord::Base
 # Validations
   validates_presence_of :title, :donation, :member, :start_date, :end_date
   validate :validate_income_before_starting_of_budget_date_exist, if: :budget_based_donation?
+  validate :no_budget_range_from_the_same_donation_type_is_avaiable
+  validate :start_date_before_end_date?
 
 # Callbacks
   after_create :calculate_budget
@@ -72,13 +74,23 @@ class Budget < ActiveRecord::Base
   end
 
   def no_budget_range_from_the_same_donation_type_is_avaiable
-    all_budgets = Budget.where(donation: b.donation)
+    # TODO: rewrite the complete method
+    all_budgets = Budget.where(donation: self.donation)
+    return true if all_budgets.nil? || all_budgets.empty?
     already_exist = all_budgets.select do |b|
       (b.start_date..b.end_date).to_a.include? start_date
     end
-    unless already_exist.nil?
-      errors.add(:budget, "budget time range already exists")
+    # debugger
+    unless already_exist.nil? && !already_exist.empty?
+      errors.add(:budget, "budget time range already exists for #{self.donation.name}")
     end
+  end
+
+  def start_date_before_end_date?
+    if start_date >= end_date
+      errors.add(:budget, "your start date (#{start_date}) is starting after your end date (#{end_date})")
+    end
+
   end
 
 
