@@ -38,30 +38,40 @@ RSpec.describe Budget, :type => :model do
       expect(@budget.promise).to eq(@donation.minimum_budget)
     end
 
-    it "[Income] should have a valid Income before budget date starts" do
+    it "should have a valid Income before budget date starts" do
       Income.create(starting_date: '2015-01-01', amount: 900, member: @member)
       income_before_start = @member.incomes.select { |i| i.starting_date <= @budget.start_date }
       expect(income_before_start.size).to be >= 1
     end
 
-    it "[Income] can have multiples incomes during a budget" do
+    it "can have multiples incomes during a budget" do
       @member.incomes << Income.new(starting_date: '2015-01-02', amount: 900, member: @member)
       expect(@budget.member.incomes.size).to eq(2)
     end
 
-    it "[Income] should throw an expection if there no income before the budget is starting" do
+    it "should fail if there no income before the budget starting data" do
       @member.incomes[0].starting_date = "2015-01-01"
       expect(@budget).to_not be_valid
     end
 
-    it '[Budget] should get all incomes which are in between of the start_date and end_date' do
+    it 'should get all incomes which are in between of the start_date and end_date' do
       @member.incomes << [Income.new(starting_date: '2015-01-01', amount: 1200, member: @member),
                           Income.new(starting_date: '2015-04-01', amount: 1400, member: @member)]
       budget = FactoryGirl.create(:budget, donation: @donation, member: @member)
       expect(budget.get_all_incomes_for_budget_duration.size).to eq(3)
     end
 
-    it '[Budget] should get an adapted promise for income change between the budget range', skip_before: true do
+  end
+
+  describe 'Budget creating and changing tests' do
+    before(:each) do
+      @member = FactoryGirl.create(:member)
+      @donation = FactoryGirl.create(:majlis_khuddam_donation)
+      @income = FactoryGirl.create(:income, member: @member)
+      @budget = FactoryGirl.build(:budget, donation: @donation, member: @member)
+    end
+
+    it 'should get an adapted promise for income change between the budget range', skip_before: true do
       Member.delete_all
       Donation.delete_all
       member = FactoryGirl.create(:member)
@@ -73,7 +83,7 @@ RSpec.describe Budget, :type => :model do
       expect(budget.promise).to eq(123)
     end
 
-    it '[Budget] should get mininum_promise if income drops drastically', skip_before: true do
+    it 'should get mininum_promise if income drops drastically', skip_before: true do
       Member.delete_all
       Donation.delete_all
       member = FactoryGirl.create(:member)
@@ -85,17 +95,65 @@ RSpec.describe Budget, :type => :model do
       expect(budget.promise).to eq(36)
     end
 
-    xit '[Budget] should throw an exception if the a donation period already occupied' do
-      @budget.save
+    it 'should fail if a donation period is already occupied (start_date)', skip_before: true do
       member = FactoryGirl.build(:member)
       donation_ijtema = FactoryGirl.build(:ijtema_khuddam_donation)
       member.incomes << Income.new(starting_date: '2014-01-01', amount: 100, member: member)
 
       budget = FactoryGirl.create(:budget, donation: donation_ijtema, member: member)
-      budget1 = FactoryGirl.build(:budget, start_date: '2014-01-01', end_date: '2015-10-31', donation: donation_ijtema, member: member)
+      budget1 = FactoryGirl.build(:budget, start_date: '2014-11-01', end_date: '2015-10-30', donation: donation_ijtema, member: member)
+
       expect(budget1).to_not be_valid
-      ap Budget.all
     end
+
+    it 'should pass with occupied date but other donation type', skip_before: true do
+      member = FactoryGirl.build(:member)
+      donation_ijtema = FactoryGirl.build(:ijtema_khuddam_donation)
+      donation_majlis = FactoryGirl.build(:majlis_khuddam_donation)
+      member.incomes << Income.new(starting_date: '2014-01-01', amount: 100, member: member)
+
+      budget = FactoryGirl.create(:budget, donation: donation_ijtema, member: member)
+      budget1 = FactoryGirl.build(:budget, start_date: '2014-11-01', end_date: '2015-10-30', donation: donation_majlis, member: member)
+
+      expect(budget1).to be_valid
+    end
+
+    it 'should pass with same donation type but other time range', skip_before: true do
+      member = FactoryGirl.build(:member)
+      donation_ijtema = FactoryGirl.build(:ijtema_khuddam_donation)
+      member.incomes << Income.new(starting_date: '2014-01-01', amount: 100, member: member)
+
+      budget = FactoryGirl.create(:budget, donation: donation_ijtema, member: member)
+      budget1 = FactoryGirl.build(:budget, start_date: '2014-01-01', end_date: '2014-10-30', donation: donation_ijtema, member: member)
+
+      expect(budget1).to be_valid
+    end
+
+    it 'should fail if a donation period is already occupied (end_date)', skip_before: true do
+      member = FactoryGirl.build(:member)
+      donation_ijtema = FactoryGirl.build(:ijtema_khuddam_donation)
+      member.incomes << Income.new(starting_date: '2014-01-01', amount: 100, member: member)
+
+      budget = FactoryGirl.create(:budget, donation: donation_ijtema, member: member)
+      budget1 = FactoryGirl.build(:budget, start_date: '2014-01-01', end_date: '2015-10-30', donation: donation_ijtema, member: member)
+
+      expect(budget1).to_not be_valid
+    end
+
+    it 'should fail with occupied date with larger span of date than already exists', skip_before: true, focus: true do
+      member = FactoryGirl.build(:member)
+      donation_ijtema = FactoryGirl.build(:ijtema_khuddam_donation)
+      member.incomes << Income.new(starting_date: '2014-01-01', amount: 100, member: member)
+
+      budget = FactoryGirl.create(:budget, donation: donation_ijtema, member: member)
+      budget1 = FactoryGirl.build(:budget, start_date: '2014-01-01', end_date: '2016-10-30', donation: donation_ijtema, member: member)
+
+      expect(budget1).to_not be_valid
+    end
+
+    # xit 'should take the rest of the last budget into the new/next budget period' do
+    #   # rest aus dem vorjahr ins nächste budget in das feld :rest_of_last_budget (noch erstellen) ziehen.
+    # end
   end
 
   describe 'Tests with a none budget based donation types' do
@@ -111,7 +169,7 @@ RSpec.describe Budget, :type => :model do
       expect(@budget.promise).to eq(3)
     end
 
-    it "[Income] should be valid if there is no income" do
+    it "should be valid if there is no income" do
       @member.incomes.delete_all
 
       expect(@budget).to be_valid
