@@ -140,7 +140,7 @@ RSpec.describe Budget, :type => :model do
       expect(budget1).to_not be_valid
     end
 
-    it 'should fail with occupied date with larger span of date than already exists', skip_before: true, focus: true do
+    it 'should fail with occupied date with larger span of date than already exists', skip_before: true do
       member = FactoryGirl.build(:member)
       donation_ijtema = FactoryGirl.build(:ijtema_khuddam_donation)
       member.incomes << Income.new(starting_date: '2014-01-01', amount: 100, member: member)
@@ -173,6 +173,56 @@ RSpec.describe Budget, :type => :model do
       @member.incomes.delete_all
 
       expect(@budget).to be_valid
+    end
+  end
+
+  describe 'budget, receipt and member interaction' do
+    before(:each) do
+      @member1 = FactoryGirl.create(:member)
+      @member2 = FactoryGirl.create(:member, aims_id: "98765")
+      income = FactoryGirl.create(:income, member: @member1)
+      donation1 = FactoryGirl.create(:majlis_khuddam_donation)
+      donation2 = FactoryGirl.create(:ijtema_khuddam_donation)
+      @budget = FactoryGirl.create(:budget, donation: donation1, member: @member1)
+    end
+
+    it 'get all receipt items: 1 receipt inside and 1 receipt outside the period and different members' do
+      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.create!(id: 2, date: '2014-02-01', member: @member2)
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.items << ReceiptItem.create!(id: 3, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.items << ReceiptItem.create!(id: 4, donation_id: 2, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 10, receipt_id: 1)
+
+      all_receipt_items_in_period_for_budget_donation = @budget.getAllReceiptsItemsfromBudgetPeriod
+      expect(all_receipt_items_in_period_for_budget_donation.size).to be(2)
+    end
+
+    it 'get all receipt items: 2 receitps inside in the period and same member' do
+      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.items << ReceiptItem.create!(id: 3, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.items << ReceiptItem.create!(id: 4, donation_id: 2, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 10, receipt_id: 1)
+
+      all_receipt_items_in_period_for_budget_donation = @budget.getAllReceiptsItemsfromBudgetPeriod
+      expect(all_receipt_items_in_period_for_budget_donation.size).to be(3)
+    end
+
+    it 'get all receipts for a member in period' do
+      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
+      receipt3 = Receipt.create!(id: 3, date: '2015-02-01', member: @member2)
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.items << ReceiptItem.create!(id: 2, donation_id: 2, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 3, donation_id: 2, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 4, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt3.items << ReceiptItem.create!(id: 5, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt3.items << ReceiptItem.create!(id: 6, donation_id: 1, amount: 10, receipt_id: 1)
+
+      all_receipt_items_in_period_for_budget_donation_for_member = @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@member1)
+      expect(all_receipt_items_in_period_for_budget_donation_for_member.size).to be(2)
     end
   end
 

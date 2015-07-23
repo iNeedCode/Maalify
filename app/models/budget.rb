@@ -60,6 +60,35 @@ class Budget < ActiveRecord::Base
     incomes_during_budget_range.sort_by &:starting_date
   end
 
+  def getAllReceiptsItemsfromBudgetPeriod
+    all_receipts_in_period = Receipt.where(date: self.start_date..self.end_date)
+    all_receipt_items_in_period_for_budget_donation = []
+
+    all_receipts_in_period.each do |receipt|
+      receipt.items.each do |ri|
+        if ri.donation == self.donation
+          all_receipt_items_in_period_for_budget_donation << ri
+        end
+      end
+    end
+
+    all_receipt_items_in_period_for_budget_donation
+  end
+
+  def getAllReceiptsItemsfromBudgetPeriodforMember(_member)
+    all_receipt_items_for_all_members = getAllReceiptsItemsfromBudgetPeriod
+
+    all_receipt_items_for_one_member = []
+    all_receipt_items_for_all_members.each do |ri|
+      if ri.receipt.member == _member
+        all_receipt_items_for_one_member << ri
+      end
+
+    end
+    all_receipt_items_for_one_member
+  end
+
+
   private
 
   def budget_based_donation?
@@ -91,5 +120,4 @@ class Budget < ActiveRecord::Base
       errors.add(:budget, "your start date (#{start_date}) is starting after your end date (#{end_date})")
     end
   end
-
 end
