@@ -29,7 +29,7 @@ RSpec.describe Receipt, :type => :model do
 
   end
 
-  describe 'Methods' do
+  describe 'Receipt Items interaction' do
     before(:each) do
       @receipt = FactoryGirl.build(:receipt)
     end

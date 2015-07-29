@@ -198,7 +198,7 @@ RSpec.describe Budget, :type => :model do
       expect(all_receipt_items_in_period_for_budget_donation.size).to be(2)
     end
 
-    it 'get all receipt items: 2 receitps inside in the period and same member' do
+    it 'get all receipt items: 2 receipts inside in the period and same member' do
       receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
       receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
       receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
@@ -224,6 +224,17 @@ RSpec.describe Budget, :type => :model do
       all_receipt_items_in_period_for_budget_donation_for_member = @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@member1)
       expect(all_receipt_items_in_period_for_budget_donation_for_member.size).to be(2)
     end
+
+    it 'should calculate the remaining promise in the current year correctly' do
+      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 20, receipt_id: 2)
+
+      expect(@budget.promise).to be(120)
+      expect(@budget.remainingPromiseCurrentBudget).to be(90)
+    end
+
   end
 
 end

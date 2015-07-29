@@ -88,6 +88,16 @@ class Budget < ActiveRecord::Base
     all_receipt_items_for_one_member
   end
 
+  def remainingPromiseCurrentBudget
+    all_receipts = getAllReceiptsItemsfromBudgetPeriodforMember(self.member)
+    paid = 0
+    all_receipts.each do |r|
+      paid += r.amount
+    end
+
+    promise - paid
+  end
+
 
   private
 
