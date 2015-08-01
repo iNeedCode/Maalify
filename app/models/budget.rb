@@ -11,7 +11,7 @@ class Budget < ActiveRecord::Base
   validate :start_date_before_end_date?
 
 # Callbacks
-  after_create :calculate_budget
+  after_create :calculate_budget, :transfer_old_remaining_promise_to_current_budget
 
 # Methods
   def calculate_budget
@@ -23,7 +23,6 @@ class Budget < ActiveRecord::Base
       total_budget = 0
       total_days_of_budget = (end_date - start_date+1).to_f
 
-      #debugger
       if incomes.size == 1
         total_budget = calculator.evaluate("#{donation.formula} * #{incomes.first.amount}").to_i
       else
@@ -38,7 +37,6 @@ class Budget < ActiveRecord::Base
           days_diff = (next_income_date - start_date_actual).to_f
           total_budget += calculator.evaluate("#{inc.amount} * #{donation.formula} / #{total_days_of_budget} * #{days_diff}").to_i
         end
-
       end
 
       total_budget = donation.minimum_budget if total_budget < donation.minimum_budget
@@ -89,17 +87,32 @@ class Budget < ActiveRecord::Base
   end
 
   def remainingPromiseCurrentBudget
-    all_receipts = getAllReceiptsItemsfromBudgetPeriodforMember(self.member)
+    all_receipt_items = getAllReceiptsItemsfromBudgetPeriodforMember(self.member)
     paid = 0
-    all_receipts.each do |r|
-      paid += r.amount
+    all_receipt_items.each do |ri|
+      paid += ri.amount
     end
 
-    promise - paid
+    (rest_promise_from_past_budget + promise) - paid
   end
 
+  def transfer_old_remaining_promise_to_current_budget
+    budgets = get_all_budget_from_the_same_donation_type_before_current_budget
+    return self.rest_promise_from_past_budget = 0 if budgets.nil?
+    rest = 0
+    unless budgets.nil?
+      # debugger
+      budgets.each { |b| rest += b.remainingPromiseCurrentBudget }
+    end
+    self.rest_promise_from_past_budget = rest.abs
+    save
+  end
 
   private
+
+  def get_all_budget_from_the_same_donation_type_before_current_budget
+    Budget.where('donation_id = ? and end_date < ? and member_id = ?', self.donation_id, self.start_date, self.member_id)
+  end
 
   def budget_based_donation?
     donation.budget?

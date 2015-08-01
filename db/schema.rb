@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621191216) do
+ActiveRecord::Schema.define(version: 20150729123656) do
 
   create_table "budgets", force: :cascade do |t|
     t.string   "title"
-    t.integer  "promise",     default: 0
+    t.integer  "promise",                       default: 0
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "member_id"
     t.integer  "donation_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "rest_promise_from_past_budget", default: 0
   end
 
   add_index "budgets", ["donation_id"], name: "index_budgets_on_donation_id"
