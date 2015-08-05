@@ -150,10 +150,6 @@ RSpec.describe Budget, :type => :model do
 
       expect(budget1).to_not be_valid
     end
-
-    # xit 'should take the rest of the last budget into the new/next budget period' do
-    #   # rest aus dem vorjahr ins nächste budget in das feld :rest_of_last_budget (noch erstellen) ziehen.
-    # end
   end
 
   describe 'Tests with a none budget based donation types' do

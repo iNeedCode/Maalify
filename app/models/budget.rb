@@ -14,6 +14,13 @@ class Budget < ActiveRecord::Base
   after_create :calculate_budget, :transfer_old_remaining_promise_to_current_budget
 
 # Methods
+
+  # Public: Is called immediatly after creating (callback) a budget model and it's
+  #         calculating the budget "promise" (column) based on "donation formula"
+  #         and income of the member.
+  #
+  # Returns:
+  #         true or false
   def calculate_budget
     if !donation.budget
       self.promise = donation.minimum_budget.to_i
@@ -45,6 +52,17 @@ class Budget < ActiveRecord::Base
     save
   end
 
+  # Public: Duplicate some text an arbitrary number of times.
+  #
+  # text  - The String to be duplicated.
+  # count - The Integer number of times to duplicate the text.
+  #
+  # Examples
+  #
+  #   multiplex("Tom", 4)
+  #   # => "TomTomTomTom"
+  #
+  # Returns the duplicated String.
   def get_all_incomes_for_budget_duration
     incomes_during_budget_range = member.incomes.select do |inc|
       start_date <= inc.starting_date && inc.starting_date <= end_date

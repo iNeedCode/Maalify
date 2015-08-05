@@ -47,4 +47,5 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
   gem 'timecop'
+  gem 'simplecov', :require => false
 end
