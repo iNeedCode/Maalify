@@ -15,12 +15,12 @@ class Budget < ActiveRecord::Base
 
 # Methods
 
-  # Public: Is called immediatly after creating (callback) a budget model and it's
-  #         calculating the budget "promise" (column) based on "donation formula"
-  #         and income of the member.
-  #
-  # Returns:
-  #         true or false
+# Public: It is called immediatly after creating (callback) a budget model and it's
+#         calculating the budget "promise" (column) based on "donation formula"
+#         and income of the member.
+#
+# Returns:
+#         true or false
   def calculate_budget
     if !donation.budget
       self.promise = donation.minimum_budget.to_i
@@ -52,17 +52,32 @@ class Budget < ActiveRecord::Base
     save
   end
 
-  # Public: Duplicate some text an arbitrary number of times.
-  #
-  # text  - The String to be duplicated.
-  # count - The Integer number of times to duplicate the text.
-  #
-  # Examples
-  #
-  #   multiplex("Tom", 4)
-  #   # => "TomTomTomTom"
-  #
-  # Returns the duplicated String.
+# Public: It is called immediatly after creating (callback) a budget model and it's
+#         transfering all old remaing promises from the last budget into the newly
+#         created budget model in the "rest_promise_from_past_budget".
+#
+# Returns true or false.
+  def transfer_old_remaining_promise_to_current_budget
+    budgets = get_all_budget_from_the_same_donation_type_before_current_budget
+    return self.rest_promise_from_past_budget = 0 if budgets.nil?
+    rest = 0
+    unless budgets.nil?
+      # debugger
+      budgets.each { |b| rest += b.remainingPromiseCurrentBudget }
+    end
+    self.rest_promise_from_past_budget = rest.abs
+    save
+  end
+
+# Public: Get all incomes of a member from the budget period.
+#
+# Examples
+#
+#   budget.get_all_incomes_for_budget_duration
+#   # => [Income,Income]
+#
+# Returns:
+#         incomes sorted by starting date
   def get_all_incomes_for_budget_duration
     incomes_during_budget_range = member.incomes.select do |inc|
       start_date <= inc.starting_date && inc.starting_date <= end_date
@@ -76,6 +91,13 @@ class Budget < ActiveRecord::Base
     incomes_during_budget_range.sort_by &:starting_date
   end
 
+# Public: Get all receipt items from the budget period for all members.
+# Examples
+#
+#   budget.getAllReceiptsItemsfromBudgetPeriod
+#   # => [ReceiptItem,ReceiptItem]
+#
+# Returns all receipt items in the budget period
   def getAllReceiptsItemsfromBudgetPeriod
     all_receipts_in_period = Receipt.where(date: self.start_date..self.end_date)
     all_receipt_items_in_period_for_budget_donation = []
@@ -91,6 +113,16 @@ class Budget < ActiveRecord::Base
     all_receipt_items_in_period_for_budget_donation
   end
 
+# Public: Get all receipt items from the budget period for A SPECIFIC member.
+#
+# member  - member for the evaluation
+#
+# Examples
+#
+#   budget.getAllReceiptsItemsfromBudgetPeriod(_member)
+#   # => [ReceiptItem,ReceiptItem]
+#
+# Returns all receipt items in the budget period for A SPECIFIC member.
   def getAllReceiptsItemsfromBudgetPeriodforMember(_member)
     all_receipt_items_for_all_members = getAllReceiptsItemsfromBudgetPeriod
 
@@ -104,6 +136,16 @@ class Budget < ActiveRecord::Base
     all_receipt_items_for_one_member
   end
 
+# Public: Get all receipt items from the budget period for A SPECIFIC member.
+#
+# member  - member for the evaluation
+#
+# Examples
+#
+#   budget.getAllReceiptsItemsfromBudgetPeriod(_member)
+#   # => [ReceiptItem,ReceiptItem]
+#
+# Returns all receipt items in the budget period for A SPECIFIC member.
   def remainingPromiseCurrentBudget
     all_receipt_items = getAllReceiptsItemsfromBudgetPeriodforMember(self.member)
     paid = 0
@@ -114,28 +156,26 @@ class Budget < ActiveRecord::Base
     (rest_promise_from_past_budget + promise) - paid
   end
 
-  def transfer_old_remaining_promise_to_current_budget
-    budgets = get_all_budget_from_the_same_donation_type_before_current_budget
-    return self.rest_promise_from_past_budget = 0 if budgets.nil?
-    rest = 0
-    unless budgets.nil?
-      # debugger
-      budgets.each { |b| rest += b.remainingPromiseCurrentBudget }
-    end
-    self.rest_promise_from_past_budget = rest.abs
-    save
-  end
-
   private
 
+# Public: Get budgets from the same member and donation type before the current budget model.
+#
+# Returns Array of budget models
   def get_all_budget_from_the_same_donation_type_before_current_budget
     Budget.where('donation_id = ? and end_date < ? and member_id = ?', self.donation_id, self.start_date, self.member_id)
   end
 
+# Public: check if the related "donation" is budget based donation type
+#
+# Returns true or false
   def budget_based_donation?
     donation.budget?
   end
 
+# Public: Validator: for budget based donations. add errors if the member has
+#         no income model before the budget ist starting.
+#
+# Returns ?
   def validate_income_before_starting_of_budget_date_exist
     member.incomes.each do |income|
       return true if income.starting_date <= self.start_date
@@ -156,6 +196,9 @@ class Budget < ActiveRecord::Base
     end
   end
 
+# Public: Validator: for checking the "start_date" of the budget is not setups after the "end_date"
+#
+# Returns ?
   def start_date_before_end_date?
     if start_date >= end_date
       errors.add(:budget, "your start date (#{start_date}) is starting after your end date (#{end_date})")
