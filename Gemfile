@@ -18,6 +18,7 @@ end
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
+gem 'bootstrap-multiselect-rails'
 group :development do
   gem 'awesome_print'
   gem 'better_errors'

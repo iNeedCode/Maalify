@@ -18,6 +18,7 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require bootstrap-multiselect
 //= require_tree .
 
 
@@ -26,4 +27,6 @@ $(document).on('ready page:load', function() {
     	'placement': 'left',
 			delay: { "show": 1, "hide": 100 }
     });
+
+    $('#budget_member').multiselect();
 });
