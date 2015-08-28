@@ -32,6 +32,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'spring-commands-rspec'
   gem 'terminal-notifier-guard'
+  gem 'rack-mini-profiler'
 end
 group :development, :test do
   gem 'factory_girl_rails'

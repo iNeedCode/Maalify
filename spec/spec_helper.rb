@@ -27,8 +27,8 @@ SimpleCov.start do
   add_group 'Mailers', 'app/mailers'
   add_group 'Views', 'app/views'
 end
-SimpleCov.root Rails.root
-SimpleCov.coverage_dir "doc/coverage"
+#SimpleCov.root Rails.root
+#SimpleCov.coverage_dir "doc/coverage"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
