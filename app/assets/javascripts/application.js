@@ -28,5 +28,5 @@ $(document).on('ready page:load', function() {
 			delay: { "show": 1, "hide": 100 }
     });
 
-    $('#budget_member').multiselect();
+    $('#budget_member_id').multiselect();
 });

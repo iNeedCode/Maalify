@@ -49,7 +49,7 @@ class Budget < ActiveRecord::Base
       total_budget = donation.minimum_budget if total_budget < donation.minimum_budget
       self.promise = total_budget
     end
-    save
+    # save
   end
 
 # Public: It is called immediatly after creating (callback) a budget model and it's
@@ -66,7 +66,7 @@ class Budget < ActiveRecord::Base
       budgets.each { |b| rest += b.remainingPromiseCurrentBudget }
     end
     self.rest_promise_from_past_budget = rest.abs
-    save
+    # save
   end
 
 # Public: Get all incomes of a member from the budget period.

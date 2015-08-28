@@ -18,14 +18,13 @@
   .field
     = f.label :end_date
     = f.date_select :end_date
-  -#.field
-  -#  = f.label :member
-  -#  = f.text_field :member
   .field
     = f.label :member
-    = f.select :member, Member.all.collect{|x| [x.full_name, x.id]}, {}, multiple: true
+    = f.collection_select(:member_id, Member.all, :id, :full_name, {}, {:multiple => true})
   .field
-    = f.label :donation
-    = f.text_field :donation
+    = f.label :donation_id
+    = f.collection_select(:donation_id, Donation.all, :id, :name, prompt: true)
+
+  -#= f.text_field :donation
   .actions
     = f.submit 'Save'

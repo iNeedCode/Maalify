@@ -21,6 +21,10 @@ class BudgetsController < ApplicationController
   end
 
   def create
+    members_selected = budget_params[:member_id].reject { |m| m.empty? }
+    parameters = budget_params
+    members_selected.each { |member_id| puts member_id }
+   # debugger
     @budget = Budget.new(budget_params)
     @budget.save
     respond_with(@budget)
@@ -37,11 +41,11 @@ class BudgetsController < ApplicationController
   end
 
   private
-    def set_budget
-      @budget = Budget.find(params[:id])
-    end
+  def set_budget
+    @budget = Budget.find(params[:id])
+  end
 
-    def budget_params
-      params.require(:budget).permit(:title, :promise, :start_date, :end_date, :member_id, :donation_id)
-    end
+  def budget_params
+    params.require(:budget).permit(:title, :promise, :start_date, :end_date, :donation_id, member_id: [])
+  end
 end
