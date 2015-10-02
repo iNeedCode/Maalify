@@ -9,6 +9,8 @@ class Budget < ActiveRecord::Base
   validate :validate_income_before_starting_of_budget_date_exist, if: :budget_based_donation?
   validate :no_budget_range_from_the_same_donation_type_is_avaiable
   validate :start_date_before_end_date?
+  validates :promise, numericality: { only_integer: true, greater_than: 0 }
+  validates :rest_promise_from_past_budget, numericality: { only_integer: true, greater_than: -1 }
 
 # Callbacks
   after_create :calculate_budget, :transfer_old_remaining_promise_to_current_budget
@@ -169,7 +171,7 @@ class Budget < ActiveRecord::Base
 #
 # Returns true or false
   def budget_based_donation?
-    donation.budget?
+    donation.budget
   end
 
 # Public: Validator: for budget based donations. add errors if the member has
