@@ -67,9 +67,13 @@ en:
     budget:
       title: "Budget"
       new: "New Budget"
+      calculate: "Calculate"
   donation:
     formula: "Formula"
     organization: "Organization"
 
     budget: "Budget"
     name: "Chanda"
+  budget:
+    promise: "promise"
+    rest_promise_from_past_budget: "Rest from previous year"

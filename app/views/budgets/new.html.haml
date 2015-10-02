@@ -1,5 +1,34 @@
-%h1 New budget
+%h1= t('view.budget.title')
 
-= render 'form'
+= form_for @budget, url: {action: "preview"}, html: {class: 'form-horizontal'} do |f|
+  - if @budget.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@budget.errors.count, "error")} prohibited this budget from being saved:"
+      %ul
+        - @budget.errors.full_messages.each do |msg|
+          %li= msg
 
-= link_to 'Back', budgets_path
+  .field.form-group
+    = f.label :title, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.text_field :title, class: 'form-control', value: 'MKAD 2015-16'
+  .field.form-group
+    = f.label :donation_id, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.collection_select(:donation_id, Donation.all, :id, :name, prompt: false)
+  .field.form-group
+    = f.label :start_date, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.date_select :start_date, :default => Date.parse("01/11/2015")
+  .field.form-group
+    = f.label :end_date, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.date_select :end_date, :default => Date.parse("31/10/2016")
+  .field.form-group
+    = f.label :member, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.collection_select(:member_id, Member.all, :id, :full_name, {}, {:multiple => true})
+
+  .actions.col-md-offset-2
+    = f.submit t('view.budget.calculate'), class: 'btn btn-primary'
+    = link_to t('view.back'), budgets_path, class: 'btn btn-default'

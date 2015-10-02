@@ -51,6 +51,7 @@ de:
     budget:
       title: "Budget"
       new: "Neues Budget"
+      calculate: "Berechnen"
   date:
     abbr_day_names:
     - So
@@ -257,3 +258,6 @@ de:
     budget: "Bugdet"
     name: "Chanda"
     organization: "Unterorganisation"
+  budget:
+    promise: "Versprechen"
+    rest_promise_from_past_budget: "Rest aus Vorjahr"

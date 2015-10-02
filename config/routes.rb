@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  
-  resources :budgets
+
+  resources :budgets do
+    post :preview, on: :new
+  end
 
   resources :donations
 
