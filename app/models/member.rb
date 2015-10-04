@@ -6,6 +6,10 @@ class Member < ActiveRecord::Base
   has_many :budgets
   has_many :donations, through: :budgets
 
+# Validations
+  validates_presence_of :first_name, :last_name, :date_of_birth, :aims_id
+  validates_uniqueness_of :aims_id
+
 # Methods
   def full_name
     "#{last_name}, #{first_name}"

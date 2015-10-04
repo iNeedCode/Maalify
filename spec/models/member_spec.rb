@@ -12,6 +12,27 @@ RSpec.describe Member, :type => :model do
     Donation.create name: "Ijtema Nasir", budget: false, organization: "Nasir", formula: '6'
   end
 
+  describe 'Test validation rules' do
+
+    before(:each) do
+      @member = FactoryGirl.create(:member)
+    end
+
+    it "should fail if certain fields #{%w[ first_name last_name date_of_birth aims_id ]} are left" do
+      expect(@member.valid?).to eq(true)
+      @member.first_name = nil
+      @member.last_name = nil
+      @member.date_of_birth = nil
+      @member.aims_id = nil
+      expect(@member.valid?).to eq(false)
+
+      %w[ first_name last_name date_of_birth aims_id ].each do |field|
+        expect(@member.errors[field]).to eq(["can't be blank"])
+      end
+    end
+
+  end
+
   describe 'List of possible Donation Types Method' do
 
     before(:each) do
