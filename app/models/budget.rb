@@ -9,7 +9,7 @@ class Budget < ActiveRecord::Base
   validate :validate_income_before_starting_of_budget_date_exist, if: :budget_based_donation?
   validate :no_budget_range_from_the_same_donation_type_is_avaiable
   validate :start_date_before_end_date?
-  validates :promise, numericality: { only_integer: true, greater_than: 0 }
+  validates :promise, numericality: { only_integer: true, greater_than: -1 }
   validates :rest_promise_from_past_budget, numericality: { only_integer: true, greater_than: -1 }
 
 # Callbacks

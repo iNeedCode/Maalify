@@ -12,7 +12,7 @@ RSpec.describe Member, :type => :model do
     Donation.create name: "Ijtema Nasir", budget: false, organization: "Nasir", formula: '6'
   end
 
-  describe 'Test validation rules' do
+  describe 'validation rules that are used for the member' do
 
     before(:each) do
       @member = FactoryGirl.create(:member)
@@ -39,6 +39,18 @@ RSpec.describe Member, :type => :model do
       @member.landline = nil
       expect(@member.valid?).to eq(false)
     end
+
+  end
+
+  describe 'genereal tests for the member' do
+    before(:each) do
+      @member = FactoryGirl.create(:member)
+    end
+
+    xit "should create intial income for every member" do
+      expect(@member.incomes.size).to eq(1)
+    end
+
 
   end
 
