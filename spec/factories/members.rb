@@ -8,7 +8,9 @@ FactoryGirl.define do
     street "Musterstrasse 100"
     city "Musterstadt"
     plz 12345
-    mobile_no "0177-1234567"
+    mobile_no "0177 1234567"
+    landline "01234 12323"
+    email "max@example.com"
     occupation "Angesteller"
   end
 

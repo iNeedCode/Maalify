@@ -31,6 +31,15 @@ RSpec.describe Member, :type => :model do
       end
     end
 
+    it 'should fail if no communication possiblity has been added to the member' do
+      @member.mobile_no = nil
+      expect(@member.valid?).to eq(true)
+      @member.email = nil
+      expect(@member.valid?).to eq(true)
+      @member.landline = nil
+      expect(@member.valid?).to eq(false)
+    end
+
   end
 
   describe 'List of possible Donation Types Method' do

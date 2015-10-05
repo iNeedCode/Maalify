@@ -9,6 +9,7 @@ class Member < ActiveRecord::Base
 # Validations
   validates_presence_of :first_name, :last_name, :date_of_birth, :aims_id
   validates_uniqueness_of :aims_id
+  validate :at_least_one_communication_chanel_is_given
 
 # Methods
   def full_name
@@ -46,6 +47,16 @@ class Member < ActiveRecord::Base
 
   def list_of_possible_donation_types
     Donation.where(organization: tanzeem)
+  end
+
+  private
+  def at_least_one_communication_chanel_is_given
+    if (email.nil? && landline.nil? && mobile_no.nil?)
+      errors.add(:member, "You have to specify at least one communication chanel")
+      false
+    else
+      true
+    end
   end
 
 end
