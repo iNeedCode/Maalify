@@ -10,7 +10,6 @@ class ReceiptItem < ActiveRecord::Base
 
   private
   def receipt_present
-    debugger
     unless self.receipt_id.nil?
       errors.add("No receipt is available to add the receipt item.")
     end

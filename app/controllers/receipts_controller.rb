@@ -22,7 +22,6 @@ class ReceiptsController < ApplicationController
 
   def create
     @receipt = member.receipts.new(receipt_params)
-    # debugger
     flash[:notice] = 'Receipt was successfully created.' if @receipt.save
     respond_with(@receipt.member, @receipt)
   end
@@ -37,18 +36,18 @@ class ReceiptsController < ApplicationController
     respond_with(@receipt.member, @receipt)
   end
 
-protected
+  protected
   def member
-    @member = Member.find(params[:member_id])    
+    @member = Member.find(params[:member_id])
   end
 
 
-private
-    def set_receipt
-      @receipt = member.receipts.find(params[:id])
-    end
+  private
+  def set_receipt
+    @receipt = member.receipts.find(params[:id])
+  end
 
-    def receipt_params
-      params.require(:receipt).permit(:receipt_id, :date, :member_id, items_attributes: [:id, :amount, :donation_id, :_destroy])
-    end
+  def receipt_params
+    params.require(:receipt).permit(:receipt_id, :date, :member_id, items_attributes: [:id, :amount, :donation_id, :_destroy])
+  end
 end
