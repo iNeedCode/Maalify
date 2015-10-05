@@ -17,7 +17,7 @@ RSpec.describe Receipt, :type => :model do
       expect(@receipt).to_not be_valid
     end
 
-    it 'should be invalid if uniqueness is not given' do
+    it 'should be invalid if uniqueness of an receipt is not given' do
       r2 = Receipt.create(receipt_id: 12345, :date => '2014-02-01', member_id: 1233)
       expect(@receipt).to_not be_valid
     end
