@@ -21,7 +21,6 @@ private
   def newly_added_income_is_also_the_newest?
     latest_income_date = Income.where(member: member_id).maximum(:starting_date)
     return true if latest_income_date.nil?
-    #debugger
     if !latest_income_date.nil? && latest_income_date >= starting_date
       errors.add(:income, "newest income should be also the latest income of the member '#{member.full_name}''")
     end
