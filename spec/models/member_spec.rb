@@ -42,18 +42,6 @@ RSpec.describe Member, :type => :model do
 
   end
 
-  describe 'genereal tests for the member' do
-    before(:each) do
-      @member = FactoryGirl.create(:member)
-    end
-
-    xit "should create intial income for every member" do
-      expect(@member.incomes.size).to eq(1)
-    end
-
-
-  end
-
   describe 'List of possible Donation Types Method' do
 
     before(:each) do

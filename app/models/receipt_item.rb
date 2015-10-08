@@ -11,7 +11,7 @@ class ReceiptItem < ActiveRecord::Base
   private
   def receipt_present
     if self.receipt_id.nil?
-      errors.add("No receipt is available to add the receipt item.")
+      errors.add(:receipt, "No receipt is available to add the receipt item.")
     end
   end
 
