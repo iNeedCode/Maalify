@@ -10,13 +10,13 @@ class ReceiptItem < ActiveRecord::Base
 
   private
   def receipt_present
-    unless self.receipt_id.nil?
+    if self.receipt_id.nil?
       errors.add("No receipt is available to add the receipt item.")
     end
   end
 
   def donation_present
-    unless self.donation_id.nil?
+    if self.donation_id.nil?
       errors.add(:donation, "No donation is aviable to add this receipt item.")
     end
   end

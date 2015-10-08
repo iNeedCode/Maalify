@@ -35,8 +35,9 @@ RSpec.describe Receipt, :type => :model do
     end
 
     it 'should get the right amount in the total sum' do
-      @receipt.items << ReceiptItem.create(amount: 33, donation_id: 123)
-      @receipt.items << ReceiptItem.create(amount: 33, donation_id: 123)
+      @receipt.save
+      @receipt.items << ReceiptItem.new(amount: 33, donation_id: 123)
+      @receipt.items << ReceiptItem.new(amount: 33, donation_id: 123)
       expect(@receipt.total).to eql(66)
     end
   end
