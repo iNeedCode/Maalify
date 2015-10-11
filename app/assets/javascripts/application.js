@@ -27,6 +27,4 @@ $(document).on('ready page:load', function() {
     	'placement': 'left',
 			delay: { "show": 1, "hide": 100 }
     });
-
-    $('#budget_member_id').multiselect();
 });

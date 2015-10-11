@@ -15,7 +15,7 @@
   .field.form-group
     = f.label :donation_id, class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.collection_select(:donation_id, Donation.all, :id, :name, prompt: false)
+      = f.collection_select(:donation_id, Donation.all, :id, :name, prompt: true)
   .field.form-group
     = f.label :start_date, class: 'col-sm-2 control-label'
     %div.col-sm-8
@@ -24,7 +24,7 @@
     = f.label :end_date, class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.date_select :end_date, :default => Date.parse("31/10/2016")
-  .field.form-group
+  .field.form-group#member_select_fields
     = f.label :member, class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.collection_select(:member_id, Member.all, :id, :full_name, {}, {:multiple => true})

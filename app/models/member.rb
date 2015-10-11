@@ -37,11 +37,11 @@ class Member < ActiveRecord::Base
     if age < 7 then
       return 'Kind'
     elsif age(new_year_of_ansar_begins) >= 40
-      return 'Nasir'
+      return 'Ansar'
     elsif age(day_before_khuddam_year_begins) >= 15 && age(day_before_ansar_year_begins) <= 40
-      return 'Khadim'
+      return 'Khuddam'
     elsif age >= 7 && age(new_year_of_khuddam_begins) <= 15
-      return 'Tifl'
+      return 'Atfal'
     end
   end
 

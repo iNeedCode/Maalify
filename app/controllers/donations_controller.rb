@@ -1,7 +1,7 @@
 class DonationsController < ApplicationController
   before_action :set_donation, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @donations = Donation.all
@@ -42,6 +42,6 @@ class DonationsController < ApplicationController
     end
 
     def donation_params
-      params.require(:donation).permit(:name, :budget, :formula, :organization)
+      params.require(:donation).permit(:name, :minimum_budget, :budget, :formula, :organization)
     end
 end

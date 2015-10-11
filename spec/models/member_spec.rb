@@ -4,12 +4,12 @@ require 'awesome_print'
 RSpec.describe Member, :type => :model do
 
   before(:suite) do
-    Donation.create name: "Majlis Khuddam", budget: true, organization: "Khadim", formula: '0,01*12'
-    Donation.create name: "ijtema Khuddam", budget: true, organization: "Khadim", formula: '0,025'
-    Donation.create name: "Ishaat Khuddam", budget: false, organization: "Khadim", formula: '3'
-    Donation.create name: "Majlis Atfal", budget: false, organization: "Tifl", formula: '13'
-    Donation.create name: "Ijtema Atfal", budget: false, organization: "Tifl", formula: '6'
-    Donation.create name: "Ijtema Nasir", budget: false, organization: "Nasir", formula: '6'
+    Donation.create name: "Majlis Khuddam", budget: true, organization: "Khuddam", formula: '0,01*12'
+    Donation.create name: "ijtema Khuddam", budget: true, organization: "Khuddam", formula: '0,025'
+    Donation.create name: "Ishaat Khuddam", budget: false, organization: "Khuddam", formula: '3'
+    Donation.create name: "Majlis Atfal", budget: false, organization: "Atfal", formula: '13'
+    Donation.create name: "Ijtema Atfal", budget: false, organization: "Atfal", formula: '6'
+    Donation.create name: "Ijtema Ansar", budget: false, organization: "Ansar", formula: '6'
   end
 
   describe 'validation rules that are used for the member' do
@@ -48,24 +48,24 @@ RSpec.describe Member, :type => :model do
       @member = FactoryGirl.create(:member)
     end
 
-    it "should return only 'Khadim' Donation types" do
+    it "should return only 'Khuddam' Donation types" do
       Timecop.freeze(Date.parse("01-05-2015")) # freeze Date to 01.05.2015
       @member.date_of_birth = Date.parse("1998-01-01")
-      d = Donation.where(organization: 'Khadim')
+      d = Donation.where(organization: 'Khuddam')
       expect(@member.list_of_possible_donation_types).to eq(d)
     end
 
-    it "should return only 'Tifl' Donation types" do
+    it "should return only 'Atfal' Donation types" do
       Timecop.freeze(Date.parse("01-11-2015"))
       @member.date_of_birth = "2000-11-01"
-      d = Donation.where(organization: 'Tifl')
+      d = Donation.where(organization: 'Atfal')
       expect(@member.list_of_possible_donation_types).to eq(d)
     end
 
-    it "should return only 'Nasir' Donation types" do
+    it "should return only 'Ansar' Donation types" do
       Timecop.freeze(Date.parse("01-11-2015"))
       @member.date_of_birth = "1948-11-01"
-      d = Donation.where(organization: 'Nasir')
+      d = Donation.where(organization: 'Ansar')
       expect(@member.list_of_possible_donation_types).to eq(d)
     end
 
@@ -93,51 +93,51 @@ RSpec.describe Member, :type => :model do
     end
 
     context "Atfal" do
-      it "should return 'Tifl' for age >= 7" do
+      it "should return 'Atfal' for age >= 7" do
         @member.date_of_birth = Date.parse("2008-05-01")
-        expect(@member.tanzeem).to eq('Tifl')
+        expect(@member.tanzeem).to eq('Atfal')
       end
 
-      it "should return 'Tifl' if member turn 15 on the 01-11-2015" do
+      it "should return 'Atfal' if member turn 15 on the 01-11-2015" do
         Timecop.freeze(Date.parse("01-11-2015"))
         @member.date_of_birth = "2000-11-01"
-        expect(@member.tanzeem).to eq('Tifl')
-        expect(@member.tanzeem).not_to eq('Khadim')
+        expect(@member.tanzeem).to eq('Atfal')
+        expect(@member.tanzeem).not_to eq('Khuddam')
       end
     end
 
     context "Khuddam" do
-      it "should return 'Khadim' for age > 16 and < 40" do
+      it "should return 'Khuddam' for age > 16 and < 40" do
         @member.date_of_birth = Date.parse("1998-01-01")
-        expect(@member.tanzeem).to eq('Khadim')
+        expect(@member.tanzeem).to eq('Khuddam')
       end
 
-      it "should return 'Khadim' if member turn 15 on the 31-10-2015" do
+      it "should return 'Khuddam' if member turn 15 on the 31-10-2015" do
         Timecop.freeze(Date.parse("01-11-2015"))
         @member.date_of_birth = Date.parse("2000-10-31")
-        expect(@member.tanzeem).to eq('Khadim')
+        expect(@member.tanzeem).to eq('Khuddam')
       end
 
-      it "should return 'Khadim' if member turn 40 on 01-01-2016" do
+      it "should return 'Khuddam' if member turn 40 on 01-01-2016" do
         Timecop.freeze(Date.parse("31-12-2015"))
         @member.date_of_birth = Date.parse("1976-01-01")
-        expect(@member.tanzeem).to eq('Khadim')
+        expect(@member.tanzeem).to eq('Khuddam')
       end
 
     end
 
     context "Ansar" do
 
-      it "should return 'Nasir' if member turn 40 on 31-12-1975" do
+      it "should return 'Ansar' if member turn 40 on 31-12-1975" do
         Timecop.freeze(Date.parse("01-01-2016"))
         @member.date_of_birth = Date.parse("1975-12-31")
-        expect(@member.tanzeem).to eq('Nasir')
+        expect(@member.tanzeem).to eq('Ansar')
       end
 
-      it "not should return 'Nasir' if member turn 40 on 01-01-2016" do
+      it "not should return 'Ansar' if member turn 40 on 01-01-2016" do
         Timecop.freeze(Date.parse("31-12-2015"))
         @member.date_of_birth = Date.parse("1976-01-01")
-        expect(@member.tanzeem).not_to eq('Nasir')
+        expect(@member.tanzeem).not_to eq('Ansar')
       end
     end
 

@@ -26,6 +26,11 @@ m2 = Member.create(last_name: 'Malik', first_name: 'Ishtiaq', wassiyyat: true,
                    plz: 64295, mobile_no: '01706582200', landline: '061516607247',
                    occupation: 'Selbsständig', email: 'info@automalik.de', aims_id: 14642)
 
+m2 = Member.create(last_name: 'Malik', first_name: 'Amaan', wassiyyat: false,
+                   date_of_birth: '2005-08-16', street: 'Fünkirchner Straße 25', city: 'Darmstadt',
+                   plz: 64295, landline: '061516607247',
+                   occupation: 'Schüler', aims_id: 999)
+
 # ========= CREATE MEMBERS INCOME
 Income.create(starting_date: '2015-01-01', member_id: '14649', amount: 1000)
 Income.create(starting_date: '2015-01-01', member_id: '14642', amount: 2500)

@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @members = Member.all.order(:last_name, :first_name)
