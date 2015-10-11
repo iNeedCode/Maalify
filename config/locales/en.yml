@@ -48,6 +48,7 @@ en:
     landline: "Landline"
     mobile_no: "Mobil No."
     occupation: "Occupation"
+    tanzeem: "Tanzeem"
   view:
     save: "Save"
     show: "Show"
