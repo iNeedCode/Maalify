@@ -12,14 +12,14 @@
   .form-group
     = f.label :budget
     = f.check_box :budget, :class => "form-control"
-  .form-group
+  .form-group#formula_fields
     = f.label :formula
     = f.text_field :formula, :class => "form-control"
-  .form-group
+  .form-group#minimum_budget_fields
     = f.label :minimum_budget
     = f.text_field :minimum_budget, :class => "form-control"
   .form-group
     = f.label :organization
-    = f.text_field :organization, :class => "form-control"
+    = f.select :organization, %w(Khuddam Atfal Ansar All Lajna Nasirat), :class => "form-control"
   .actions
     = f.submit t('view.save'), :class => "btn btn-success"
