@@ -185,7 +185,7 @@ class Budget < ActiveRecord::Base
   end
 
   def no_budget_range_from_the_same_donation_type_is_avaiable
-    all_budgets = Budget.where(donation: self.donation)
+    all_budgets = Budget.where(donation: self.donation ,member: self.member)
     return true if all_budgets.nil? || all_budgets.empty?
     already_exist = all_budgets.select do |b|
       (b.start_date > start_date && b.end_date < end_date) ||

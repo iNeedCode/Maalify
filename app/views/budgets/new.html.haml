@@ -15,7 +15,7 @@
   .field.form-group
     = f.label :donation_id, class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.collection_select(:donation_id, Donation.all, :id, :name)
+      = f.collection_select(:donation_id, Donation.all, :id, :name, prompt: true)
   .field.form-group
     = f.label :start_date, class: 'col-sm-2 control-label'
     %div.col-sm-8
@@ -31,4 +31,5 @@
 
   .actions.col-md-offset-2
     = f.submit t('view.budget.calculate'), class: 'btn btn-primary'
-    = link_to t('view.back'), budgets_path, class: 'btn btn-default'
+    %br
+    = link_to t('view.back'), budgets_path, class: 'btn btn-default btn-xs'

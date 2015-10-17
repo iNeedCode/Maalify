@@ -1,11 +1,11 @@
 .well
-  %h2= @budgets_preview[0].title
-  = "#{@budgets_preview[0].donation.name}"
+  %h2= @budget_previews[0].title
+  = "#{@budget_previews[0].donation.name}"
   %br
-  = "#{@budgets_preview[0].start_date} - #{@budgets_preview[0].end_date}"
+  = "#{@budget_previews[0].start_date} - #{@budget_previews[0].end_date}"
 
 = form_tag({controller: "budgets", action: "create"}, method: "post", class: "form-horizontal") do
-  - @budgets_preview.each_with_index do |budget,i|
+  - @budget_previews.each_with_index do |budget,i|
     .col-sm-12
 
       = hidden_field_tag "budgets[#{i}][title]", budget.title
@@ -25,5 +25,5 @@
   .field.form-group.col-sm-5
     = submit_tag t('view.save'), class: 'btn btn-primary'
     %br
-    = link_to 'Back', :back
+    = link_to t('view.back'), :back, class: 'btn btn-default btn-xs'
 
