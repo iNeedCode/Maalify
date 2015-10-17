@@ -3,15 +3,6 @@ require 'awesome_print'
 
 RSpec.describe Member, :type => :model do
 
-  before(:suite) do
-    Donation.create name: "Majlis Khuddam", budget: true, organization: "Khuddam", formula: '0,01*12'
-    Donation.create name: "ijtema Khuddam", budget: true, organization: "Khuddam", formula: '0,025'
-    Donation.create name: "Ishaat Khuddam", budget: false, organization: "Khuddam", formula: '3'
-    Donation.create name: "Majlis Atfal", budget: false, organization: "Atfal", formula: '13'
-    Donation.create name: "Ijtema Atfal", budget: false, organization: "Atfal", formula: '6'
-    Donation.create name: "Ijtema Ansar", budget: false, organization: "Ansar", formula: '6'
-  end
-
   describe 'validation rules that are used for the member' do
 
     before(:each) do
@@ -45,28 +36,40 @@ RSpec.describe Member, :type => :model do
   describe 'List of possible Donation Types Method' do
 
     before(:each) do
+      @d1 = Donation.create name: "Majlis Khuddam", budget: true, organization: "Khuddam", formula: '0.01*12'
+      @d2 = Donation.create name: "ijtema Khuddam", budget: true, organization: "Khuddam", formula: '0.025'
+      @d3 = Donation.create name: "Ishaat Khuddam", budget: false, organization: "Khuddam", formula: '3'
+      @d4 = Donation.create name: "Majlis Atfal", budget: false, organization: "Atfal", formula: '13'
+      @d5 = Donation.create name: "Ijtema Atfal", budget: false, organization: "Atfal", formula: '6'
+      @d6 = Donation.create name: "Ijtema Ansar", budget: false, organization: "Ansar", formula: '6'
       @member = FactoryGirl.create(:member)
+      @member_atfal = FactoryGirl.create(:member, aims_id: 232323)
+      @member_ansar = FactoryGirl.create(:member, aims_id: 123123)
+      Income.create(amount: 1000, starting_date: "2014-01-03", member: @member)
+      Income.create(amount: 1000, starting_date: "2014-01-03", member: @member_atfal)
+      Income.create(amount: 1000, starting_date: "2014-01-03", member: @member_ansar)
+      Budget.create(title: "MKAD-14-15 majlis ", start_date: "2014-11-01", end_date: "2015-10-30", member: @member, donation: @d1)
+      Budget.create(title: "MKAD-14-15 ijtema", start_date: "2014-11-01", end_date: "2015-10-30", member: @member, donation: @d2)
+      Budget.create(title: "MKAD-14-15 ansar ijtema", start_date: "2014-11-01", end_date: "2015-10-30", member: @member_ansar, donation: @d6)
+      Budget.create(title: "MKAD-14-15 atfal ijtema", start_date: "2014-11-01", end_date: "2015-10-30", member: @member_atfal, donation: @d5)
     end
 
     it "should return only 'Khuddam' Donation types" do
       Timecop.freeze(Date.parse("01-05-2015")) # freeze Date to 01.05.2015
       @member.date_of_birth = Date.parse("1998-01-01")
-      d = Donation.where(organization: 'Khuddam')
-      expect(@member.list_of_possible_donation_types).to eq(d)
+      expect(@member.list_of_possible_donation_types.size).to eql(2)
     end
 
     it "should return only 'Atfal' Donation types" do
       Timecop.freeze(Date.parse("01-11-2015"))
-      @member.date_of_birth = "2000-11-01"
-      d = Donation.where(organization: 'Atfal')
-      expect(@member.list_of_possible_donation_types).to eq(d)
+      @member_atfal.date_of_birth = "2000-11-01"
+      expect(@member_atfal.list_of_possible_donation_types.size).to eql(1)
     end
 
     it "should return only 'Ansar' Donation types" do
       Timecop.freeze(Date.parse("01-11-2015"))
-      @member.date_of_birth = "1948-11-01"
-      d = Donation.where(organization: 'Ansar')
-      expect(@member.list_of_possible_donation_types).to eq(d)
+      @member_ansar.date_of_birth = "1948-11-01"
+      expect(@member_ansar.list_of_possible_donation_types.size).to eql(1)
     end
 
   end

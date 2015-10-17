@@ -1,7 +1,7 @@
 class Member < ActiveRecord::Base
 
 # Assoziations
-  has_many :incomes, -> {order "starting_date ASC"}
+  has_many :incomes, -> { order "starting_date ASC" }
   has_many :receipts
   has_many :budgets
   has_many :donations, through: :budgets
@@ -46,16 +46,13 @@ class Member < ActiveRecord::Base
   end
 
   def list_of_possible_donation_types
-    Donation.where(organization: tanzeem)
+    Budget.where(member_id: self.id).order(:end_date).map(&:donation)
   end
 
   private
   def at_least_one_communication_chanel_is_given
     if (email.nil? && landline.nil? && mobile_no.nil?)
       errors.add(:member, "You have to specify at least one communication chanel")
-      false
-    else
-      true
     end
   end
 

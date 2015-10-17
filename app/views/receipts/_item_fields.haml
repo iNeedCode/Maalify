@@ -3,7 +3,7 @@
   = f.label :amount
   = f.number_field :amount
   = f.label :donation_id
-  = f.collection_select :donation_id, Donation.all, :id, :name, prompt: true
+  = f.collection_select :donation_id, @receipt.member.list_of_possible_donation_types, :id, :name, prompt: true
   = f.hidden_field :_destroy
 
   = link_to '#', class: 'btn btn-sm btn-danger remove_fields', title: "#{t('table.delete')}" do
