@@ -11,16 +11,16 @@ class BudgetsController < ApplicationController
   def preview
     @budgets_preview = []
     @member_ids = budget_params[:member_id].reject { |m| m.empty? }
+    redirect_to :back, :flash => { :error => 'Select at least one member.' } if @member_ids.empty?
 
     @member_ids.each do |member_id|
       b = Budget.new(budget_params)
       b.member_id = member_id
       b.calculate_budget
       b.transfer_old_remaining_promise_to_current_budget
+      redirect_to :back, :flash => { :error => "#{b.member.full_name} => #{b.errors.full_messages}" } unless b.valid?
       @budgets_preview << b
     end
-
-    respond_with(@budget)
   end
 
   def show

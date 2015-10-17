@@ -11,11 +11,11 @@
   .field.form-group
     = f.label :title, class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.text_field :title, class: 'form-control', value: 'MKAD 2015-16'
+      = f.text_field :title, class: 'form-control'
   .field.form-group
     = f.label :donation_id, class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.collection_select(:donation_id, Donation.all, :id, :name, prompt: true)
+      = f.collection_select(:donation_id, Donation.all, :id, :name)
   .field.form-group
     = f.label :start_date, class: 'col-sm-2 control-label'
     %div.col-sm-8
