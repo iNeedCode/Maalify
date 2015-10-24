@@ -24,6 +24,13 @@ $(document).on 'ready page:load', ->
           options += "<option value='#{data[key].id}'> #{data[key].full_name}</option> "
       $("#budget_member_id").html(options)
       $('#budget_member_id').multiselect('rebuild');
+
+      param = location.search
+      if param != ""
+        myRegexp = /_id=(.*)/
+        member_id_param = param.match(myRegexp)[1]
+        $('#budget_member_id').multiselect('select', [member_id_param])
+
       if options != ""
         $("#member_select_fields").show()
       return
