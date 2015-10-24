@@ -185,12 +185,14 @@ class Budget < ActiveRecord::Base
   end
 
   def no_budget_range_from_the_same_donation_type_is_avaiable
-    all_budgets = Budget.where(donation: self.donation ,member: self.member)
+    all_budgets = Budget.where(donation: self.donation, member: self.member)
     return true if all_budgets.nil? || all_budgets.empty?
     already_exist = all_budgets.select do |b|
-      (b.start_date > start_date && b.end_date < end_date) ||
-          ((b.start_date..b.end_date).to_a.include? start_date) ||
-          ((b.start_date..b.end_date).to_a.include? end_date)
+      unless self.id == b.id
+        (b.start_date > start_date && b.end_date < end_date) ||
+            ((b.start_date..b.end_date).to_a.include? start_date) ||
+            ((b.start_date..b.end_date).to_a.include? end_date)
+      end
     end
     if !already_exist.nil? && !already_exist.empty?
       errors.add(:budget, "budget time range already exists for #{self.donation.name}")

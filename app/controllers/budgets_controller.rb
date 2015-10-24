@@ -63,7 +63,7 @@ class BudgetsController < ApplicationController
   end
 
   def update
-    @budget.update(budget_params)
+    flash[:notice] = 'Member was successfully updated.' if @budget.update(budget_params)
     respond_with(@budget)
   end
 

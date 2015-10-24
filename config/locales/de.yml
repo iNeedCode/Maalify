@@ -55,6 +55,7 @@ de:
       title: "Budget"
       new: "Neues Budget"
       calculate: "Berechnen"
+      edit: "Budget bearbeiten"
   date:
     abbr_day_names:
     - So

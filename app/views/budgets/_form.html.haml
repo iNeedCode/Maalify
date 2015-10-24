@@ -6,6 +6,8 @@
         - @budget.errors.full_messages.each do |msg|
           %li= msg
 
+  %h3= @budget.member.full_name
+
   .field
     = f.label :title
     = f.text_field :title
@@ -13,18 +15,15 @@
     = f.label :promise
     = f.number_field :promise
   .field
+    = f.label :rest_promise_from_past_budget
+    = f.number_field :rest_promise_from_past_budget
+  .field
     = f.label :start_date
     = f.date_select :start_date
   .field
     = f.label :end_date
     = f.date_select :end_date
-  .field
-    = f.label :member
-    = f.collection_select(:member_id, Member.all, :id, :full_name, {}, {:multiple => true})
-  .field
-    = f.label :donation_id
-    = f.collection_select(:donation_id, Donation.all, :id, :name, prompt: true)
 
-  -#= f.text_field :donation
+
   .actions
-    = f.submit 'Save'
+    = f.submit t('view.save'), :class => "btn btn-success"

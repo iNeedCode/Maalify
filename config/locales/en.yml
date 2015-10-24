@@ -71,6 +71,7 @@ en:
       title: "Budget"
       new: "New Budget"
       calculate: "Calculate"
+      edit: "Edit budget"
   donation:
     formula: "Formula"
     organization: "Organization"

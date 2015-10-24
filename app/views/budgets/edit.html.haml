@@ -1,7 +1,8 @@
-%h1 Editing budget
+%h1
+  = t('view.budget.edit')
+  %small= @budget.title
 
 = render 'form'
 
-= link_to 'Show', @budget
-\|
-= link_to 'Back', budgets_path
+= link_to t('view.show'), @budget, :class => "btn btn-default btn-xs"
+= link_to t('view.back'), budgets_path, :class => "btn btn-default btn-xs"
