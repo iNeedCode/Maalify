@@ -1,24 +1,27 @@
 %p#notice= notice
 
 %p
-  %b Title:
+  %b= t('view.budget.title')
   = @budget.title
 %p
-  %b Promise:
-  = @budget.promise
+  %b= t('budget.promise')
+  = number_to_currency(@budget.promise, locale: :de)
 %p
-  %b Start date:
-  = @budget.start_date
+  %b= t('budget.rest_promise_from_past_budget')
+  = number_to_currency(@budget.rest_promise_from_past_budget, locale: :de)
 %p
-  %b End date:
-  = @budget.end_date
+  %b= t('budget.start_date')
+  = @budget.start_date.strftime("%d. %b %Y")
 %p
-  %b Member:
-  = @budget.member
+  %b= t('budget.end_date')
+  = @budget.end_date.strftime("%d. %b %Y")
 %p
-  %b Donation:
-  = @budget.donation
+  %b= t('member.full_name')
+  = @budget.member.full_name
+%p
+  %b= t('donation.name')
+  = @budget.donation.name
 
-= link_to 'Edit', edit_budget_path(@budget)
+= link_to t('view.edit'), edit_budget_path(@budget), class: 'btn btn-primary'
 \|
-= link_to 'Back', budgets_path
+= link_to t('view.back'), budgets_path, class: 'btn btn-default'

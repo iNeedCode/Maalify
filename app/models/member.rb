@@ -49,6 +49,10 @@ class Member < ActiveRecord::Base
     Budget.where(member_id: self.id).order(:end_date).map(&:donation)
   end
 
+  def self.list_available_budgets
+    all_budget = Budget.select(:start_date, :end_date, :title).distinct(:title)
+  end
+
   private
   def at_least_one_communication_chanel_is_given
     if (email.nil? && landline.nil? && mobile_no.nil?)

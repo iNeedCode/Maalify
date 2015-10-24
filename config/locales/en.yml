@@ -49,6 +49,7 @@ en:
     mobile_no: "Mobil No."
     occupation: "Occupation"
     tanzeem: "Tanzeem"
+    full_name: "Name"
   view:
     save: "Save"
     show: "Show"
@@ -58,6 +59,7 @@ en:
     member:
       new: "Add Member"
       title: "Members"
+      select_budget_box: "Select a Budget to add this Member"
     receipt:
       edit: "Edit receipt"
       new: "Add receipt"   
@@ -78,3 +80,5 @@ en:
   budget:
     promise: "promise"
     rest_promise_from_past_budget: "Rest from previous year"
+    end_date: "End date"
+    start_date: "start date"

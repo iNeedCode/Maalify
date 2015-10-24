@@ -28,6 +28,7 @@ de:
     mobile_no: "Mobilnummer"
     occupation: "Tätigkeit"
     tanzeem: "Tanzeem"
+    full_name: "Name"
   view:
     save: "Sichern"
     show: "Anzeigen"
@@ -38,6 +39,7 @@ de:
       edit: "Mitglied bearbeiten"
       new: "Mitglied hinzufügen"   
       title: "Mitglieder"
+      select_budget_box: "Füge dieses Mitglied zu einem Budget hinzu"
     income:
       new: "Einkommen hinzufügen"    
       title: "Einkommen"
@@ -262,3 +264,5 @@ de:
   budget:
     promise: "Versprechen"
     rest_promise_from_past_budget: "Rest aus Vorjahr"
+    end_date: "Enddatum"
+    start_date: "Beginndatum"

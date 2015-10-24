@@ -14,7 +14,7 @@ $(document).on 'ready page:load', ->
     dom: 'C<"clear">lfrtip'
 
   $('#budget_member_id').multiselect();
-  $("#member_select_fields").hide()
+  $("#member_select_fields").hide() if $("#budget_donation_id").val() == ""
 
   FilterMembers = (organization) ->
     $.get "/members.json", (data) ->
@@ -29,10 +29,19 @@ $(document).on 'ready page:load', ->
       return
     return
 
-
   $("#budget_donation_id").change ->
     $('#budget_member_id').hide().empty().multiselect('rebuild')
     donation_id = $("#budget_donation_id option:selected").val()
     $.get "/donations/#{donation_id}.json", (data) ->
       FilterMembers data.organization
       return
+
+  $("#budget_donation_id").trigger("change");
+  $("#budget_selector_for_member").change ->
+    numberPattern = /\d+/g;
+    budget_title = this.options[this.selectedIndex].value
+    member_id = location.pathname.match(numberPattern).toString()
+    console.log(location.pathname)
+    window.location.href = Routes.new_with_parameter_budgets_path(
+      'budget_title': budget_title,
+      'member_id': member_id)

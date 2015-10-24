@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :budgets do
     post :preview, on: :new
+    get :new_with_parameter, on: :collection
   end
 
   resources :donations
@@ -11,8 +12,8 @@ Rails.application.routes.draw do
 
 
   resources :members do
-		resources :incomes
-		resources :receipts
+    resources :incomes
+    resources :receipts
   end
 
   root to: 'visitors#index'

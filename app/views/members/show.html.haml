@@ -16,7 +16,7 @@
   = @member.wassiyyat
 %p
   %b= t('member.date_of_birth')
-  = @member.date_of_birth
+  = @member.date_of_birth.strftime("%d. %b %Y")
 %p
   %b= t('member.street')
   = @member.street
@@ -52,5 +52,9 @@
       %span.glyphicon.glyphicon-tasks
         = t('view.receipt.title')
 
-= link_to 'Edit', edit_member_path(@member), :class => "btn btn-default btn-xs"
-= link_to 'Back', members_path, :class => "btn btn-default btn-xs"
+  = collection_select(:budget, :selector_for_member, Member.list_available_budgets,:title, :title,
+    options= {prompt: t('view.member.select_budget_box')}, html_options= {class: "btn btn-default"})
+
+
+= link_to t('view.edit'), edit_member_path(@member), :class => "btn btn-default btn-xs"
+= link_to t('view.back'), members_path, :class => "btn btn-default btn-xs"

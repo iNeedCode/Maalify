@@ -19,6 +19,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
 gem 'bootstrap-multiselect-rails'
+gem "js-routes"
 group :development do
   gem 'awesome_print'
   gem 'better_errors'

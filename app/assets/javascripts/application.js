@@ -19,6 +19,7 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require bootstrap-multiselect
+//= require js-routes
 //= require_tree .
 
 

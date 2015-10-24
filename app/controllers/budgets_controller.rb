@@ -8,6 +8,14 @@ class BudgetsController < ApplicationController
     respond_with(@budgets)
   end
 
+  def new_with_parameter
+    @budget = Budget.where(title: params[:budget_title]).first
+    @budget.member_id = params[:member_id]
+    ap @budget
+    ap params
+    render :new
+  end
+
   def preview
     @budget_previews = []
     @member_ids = budget_params[:member_id].reject { |m| m.empty? }
