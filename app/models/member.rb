@@ -49,11 +49,23 @@ class Member < ActiveRecord::Base
     Budget.where(member_id: self.id).order(:end_date).map(&:donation)
   end
 
-  def self.list_available_budgets
-    all_budget = Budget.select(:start_date, :end_date, :title).distinct(:title)
+  def list_available_budgets
+    all_budget = Budget.select(:start_date, :end_date, :title, :donation_id).distinct(:title)
+    budgets_of_member_title = budgets_of_member.map(&:title)
+    budget_from_same_organization = all_budget.select do |budget|
+      if (budget.donation.organization == self.tanzeem or budget.donation.organization == "all") and !budgets_of_member_title.include?(budget.title)
+        budget
+      end
+    end
+    budget_from_same_organization
+  end
+
+  def budgets_of_member
+    Budget.where(member: self)
   end
 
   private
+
   def at_least_one_communication_chanel_is_given
     if (email.nil? && landline.nil? && mobile_no.nil?)
       errors.add(:member, "You have to specify at least one communication chanel")

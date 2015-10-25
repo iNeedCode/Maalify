@@ -33,7 +33,7 @@ RSpec.describe Member, :type => :model do
 
   end
 
-  describe 'List of possible Donation Types Method' do
+  describe "Tests for the Method 'list_of_possible_donation_types' and 'list_available_budgets'" do
 
     before(:each) do
       @d1 = Donation.create name: "Majlis Khuddam", budget: true, organization: "Khuddam", formula: '0.01*12'
@@ -43,13 +43,17 @@ RSpec.describe Member, :type => :model do
       @d5 = Donation.create name: "Ijtema Atfal", budget: false, organization: "Atfal", formula: '6'
       @d6 = Donation.create name: "Ijtema Ansar", budget: false, organization: "Ansar", formula: '6'
       @member = FactoryGirl.create(:member)
+      @member1 = FactoryGirl.create(:member, aims_id: 999)
       @member_atfal = FactoryGirl.create(:member, aims_id: 232323)
       @member_ansar = FactoryGirl.create(:member, aims_id: 123123)
       Income.create(amount: 1000, starting_date: "2014-01-03", member: @member)
+      Income.create(amount: 1000, starting_date: "2014-01-03", member: @member1)
       Income.create(amount: 1000, starting_date: "2014-01-03", member: @member_atfal)
       Income.create(amount: 1000, starting_date: "2014-01-03", member: @member_ansar)
-      Budget.create(title: "MKAD-14-15 majlis ", start_date: "2014-11-01", end_date: "2015-10-30", member: @member, donation: @d1)
+      Budget.create(title: "MKAD-14-15 majlis", start_date: "2014-11-01", end_date: "2015-10-30", member: @member, donation: @d1)
       Budget.create(title: "MKAD-14-15 ijtema", start_date: "2014-11-01", end_date: "2015-10-30", member: @member, donation: @d2)
+      Budget.create(title: "MKAD-14-15 majlis", start_date: "2014-11-01", end_date: "2015-10-30", member: @member1, donation: @d1)
+      Budget.create(title: "MKAD-14-15 Ishaat", start_date: "2014-11-01", end_date: "2015-10-30", member: @member1, donation: @d3)
       Budget.create(title: "MKAD-14-15 ansar ijtema", start_date: "2014-11-01", end_date: "2015-10-30", member: @member_ansar, donation: @d6)
       Budget.create(title: "MKAD-14-15 atfal ijtema", start_date: "2014-11-01", end_date: "2015-10-30", member: @member_atfal, donation: @d5)
     end
@@ -71,6 +75,22 @@ RSpec.describe Member, :type => :model do
       @member_ansar.date_of_birth = "1948-11-01"
       expect(@member_ansar.list_of_possible_donation_types.size).to eql(1)
     end
+
+    it "should return only DISTINCT title Budgets" do
+      expect(@member.list_available_budgets.size).to eql(1)
+      Budget.create(title: "MKAD-15-16 majlis", start_date: "2015-11-01", end_date: "2016-10-30", member: @member1, donation: @d1)
+      expect(@member.list_available_budgets.size).to eql(2)
+    end
+
+    it "should return only DISTINCT Budgets and from the same organization" do
+      Budget.create(title: "MKAD-14-15 majlis", start_date: "2014-11-01", end_date: "2015-10-30", member: @member1, donation: @d2) # same title, but other donation type
+      expect(@member.list_available_budgets.length).to eql(1)
+    end
+
+    it "should return only DISTINCT Budgets and from the same organization without were the member is already participating" do
+      expect(@member.list_available_budgets.length).to eql(1)
+    end
+
 
   end
 
