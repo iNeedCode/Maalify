@@ -1,6 +1,6 @@
 %h1= t('view.budget.title')
 
-= form_for @budget, url: {action: "preview"}, html: {class: 'form-horizontal'} do |f|
+= form_for @budget, url: {controller: 'budgets', action: 'preview'}, method: "post", html: {class: 'form-horizontal'} do |f|
   - if @budget.errors.any?
     #error_explanation
       %h2= "#{pluralize(@budget.errors.count, "error")} prohibited this budget from being saved:"
