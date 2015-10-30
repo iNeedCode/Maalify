@@ -8,20 +8,26 @@
   - @budget_previews.each_with_index do |budget,i|
     .col-sm-12
 
-      = hidden_field_tag "budgets[#{i}][title]", budget.title
-      = hidden_field_tag "budgets[#{i}][start_date]", budget.start_date
-      = hidden_field_tag "budgets[#{i}][end_date]", budget.end_date
-      = hidden_field_tag "budgets[#{i}][member_id]", budget.member_id
-      = hidden_field_tag "budgets[#{i}][donation_id]", budget.donation_id
       %h3= budget.member.full_name
+      %div{"data-member-preview-#{i}": "member-preview-#{i}"}
+        = hidden_field_tag "budgets[#{i}][title]", budget.title
+        = hidden_field_tag "budgets[#{i}][start_date]", budget.start_date
+        = hidden_field_tag "budgets[#{i}][end_date]", budget.end_date
+        = hidden_field_tag "budgets[#{i}][member_id]", budget.member_id
+        = hidden_field_tag "budgets[#{i}][donation_id]", budget.donation_id
+        .form-group
+          = label_tag '', t('budget.promise'), class: 'col-sm-2 control-label', for: "budgets_#{i}_promise"
+          .col-sm-10
+            = text_field_tag "budgets[#{i}][promise]", budget.promise, class: 'form-control'
+        .form-group
+          = label_tag '', t('budget.rest_promise_from_past_budget'), class: 'col-sm-2 control-label', for: "budgets_#{i}_rest_promise_from_past_budget"
+          .col-sm-10
+            = text_field_tag "budgets[#{i}][rest_promise_from_past_budget]", budget.rest_promise_from_past_budget, class: 'form-control'
       .form-group
-        = label_tag '', t('budget.promise'), class: 'col-sm-2 control-label', for: "budgets_#{i}_promise"
+        = label_tag '', t('budget.none_payer'), class: 'col-sm-2 control-label', for: "budgets_#{i}_none_payer"
         .col-sm-10
-          = text_field_tag "budgets[#{i}][promise]", budget.promise, class: 'form-control'
-      .form-group
-        = label_tag '', t('budget.rest_promise_from_past_budget'), class: 'col-sm-2 control-label', for: "budgets_#{i}_promise"
-        .col-sm-10
-          = text_field_tag "budgets[#{i}][rest_promise_from_past_budget]", budget.rest_promise_from_past_budget, class: 'form-control'
+          = check_box_tag "budgets_#{i}_none_payer", 'yes', false, class: 'btn none_payer_check_box',
+            data: {"member-preview": "member-preview-#{i}", "promise": "budgets_#{i}_promise", 'rest_promise_from_past_budget': "budgets_#{i}_rest_promise_from_past_budget" }
   .field.form-group.col-sm-5
     = submit_tag t('view.save'), class: 'btn btn-primary'
     %br

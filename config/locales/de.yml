@@ -267,3 +267,4 @@ de:
     rest_promise_from_past_budget: "Rest aus Vorjahr"
     end_date: "Enddatum"
     start_date: "Beginndatum"
+    none_payer: "Nicht zahlender"

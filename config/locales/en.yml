@@ -83,3 +83,4 @@ en:
     rest_promise_from_past_budget: "Rest from previous year"
     end_date: "End date"
     start_date: "start date"
+    none_payer: "None payer"

@@ -52,3 +52,27 @@ $(document).on 'ready page:load', ->
     window.location.href = Routes.new_with_parameter_budgets_path(
       'budget_title': budget_title,
       'member_id': member_id)
+
+
+  $(".none_payer_check_box").change ->
+    fieldMemberData = $(this).data("member-preview")
+    fieldPromiseId = $(this).data("promise")
+    fieldRestPromiseId = $(this).data("rest-promise-from-past-budget")
+    fieldMember = $("div").find("\[data-#{fieldMemberData}=#{fieldMemberData}\]")[0]
+    fieldMemberWrap = $("div").find("\[data-#{fieldMemberData}=#{fieldMemberData}\]")
+
+    if ( this.checked )
+      fieldMemberWrap.hide()
+      fieldPromiseValue = $("#" + fieldPromiseId).val()
+      fieldRestPromiseValue = $("#" + fieldRestPromiseId).val()
+      $.data(fieldMember, "fieldPromiseValue", fieldPromiseValue)
+      $.data(fieldMember, "fieldRestPromiseValue", fieldRestPromiseValue)
+      $("#" + fieldPromiseId).val(0)
+      $("#" + fieldRestPromiseId).val(0)
+    else
+      fieldMemberWrap.show()
+      fieldPromiseValue = $.data(fieldMember, "fieldPromiseValue")
+      fieldRestPromiseValue = $.data(fieldMember, "fieldRestPromiseValue")
+      $("#" + fieldPromiseId).val(fieldPromiseValue)
+      $("#" + fieldRestPromiseId).val(fieldRestPromiseValue)
+
