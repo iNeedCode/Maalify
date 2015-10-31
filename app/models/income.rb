@@ -7,13 +7,12 @@ class Income < ActiveRecord::Base
   validates_presence_of :amount, :starting_date
   validate :newly_added_income_is_also_the_newest?
 
-# Callbacks
-# TODO: http://ruby-journal.com/how-to-track-changes-with-after-callbacks-in-rails-3-or-newer/
-#after_create :calculate_budget
-
 # Methods
-  def calculate_budget
-    member.budgets.all.each { |b| b.calculate_budget }
+  def recalculate_budget
+    member.budgets.all.each do |b|
+      b.calculate_budget
+      b.save
+    end
   end
 
 private

@@ -22,13 +22,17 @@ class IncomesController < ApplicationController
   end
 
   def create
+    ap params
     @income = member.incomes.new(income_params)
     flash[:notice] = 'Income was successfully created.' if @income.save
+    @income.recalculate_budget if (params[:recalculate] == "true")
     respond_with(@income.member, @income)
   end
 
   def update
     flash[:notice] = 'Income was successfully updated.' if @income.update(income_params)
+    @income.recalculate_budget if (params[:recalculate] == "true")
+
     respond_with(@income.member, @income)
   end
 
@@ -49,6 +53,6 @@ private
     end
 
     def income_params
-      params.require(:income).permit(:amount, :starting_date, :member_id)
+      params.require(:income).permit(:amount, :starting_date, :member_id, :recalculate)
     end
 end

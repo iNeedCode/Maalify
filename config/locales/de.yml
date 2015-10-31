@@ -6,6 +6,7 @@ de:
   income:
     amount: "Betrag"
     starting_date: "Beginn"
+    recalculate_budget: "Budgets new berechnen"
   receipt:
     date: "Datum"
     id: "Belegnummer"  

@@ -26,7 +26,8 @@ en:
     delete: "Delete"
   income:
     amount: "Amount"
-    starting_date: "As of"    
+    starting_date: "As of"
+    recalculate_budget: "Calculate budget again"
   receipt:
     date: "Date"
     id: "Receipt number"  

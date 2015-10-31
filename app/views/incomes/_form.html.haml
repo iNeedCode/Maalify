@@ -14,4 +14,8 @@
     %br
     = f.date_select :starting_date, :discard_day => true, :start_year => Date.today.year-1, :class => "form-control"
   .form-group
+    = label_tag :recalculate, t('income.recalculate_budget')
+    = hidden_field_tag :recalculate, false
+    = check_box_tag :recalculate, true, {checked: "checked"}
+  .form-group
     = f.submit t('view.save'), :class => "btn btn-success"
