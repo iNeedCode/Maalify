@@ -5,8 +5,8 @@ class Budget < ActiveRecord::Base
   belongs_to :donation
 
 # Validations
+# validate :validate_income_before_starting_of_budget_date_exist, if: :budget_based_donation? # not be valid anymore
   validates_presence_of :title, :donation, :member, :start_date, :end_date
-  validate :validate_income_before_starting_of_budget_date_exist, if: :budget_based_donation?
   validate :no_budget_range_from_the_same_donation_type_is_avaiable
   validate :start_date_before_end_date?
   validates :promise, numericality: {only_integer: true, greater_than: -1}
@@ -32,10 +32,11 @@ class Budget < ActiveRecord::Base
       total_budget = 0
       total_days_of_budget = (end_date - start_date+1).to_f
 
-      if incomes.size == 1
+      if (incomes.size == 0)
+        total_budget = donation.minimum_budget
+      elsif (incomes.size == 1)
         total_budget = calculator.evaluate("#{donation.formula} * #{incomes.first.amount}").to_i
-      else
-        incomes.size > 1
+      elsif (incomes.size > 1)
         incomes.each_with_index do |inc, i|
           next_income_date = incomes[i+1].nil? ? end_date : incomes[i+1].starting_date
           if start_date > inc.starting_date
@@ -89,7 +90,12 @@ class Budget < ActiveRecord::Base
       latest_income_before_start_date = member.incomes.select { |inc| inc.starting_date < start_date }.max
       incomes_during_budget_range << latest_income_before_start_date
     end
-    incomes_during_budget_range.sort_by &:starting_date
+
+    if incomes_during_budget_range.first.nil?
+      return [];
+    else
+      return incomes_during_budget_range.sort_by &:starting_date
+    end
   end
 
 # Public: Get all receipt items from the budget period for all members.

@@ -49,11 +49,6 @@ RSpec.describe Budget, :type => :model do
       expect(@budget.member.incomes.size).to eq(2)
     end
 
-    it "should fail if there no income before the budget starting data" do
-      @member.incomes[0].starting_date = "2015-01-01"
-      expect(@budget).to_not be_valid
-    end
-
     it 'should get all incomes which are in between of the start_date and end_date' do
       @member.incomes << [Income.new(starting_date: '2015-01-01', amount: 1200, member: @member),
                           Income.new(starting_date: '2015-04-01', amount: 1400, member: @member)]
@@ -69,6 +64,18 @@ RSpec.describe Budget, :type => :model do
       @donation = FactoryGirl.create(:majlis_khuddam_donation)
       @income = FactoryGirl.create(:income, member: @member)
       @budget = FactoryGirl.build(:budget, donation: @donation, member: @member)
+    end
+
+    it 'should pass if the budget based donation has no income for member, that should apply the minimum budget', focus: true , skip_before: true do
+      Member.delete_all
+      Donation.delete_all
+      Income.delete_all
+
+      member = FactoryGirl.create(:member)
+      donation = FactoryGirl.create(:majlis_khuddam_donation)
+      budget = FactoryGirl.create(:budget, donation: donation, member: member)
+
+      expect(budget.promise).to eq(36)
     end
 
     it 'should get an adapted promise for income change between the budget range', skip_before: true do
