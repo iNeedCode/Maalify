@@ -4,7 +4,8 @@ class BudgetsController < ApplicationController
   respond_to :html
 
   def index
-    @budgets = Budget.all
+    @budgets = Budget.all.order(:title)
+    @budget_overview = Budget.remaining_promise_for_whole_budget_title
     respond_with(@budgets)
   end
 

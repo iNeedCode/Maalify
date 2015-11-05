@@ -85,3 +85,4 @@ en:
     end_date: "End date"
     start_date: "start date"
     none_payer: "None payer"
+    remainingPromise: "Remaining"

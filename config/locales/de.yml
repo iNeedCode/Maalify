@@ -269,3 +269,4 @@ de:
     end_date: "Enddatum"
     start_date: "Beginndatum"
     none_payer: "Nicht zahlender"
+    remainingPromise: "Rest"
