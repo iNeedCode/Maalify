@@ -163,6 +163,38 @@ class Budget < ActiveRecord::Base
     (rest_promise_from_past_budget + promise) - paid
   end
 
+# Public: Get all budget title name distict
+#
+# Examples
+#
+#   Budget.find_distict_budget_names
+#   # => ["title 1","title 2"]
+#
+# Returns all receipt items in the budget period for A SPECIFIC member.
+  def self.find_distict_budget_names
+    Budget.select(:title).distinct(:title).map(&:title)
+  end
+
+  def self.remaining_promise_for_whole_budget_title
+    budget_names = Budget.find_distict_budget_names
+    all_budget_overview = []
+    budget_names.each do |budget_title|
+    total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0}
+      same_budgets = Budget.where(title: budget_title)
+      # debugger
+      total_sum_budget[:title] = budget_title
+
+      same_budgets.each do |budget|
+        # debugger
+        total_sum_budget[:promise] += budget.promise
+        total_sum_budget[:rest_promise_from_past_budget] += budget.rest_promise_from_past_budget
+        total_sum_budget[:remainingPromise] += budget.remainingPromiseCurrentBudget
+      end
+      all_budget_overview << total_sum_budget
+    end
+    all_budget_overview
+  end
+
   private
 
 # Public: Get budgets from the same member and donation type before the current budget model.

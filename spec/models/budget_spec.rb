@@ -66,7 +66,7 @@ RSpec.describe Budget, :type => :model do
       @budget = FactoryGirl.build(:budget, donation: @donation, member: @member)
     end
 
-    it 'should pass if the budget based donation has no income for member, that should apply the minimum budget', focus: true , skip_before: true do
+    it 'should pass if the budget based donation has no income for member, that should apply the minimum budget', skip_before: true do
       Member.delete_all
       Donation.delete_all
       Income.delete_all
@@ -257,6 +257,63 @@ RSpec.describe Budget, :type => :model do
       budget2.save
 
       expect(budget2.remainingPromiseCurrentBudget).to be(210)
+    end
+
+    it 'testing the remaining_promise_for_whole_budget_title method for overview of all available budgets' do
+      Donation.delete_all; Member.delete_all; Budget.delete_all
+      @member1 = FactoryGirl.create(:member, aims_id: "43210")
+      income = FactoryGirl.create(:income, member: @member1)
+      donation1 = FactoryGirl.create(:majlis_khuddam_donation)
+      @budget = FactoryGirl.build(:budget, donation: donation1, member: @member1)
+      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
+      receipt1.items << ReceiptItem.create!(id: 1, donation: donation1, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 2, donation: donation1, amount: 20, receipt_id: 2)
+      member3 = FactoryGirl.create(:member, aims_id: "987653")
+      member3.save
+
+      budget2 = FactoryGirl.build(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: @member1)
+
+      @budget.calculate_budget
+      budget2.calculate_budget
+      @budget.save
+      budget2.save
+
+      total_budgets = Budget.remaining_promise_for_whole_budget_title
+      expect(total_budgets.first[:title]).to eq("MKAD-2014-15")
+      expect(total_budgets.first[:promise]).to eq(120)
+      expect(total_budgets.first[:rest_promise_from_past_budget]).to eq(0)
+      expect(total_budgets.first[:remainingPromise]).to eq(90)
+
+      budget3 = FactoryGirl.build(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: member3)
+      budget3.calculate_budget
+      budget3.save
+
+      total_budgets = Budget.remaining_promise_for_whole_budget_title
+      expect(total_budgets.last[:title]).to eq("MKAD-2015-16")
+      expect(total_budgets.last[:promise]).to eq(156)
+      expect(total_budgets.last[:remainingPromise]).to eq(156)
+
+      receipt3 = Receipt.create!(id: 4, date: '2015-12-01', member: member3)
+      receipt3.items << ReceiptItem.create!(id: 3, donation: donation1, amount: 10, receipt_id: 1)
+
+
+      total_budgets = Budget.remaining_promise_for_whole_budget_title
+      expect(total_budgets.last[:title]).to eq("MKAD-2015-16")
+      expect(total_budgets.last[:promise]).to eq(156)
+      expect(total_budgets.last[:rest_promise_from_past_budget]).to eq(0)
+      expect(total_budgets.last[:remainingPromise]).to eq(146)
+    end
+
+    it 'should return distict Budget names of existing budgets in the database' do
+      FactoryGirl.create(:budget, donation_id: 1, member: @member2)
+      expect(Budget.find_distict_budget_names.size).to eq(1)
+      FactoryGirl.create(:budget, title: "other title", donation_id: 2, member: @member2)
+      expect(Budget.find_distict_budget_names.size).to eq(2)
+      FactoryGirl.create(:budget, title: "other title 1", donation_id: 2, member: @member1)
+      expect(Budget.find_distict_budget_names.size).to eq(3)
+      Budget.delete_all
+      expect(Budget.find_distict_budget_names.size).to eq(0)
     end
 
   end
