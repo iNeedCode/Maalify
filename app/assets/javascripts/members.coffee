@@ -12,3 +12,12 @@ $(document).on 'ready page:load', ->
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'
+
+  $('.datepicker-member').datepicker
+    format: "yyyy-mm-dd",
+    weekStart: 1,
+    endDate: "Date.today()",
+    startView: 2,
+    language: "de",
+    orientation: "bottom auto",
+    todayHighlight: true

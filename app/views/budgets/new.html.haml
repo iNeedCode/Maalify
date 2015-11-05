@@ -19,11 +19,11 @@
   .field.form-group
     = f.label :start_date, class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.date_select :start_date, :default => Date.parse("01/11/2015")
+      = f.text_field :start_date, class: "form-control datepicker"
   .field.form-group
     = f.label :end_date, class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.date_select :end_date, :default => Date.parse("31/10/2016")
+      = f.text_field :end_date, class: "form-control datepicker"
   .field.form-group#member_select_fields
     = f.label :member, class: 'col-sm-2 control-label'
     %div.col-sm-8

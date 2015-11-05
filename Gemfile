@@ -10,6 +10,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-datatables-rails', '~> 3.1.1'
 gem 'dentaku', '~> 1.2.6'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails', :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'

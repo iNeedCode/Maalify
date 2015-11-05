@@ -20,6 +20,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-multiselect
 //= require js-routes
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.de.js
 //= require_tree .
 
 
@@ -27,5 +29,16 @@ $(document).on('ready page:load', function() {
     $('a').tooltip({
     	'placement': 'left',
 			delay: { "show": 1, "hide": 100 }
+    });
+
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd",
+            weekStart: 1,
+            language: "de",
+            autoclose: true,
+            orientation: "bottom auto",
+            todayHighlight: true
+        });
     });
 });

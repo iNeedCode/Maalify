@@ -11,7 +11,7 @@
     = f.text_field :receipt_id, :class => "form-control"
   .form-group
     = f.label :date, t('receipt.date')
-    = f.date_select :date, :class => "form-control"
+    = f.text_field :date, :class => "form-control datepicker"
 
   = f.fields_for :items do |builder|
     = render 'item_fields', f: builder
