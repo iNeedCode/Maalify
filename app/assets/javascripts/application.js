@@ -26,10 +26,14 @@
 
 
 $(document).on('ready page:load', function() {
-    $('a').tooltip({
-    	'placement': 'left',
+
+    $('span').tooltip({
+    	'placement': 'right',
 			delay: { "show": 1, "hide": 100 }
     });
+
+    //https://silviomoreto.github.io/bootstrap-select/
+    $('.selectpicker').selectpicker();
 
     $(document).ready(function(){
         $('.datepicker').datepicker({

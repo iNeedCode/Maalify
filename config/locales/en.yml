@@ -31,7 +31,9 @@ en:
   receipt:
     date: "Date"
     id: "Receipt number"  
-    total: "Total"    
+    total: "Total"
+    amount: "Amount"
+    add_item: "Add item"
   member:
     last_name: "Lastname"
     first_name: "Firstname"
@@ -51,6 +53,7 @@ en:
     occupation: "Occupation"
     tanzeem: "Tanzeem"
     full_name: "Name"
+    current_budgets: "Current budgets"
   view:
     save: "Save"
     show: "Show"
@@ -79,6 +82,7 @@ en:
 
     budget: "Budget"
     name: "Chanda"
+    minimum: "Mininum promise"
   budget:
     promise: "promise"
     rest_promise_from_past_budget: "Rest from previous year"
@@ -86,3 +90,5 @@ en:
     start_date: "start date"
     none_payer: "None payer"
     remainingPromise: "Remaining"
+    elapsed_time: "elapsed time"
+    remaining_time: "remaining period"

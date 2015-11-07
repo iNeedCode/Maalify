@@ -11,6 +11,8 @@ de:
     date: "Datum"
     id: "Belegnummer"  
     total: "Summe"
+    amount: "Betrag"
+    add_item: "Betrag hinzufügen"
   member:
     last_name: "Nachname"
     first_name: "Vorname"
@@ -30,6 +32,7 @@ de:
     occupation: "Tätigkeit"
     tanzeem: "Tanzeem"
     full_name: "Name"
+    current_budgets: "Aktuelle Budgets"
   view:
     save: "Sichern"
     show: "Anzeigen"
@@ -260,9 +263,10 @@ de:
     pm: nachmittags
   donation:
     formula: "Formel"
-    budget: "Bugdet"
+    budget: "Budget"
     name: "Chanda"
     organization: "Unterorganisation"
+    minimum: "Minimal Versprechen"
   budget:
     promise: "Versprechen"
     rest_promise_from_past_budget: "Rest aus Vorjahr"
@@ -270,3 +274,5 @@ de:
     start_date: "Beginndatum"
     none_payer: "Nicht zahlender"
     remainingPromise: "Rest"
+    elapsed_time: "Laufzeit"
+    remaining_time: "Restlaufzeit"

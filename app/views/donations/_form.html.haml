@@ -7,19 +7,19 @@
           %li= msg
 
   .form-group
-    = f.label :name
+    = f.label t('donation.name')
     = f.text_field :name, :class => "form-control"
   .form-group
-    = f.label :budget
-    = f.check_box :budget, :class => "form-control"
+    = f.label t('donation.budget')
+    = f.check_box :budget, class: "form-control"
   .form-group#formula_fields
-    = f.label :formula
+    = f.label t('donation.formula')
     = f.text_field :formula, :class => "form-control"
   .form-group#minimum_budget_fields
-    = f.label :minimum_budget
+    = f.label t('donation.minimum')
     = f.text_field :minimum_budget, :class => "form-control"
   .form-group
-    = f.label :organization
-    = f.select :organization, %w(Khuddam Atfal Ansar All Lajna Nasirat), :class => "form-control"
+    = f.label t('donation.organization')
+    = f.select :organization, %w(Khuddam Atfal Ansar All Lajna Nasirat),{}, {class: "selectpicker"}
   .actions
     = f.submit t('view.save'), :class => "btn btn-success"

@@ -14,9 +14,9 @@
       %th= t('member.street')
       %th= t('member.plz')
       %th= t('member.city')
-      %th= t('member.email')
       %th= t('member.landline')
       %th= t('member.mobile_no')
+      %th= t('member.email')
       %th
       %th
       %th
@@ -33,9 +33,9 @@
         %td= member.street
         %td= member.plz
         %td= member.city
-        %td= link_to_address(member.email)
         %td= link_to_telephone(member.landline)
         %td= link_to_telephone(member.mobile_no)
+        %td= link_to_address(member.email)
         %td
           =link_to member, :title => "#{t('table.show')}" do
             %span.glyphicon.glyphicon-search

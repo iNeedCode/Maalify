@@ -1,60 +1,79 @@
-%h1
-  = t('view.member.title')
-  %small= @member.full_name
+.container-fluid
+  %h1
+    = @member.full_name
+    %small
+      = @member.aims_id
+      %span.small
+        = show_boolean_value_as_glyphicon(@member.wassiyyat)
 
-%p
-  %b= t('member.last_name')
-  = @member.last_name
-%p
-  %b= t('member.first_name')
-  = @member.first_name
-%p
-  %b= t('member.aims')
-  = @member.aims_id
-%p
-  %b= t('member.wasiyyat')
-  = @member.wassiyyat
-%p
-  %b= t('member.date_of_birth')
-  = @member.date_of_birth.strftime("%d. %b %Y")
-%p
-  %b= t('member.street')
-  = @member.street
-%p
-  %b= t('member.city')
-  = @member.city
-%p
-  %b= t('member.plz')
-  = @member.plz
-%p
-  %b= t('member.mobile_no')
-  = @member.mobile_no
-%p
-  %b= t('member.occupation')
-  = @member.occupation
+.container-fluid
+  .col-sm-6
+    %b= t('member.date_of_birth')
+    = @member.date_of_birth.strftime("%d. %B %Y")
+    %br
+    %b= t('member.age')
+    = @member.age
 
-- if @member.current_income.present?
-  %p
-    %b Aktuelles Einkommen:
-    = number_to_currency(@member.current_income.amount, locale: :de)
+  .col-sm-6
+    %address.text-right
+      = @member.street
+      %br
+      = @member.plz
+      = " "
+      = @member.city
+      %br
+      = link_to_telephone(@member.landline)
+      %br
+      = link_to_telephone(@member.mobile_no)
+      %br
+      = link_to_address(@member.email)
 
-%hr
+  .col-sm-6
+    %b= t('member.occupation')
+    = @member.occupation
 
-%p
-  %h4 Aktionen:
-  = link_to member_incomes_path(params[:id]), :class => "btn btn-primary"  do
-    %span.glyphicon.glyphicon-euro
-    = t('view.income.title')
+    - if @member.current_income.present?
+      %p
+        %b Aktuelles Einkommen
+        = number_to_currency(@member.current_income.amount, locale: :de)
 
+  - unless @member.budgets.empty?
+    .col-sm-12
+      %h3= t('member.current_budgets')
+      %table.table.table-striped.table-bordered.table-hover.table-condensed
+        %thead
+          %tr
+            %th= t('budget.title')
+            %th= t('view.donation.title')
+            %th= t('budget.elapsed_time')
+            %th= t('budget.remaining_time')
+        %tbody
+          - @member.budgets.each do |budget|
+            - next unless (budget.start_date..budget.end_date).include?(Date.today)
+            %tr
+              %td= budget.title
+              %td= budget.donation.name
+              %td
+                = budget.start_date.strftime("%d.%m.%Y")
+                = " - "
+                = budget.end_date.strftime("%d.%m.%Y")
+                = "(#{(budget.end_date - budget.start_date).to_i} Tage)"
+              %td= (budget.end_date - Date.today).to_i
 
-  - if @member.receipts.present?
-    = link_to member_receipts_path(params[:id]), :class => "btn btn-primary"  do
-      %span.glyphicon.glyphicon-tasks
+  .col-sm-6
+    %h3 Aktionen
+    = link_to member_incomes_path(params[:id]), :class => "btn btn-default btn-block"  do
+      %span.glyphicon.glyphicon-euro
+      = t('view.income.title')
+
+    = link_to member_receipts_path(params[:id]), :class => "btn btn-default btn-block"  do
+      %span.glyphicon.glyphicon-inbox
         = t('view.receipt.title')
 
-  = collection_select(:budget, :selector_for_member, @member.list_available_budgets,:title, :title,
-    options= {prompt: t('view.member.select_budget_box')}, html_options= {class: "btn btn-default"})
+    = collection_select(:budget, :selector_for_member, @member.list_available_budgets,:title, :title,
+      options= {prompt: t('view.member.select_budget_box')}, html_options= {class: "selectpicker", data:{width:'auto'}})
 
-
-= link_to t('view.edit'), edit_member_path(@member), :class => "btn btn-default btn-xs"
-= link_to t('view.back'), members_path, :class => "btn btn-default btn-xs"
+  .col-sm-12
+    %br
+    = link_to t('view.edit'), edit_member_path(@member), :class => "btn btn-default btn-xs"
+    = link_to t('view.back'), members_path, :class => "btn btn-default btn-xs"

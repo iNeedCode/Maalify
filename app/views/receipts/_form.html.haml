@@ -17,9 +17,8 @@
     = render 'item_fields', f: builder
 
   .form-group
-    = link_to_add_fields "Add Item", f, :items
+    = link_to_add_fields(t('receipt.add_item'), f, :items)
 
-
-
+  %br
   .actions
     = f.submit t('view.save'), :class => "btn btn-success"

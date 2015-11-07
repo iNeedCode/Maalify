@@ -1,10 +1,10 @@
-%fieldset.well
+%fieldset.well.well-sm.form-inline
   = f.hidden_field :id
-  = f.label :amount
-  = f.number_field :amount
-  = f.label :donation_id
-  = f.collection_select :donation_id, @receipt.member.list_of_possible_donation_types, :id, :name, prompt: true
+  = f.label t('receipt.amount')
+  = f.number_field :amount, class:"form-control"
+  = f.label t('view.donation.title')
+  = f.collection_select(:donation_id, @receipt.member.list_of_possible_donation_types, :id, :name, {prompt: true},{class: "form-control"})
   = f.hidden_field :_destroy
 
-  = link_to '#', class: 'btn btn-sm btn-danger remove_fields', title: "#{t('table.delete')}" do
-    %span.glyphicon.glyphicon-trash
+  = link_to '#', class: 'btn btn-danger remove_fields', title: "#{t('table.delete')}" do
+    %span.glyphicon.glyphicon-trash{ title: "Löschen", data: {placement: "placement", toggle: "toogle"}}

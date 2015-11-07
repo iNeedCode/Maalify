@@ -17,9 +17,9 @@ $(document).on 'ready page:load', ->
 
   updateMinimumLabel = (bool) ->
     if bool == true
-      $("#minimum_budget_fields label").text("Minumum Budget")
+      $("#minimum_budget_fields label").text("Minimal Budget")
     else
-      $("#minimum_budget_fields label").text("Budget / Versprechen")
+      $("#minimum_budget_fields label").text("Minimal Versprechen")
 
   $(document).ready updateMinimumLabel
 
