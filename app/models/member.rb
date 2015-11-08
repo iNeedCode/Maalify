@@ -46,7 +46,7 @@ class Member < ActiveRecord::Base
   end
 
   def list_of_possible_donation_types
-    Budget.where(member_id: self.id).order(:end_date).map(&:donation)
+    Budget.where(member_id: self.id).order(:end_date).map(&:donation).uniq
   end
 
   def list_available_budgets

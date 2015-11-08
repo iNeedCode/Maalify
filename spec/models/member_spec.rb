@@ -70,6 +70,13 @@ RSpec.describe Member, :type => :model do
       expect(@member_atfal.list_of_possible_donation_types.size).to eql(1)
     end
 
+    it "should return only 'Atfal' Donation types and only ones if the donation type is just used for another budget period" do
+      Timecop.freeze(Date.parse("01-11-2015"))
+      @member_atfal.date_of_birth = "2000-11-01"
+      Budget.create(title: "MAAD-15-16 atfal ijtema", start_date: "2015-11-01", end_date: "2016-10-30", member: @member_atfal, donation: @d5)
+      expect(@member_atfal.list_of_possible_donation_types.size).to eql(1)
+    end
+
     it "should return only 'Ansar' Donation types" do
       Timecop.freeze(Date.parse("01-11-2015"))
       @member_ansar.date_of_birth = "1948-11-01"
