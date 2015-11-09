@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :member do
+    gender "male"
     last_name "Mustermann"
     first_name "Max"
     aims_id "12345"

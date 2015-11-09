@@ -7,9 +7,11 @@ class Member < ActiveRecord::Base
   has_many :donations, through: :budgets
 
 # Validations
-  validates_presence_of :first_name, :last_name, :date_of_birth, :aims_id
+  validates_presence_of :first_name, :last_name, :date_of_birth, :aims_id, :gender
   validates_uniqueness_of :aims_id
   validate :at_least_one_communication_chanel_is_given
+  validates :gender, inclusion: {in: %w(male female),
+                                 message: "'%{value}' is not a valid Gender"}, allow_nil: false
 
 # Methods
   def full_name
@@ -29,20 +31,37 @@ class Member < ActiveRecord::Base
   end
 
   def tanzeem
-    new_year_of_khuddam_begins = Date.parse("01-11-#{Date.today.year}")
-    day_before_khuddam_year_begins = Date.parse("31-10-#{Date.today.year}")
-    new_year_of_ansar_begins = Date.parse("01-01-#{Date.today.year}")
-    day_before_ansar_year_begins = Date.parse("31-12-#{Date.today.year}")
 
-    if age < 7 then
-      return 'Kind'
-    elsif age(new_year_of_ansar_begins) >= 40
-      return 'Ansar'
-    elsif age(day_before_khuddam_year_begins) >= 15 && age(day_before_ansar_year_begins) <= 40
-      return 'Khuddam'
-    elsif age >= 7 && age(new_year_of_khuddam_begins) <= 15
-      return 'Atfal'
+    if gender == "male"
+      new_year_of_khuddam_begins = Date.parse("01-11-#{Date.today.year}")
+      day_before_khuddam_year_begins = Date.parse("31-10-#{Date.today.year}")
+      new_year_of_ansar_begins = Date.parse("01-01-#{Date.today.year}")
+      day_before_ansar_year_begins = Date.parse("31-12-#{Date.today.year}")
+
+      if age < 7 then
+        return 'Kind'
+      elsif age(new_year_of_ansar_begins) >= 40
+        return 'Ansar'
+      elsif age(day_before_khuddam_year_begins) >= 15 && age(day_before_ansar_year_begins) <= 40
+        return 'Khuddam'
+      elsif age >= 7 && age(new_year_of_khuddam_begins) <= 15
+        return 'Atfal'
+      end
+
+    elsif gender == 'female'
+      new_year_of_lajna_begins = Date.parse("01-11-#{Date.today.year}")
+      day_before_lajna_year_begins = Date.parse("31-10-#{Date.today.year}")
+
+      if age < 7 then
+        return 'Kind'
+      elsif age(day_before_lajna_year_begins) >= 15
+        return 'Lajna'
+      elsif age >= 7 && age(new_year_of_lajna_begins) <= 15
+        return 'Nasirat'
+      end
+
     end
+
   end
 
   def list_of_possible_donation_types
@@ -73,4 +92,3 @@ class Member < ActiveRecord::Base
   end
 
 end
-

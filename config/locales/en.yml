@@ -54,6 +54,7 @@ en:
     tanzeem: "Tanzeem"
     full_name: "Name"
     current_budgets: "Current budgets"
+    gender: "Gender"
   view:
     save: "Save"
     show: "Show"

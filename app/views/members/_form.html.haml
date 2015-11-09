@@ -7,6 +7,9 @@
           %li= msg
 
   .form-group
+    = f.label :gender, t('member.gender')
+    = f.select :gender, %w(male female), {include_blank: true}, :class => "form-control selectpicker"
+  .form-group
     = f.label :last_name, t('member.last_name')
     = f.text_field :last_name, :class => "form-control"
   .form-group

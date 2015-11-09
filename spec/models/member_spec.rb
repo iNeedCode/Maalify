@@ -9,12 +9,14 @@ RSpec.describe Member, :type => :model do
       @member = FactoryGirl.create(:member)
     end
 
-    it "should fail if certain fields #{%w[ first_name last_name date_of_birth aims_id ]} are left" do
+    it "should fail if certain fields #{%w[ first_name last_name date_of_birth aims_id gender ]} are left blank" do
       expect(@member.valid?).to eq(true)
       @member.first_name = nil
+      expect(@member.valid?).to eq(false)
       @member.last_name = nil
       @member.date_of_birth = nil
       @member.aims_id = nil
+      @member.gender = nil
       expect(@member.valid?).to eq(false)
 
       %w[ first_name last_name date_of_birth aims_id ].each do |field|
@@ -29,6 +31,20 @@ RSpec.describe Member, :type => :model do
       expect(@member.valid?).to eq(true)
       @member.landline = nil
       expect(@member.valid?).to eq(false)
+    end
+
+    it 'should pass if gender is valid' do
+      @member.gender = "male"
+      expect(@member.valid?).to eql(true)
+      @member.gender = "female"
+      expect(@member.valid?).to eql(true)
+    end
+
+    it 'should fail if gender is not valid' do
+      @member.gender = "malee"
+      expect(@member.valid?).to eql(false)
+      @member.gender = nil
+      expect(@member.valid?).to eql(false)
     end
 
   end
@@ -105,7 +121,8 @@ RSpec.describe Member, :type => :model do
 
     before(:each) do
       @member = FactoryGirl.create(:member)
-      Timecop.freeze(Date.parse("01-05-2015")) # freeze Date to 01.05.2015
+      @female = FactoryGirl.create(:member, aims_id: 123, gender: 'female')
+      Timecop.freeze(Date.parse("01-05-2015"))
     end
 
     context "General" do
@@ -115,10 +132,54 @@ RSpec.describe Member, :type => :model do
       end
     end
 
-    context "Kind" do
+    context "Nasirat" do
+      it "should return 'Nasirat' if member >= 7 and gender is 'female'" do
+        Timecop.freeze(Date.parse("01-01-2017"))
+        @female.date_of_birth = "2010-01-02"
+        expect(@female.tanzeem).to_not eq('Nasirat')
+
+        @female.date_of_birth = "2010-01-01"
+        expect(@female.tanzeem).to eq('Nasirat')
+
+        @female.date_of_birth = "2009-12-31"
+        expect(@female.tanzeem).to eq('Nasirat')
+      end
+
+      it "should return 'Nasirat' if member >= 7 and day after lajna year begins get 15 and gender is 'female'" do
+        Timecop.freeze(Date.parse("01-11-2010"))
+        @female.date_of_birth = "2003-11-01"
+        expect(@female.tanzeem).to eq('Nasirat')
+
+        @female.date_of_birth = "1995-11-01"
+        expect(@female.tanzeem).to eq('Nasirat')
+
+        @female.date_of_birth = "1995-10-31"
+        expect(@female.tanzeem).to_not eq('Nasirat')
+      end
+    end
+
+    context "Lajna" do
+
+      it "should return 'Lajna' if female member get >= 15 day before lajna year begins and gender is 'female'" do
+        Timecop.freeze(Date.parse("01-11-2010"))
+        @female.date_of_birth = "1995-10-31"
+        expect(@female.tanzeem).to eq('Lajna')
+
+        @female.date_of_birth = "1995-11-01"
+        expect(@female.tanzeem).to_not eq('Lajna')
+
+      end
+
+    end
+
+
+      context "Kind" do
       it "should return 'Kind' for age < 7" do
         @member.date_of_birth = "2008-05-02"
         expect(@member.tanzeem).to eq('Kind')
+
+        @female.date_of_birth = "2008-05-02"
+        expect(@female.tanzeem).to eq('Kind')
       end
     end
 

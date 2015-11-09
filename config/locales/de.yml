@@ -33,6 +33,7 @@ de:
     tanzeem: "Tanzeem"
     full_name: "Name"
     current_budgets: "Aktuelle Budgets"
+    gender: "Geschlect"
   view:
     save: "Sichern"
     show: "Anzeigen"
