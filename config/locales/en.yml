@@ -34,6 +34,9 @@ en:
     total: "Total"
     amount: "Amount"
     add_item: "Add item"
+    error:
+      double_receipt_item: "Double entry of a donation"
+      no_budget_period_available: "No corresponding budget for the selected date available"
   member:
     last_name: "Lastname"
     first_name: "Firstname"
