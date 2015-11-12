@@ -159,7 +159,7 @@ RSpec.describe Budget, :type => :model do
     end
   end
 
-  describe 'Tests with a none budget based donation types' do
+  describe 'Tests with a none budget based donation types', focus: true do
     before(:each) do
       @member = FactoryGirl.create(:member)
       @donation = FactoryGirl.create(:ishaat_khuddam_donation)
@@ -187,76 +187,95 @@ RSpec.describe Budget, :type => :model do
       donation1 = FactoryGirl.create(:majlis_khuddam_donation)
       donation2 = FactoryGirl.create(:ijtema_khuddam_donation)
       @budget = FactoryGirl.create(:budget, donation: donation1, member: @member1)
+      FactoryGirl.create(:budget, donation: donation2, member: @member1)
+      FactoryGirl.create(:budget, start_date: "2013-11-01", end_date: "2014-10-31", donation: donation1, member: @member2)
     end
 
     it 'get all receipt items: 1 receipt inside and 1 receipt outside the period and different members' do
-      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
-      receipt2 = Receipt.create!(id: 2, date: '2014-02-01', member: @member2)
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2014-02-01', member: @member2)
+      receipt3 = Receipt.new(id: 3, date: '2015-01-02', member: @member1)
       receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
-      receipt1.items << ReceiptItem.create!(id: 3, donation_id: 1, amount: 10, receipt_id: 1)
-      receipt1.items << ReceiptItem.create!(id: 4, donation_id: 2, amount: 10, receipt_id: 1)
-      receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt3.items << ReceiptItem.create!(id: 4, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.items << ReceiptItem.create!(id: 2, donation_id: 2, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 3, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.save
+      receipt2.save
 
       all_receipt_items_in_period_for_budget_donation = @budget.getAllReceiptsItemsfromBudgetPeriod
       expect(all_receipt_items_in_period_for_budget_donation.size).to be(2)
     end
 
     it 'get all receipt items: 2 receipts inside in the period and same member' do
-      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
-      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt3 = Receipt.new(id: 3, date: '2015-01-02', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
       receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
-      receipt1.items << ReceiptItem.create!(id: 3, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt3.items << ReceiptItem.create!(id: 3, donation_id: 1, amount: 10, receipt_id: 1)
       receipt1.items << ReceiptItem.create!(id: 4, donation_id: 2, amount: 10, receipt_id: 1)
       receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1.save
+      receipt2.save
+      receipt3.save
 
       all_receipt_items_in_period_for_budget_donation = @budget.getAllReceiptsItemsfromBudgetPeriod
       expect(all_receipt_items_in_period_for_budget_donation.size).to be(3)
     end
 
     it 'get all receipts for a member in period' do
-      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
-      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
-      receipt3 = Receipt.create!(id: 3, date: '2015-02-01', member: @member2)
-      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
-      receipt1.items << ReceiptItem.create!(id: 2, donation_id: 2, amount: 10, receipt_id: 1)
-      receipt2.items << ReceiptItem.create!(id: 3, donation_id: 2, amount: 10, receipt_id: 1)
-      receipt2.items << ReceiptItem.create!(id: 4, donation_id: 1, amount: 10, receipt_id: 1)
-      receipt3.items << ReceiptItem.create!(id: 5, donation_id: 1, amount: 10, receipt_id: 1)
-      receipt3.items << ReceiptItem.create!(id: 6, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
+      receipt3 = Receipt.new(id: 3, date: '2015-02-01', member: @member2)
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 11, receipt_id: 1)
+      receipt1.items << ReceiptItem.create!(id: 2, donation_id: 2, amount: 12, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 3, donation_id: 2, amount: 13, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 4, donation_id: 1, amount: 14, receipt_id: 1)
+      receipt3.items << ReceiptItem.create!(id: 5, donation_id: 1, amount: 15, receipt_id: 1)
+      receipt3.items << ReceiptItem.create!(id: 6, donation_id: 1, amount: 16, receipt_id: 1)
+      receipt1.save
+      receipt2.save
+      receipt3.save
 
       all_receipt_items_in_period_for_budget_donation_for_member = @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@member1)
-      expect(all_receipt_items_in_period_for_budget_donation_for_member.size).to be(2)
+      expect(all_receipt_items_in_period_for_budget_donation_for_member.size).to be(4)
     end
 
     it 'should calculate the remaining promise in the current year correctly' do
-      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
-      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
       receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
       receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 20, receipt_id: 2)
+      receipt1.save
+      receipt2.save
 
       expect(@budget.promise).to be(120)
       expect(@budget.remainingPromiseCurrentBudget).to be(90)
     end
 
-    it 'should calculate remainng promise and rest promise of last budget period',skip_before: true do
+    xit 'should calculate remainng promise and rest promise of last budget period',skip_before: true , focus: true do
       Donation.delete_all; Member.delete_all; Budget.delete_all
       @member1 = FactoryGirl.create(:member, aims_id: "43210")
       income = FactoryGirl.create(:income, member: @member1)
       donation1 = FactoryGirl.create(:majlis_khuddam_donation)
-      @budget = FactoryGirl.build(:budget, donation: donation1, member: @member1)
-      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
-      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
-      receipt1.items << ReceiptItem.create!(id: 1, donation: donation1, amount: 10, receipt_id: 1)
-      receipt2.items << ReceiptItem.create!(id: 2, donation: donation1, amount: 20, receipt_id: 2)
+      @budget = FactoryGirl.create(:budget, donation: donation1, member: @member1)
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
+      receipt1.items << ReceiptItem.create(id: 1, donation: donation1, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create(id: 2, donation: donation1, amount: 100, receipt_id: 2)
+      receipt1.save
+      receipt2.save
 
-      budget2 = FactoryGirl.build(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: @member1)
+      budget2 = FactoryGirl.create(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: @member1)
 
+      # @budget.save
       @budget.calculate_budget
-      budget2.calculate_budget
       @budget.save
+      budget2.calculate_budget
       budget2.save
 
-      expect(budget2.remainingPromiseCurrentBudget).to be(210)
+      # debugger
+
+      expect(budget2.remainingPromiseCurrentBudget).to be(220)
     end
 
     it 'testing the remaining_promise_for_whole_budget_title method for overview of all available budgets' do
@@ -265,10 +284,12 @@ RSpec.describe Budget, :type => :model do
       income = FactoryGirl.create(:income, member: @member1)
       donation1 = FactoryGirl.create(:majlis_khuddam_donation)
       @budget = FactoryGirl.build(:budget, donation: donation1, member: @member1)
-      receipt1 = Receipt.create!(id: 1, date: '2015-01-01', member: @member1)
-      receipt2 = Receipt.create!(id: 2, date: '2015-02-01', member: @member1)
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
       receipt1.items << ReceiptItem.create!(id: 1, donation: donation1, amount: 10, receipt_id: 1)
       receipt2.items << ReceiptItem.create!(id: 2, donation: donation1, amount: 20, receipt_id: 2)
+      receipt2.save
+      receipt1.save
       member3 = FactoryGirl.create(:member, aims_id: "987653")
       member3.save
 

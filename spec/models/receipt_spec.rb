@@ -5,26 +5,43 @@ RSpec.describe Receipt, :type => :model do
 
   describe 'Validation' do
     before(:each) do
-      @receipt = FactoryGirl.build(:receipt)
+      budget = FactoryGirl.create(:budget)
+      ri1 = ReceiptItem.create(amount: 100, donation_id: 1, receipt_id: 12345)
+      @r1 = Receipt.new(receipt_id: 12345, date: "2015-01-04", member_id: 12345)
+      @r1.items << ri1
     end
 
     it 'should valid the factory receipt' do
-      expect(@receipt).to be_valid
+      expect(@r1).to be_valid
     end
 
     it 'should be invalid object include errors' do
-      @receipt.receipt_id = nil
-      expect(@receipt).to_not be_valid
+      @r1.receipt_id = nil
+      expect(@r1).to_not be_valid
+      expect(@r1.errors.size).to eql(1)
+      expect(@r1.errors[:receipt_id].first).to eql("can't be blank")
     end
 
-    it 'should be invalid if uniqueness of an receipt is not given' do
-      r2 = Receipt.create(receipt_id: 12345, :date => '2014-02-01', member_id: 1233)
-      expect(@receipt).to_not be_valid
+    it 'should be invalid if uniqueness of a receipt is not given' do
+      @r1.save
+      ri2 = ReceiptItem.create(amount: 100, donation_id: 1, receipt_id: 12345)
+      r2 = Receipt.new(receipt_id: 12345, date: "2015-01-01", member_id: 12345)
+      r2.items << ri2
+
+      expect(@r1).to be_valid
+      expect(r2).to_not be_valid
+      expect(r2.errors.size).to eql(1)
+      expect(r2.errors[:receipt_id].first).to eql("has already been taken")
     end
 
     it 'should be valid if uniqueness is given' do
-      r2 = Receipt.create(receipt_id: 12346, :date => '2014-02-01', member_id: 1233)
-      expect(@receipt).to be_valid
+      @r1.save
+      ri2 = ReceiptItem.create(amount: 100, donation_id: 1, receipt_id: 12345)
+      r2 = Receipt.new(receipt_id: 12346, date: "2015-01-01", member_id: 12345)
+      r2.items << ri2
+
+      expect(@r1).to be_valid
+      expect(r2).to be_valid
     end
 
   end
