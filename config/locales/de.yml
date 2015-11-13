@@ -16,6 +16,7 @@ de:
     error:
       double_receipt_item: "Doppelter Eintrag für die Chanda im Beleg"
       no_budget_period_available: "Kein passendes Budget für das ausgewählte Datum vorhanden"
+    figures: "Beräge"
   member:
     last_name: "Nachname"
     first_name: "Vorname"
@@ -280,3 +281,4 @@ de:
     remainingPromise: "Rest"
     elapsed_time: "Laufzeit"
     remaining_time: "Restlaufzeit"
+    receipts: "Belege"

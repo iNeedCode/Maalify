@@ -1,0 +1,37 @@
+%h1
+  = t('view.receipt.title')
+
+%table#all-receipts-table.table.table-striped.table-bordered.table-hover.table-condensed
+  %thead
+    %tr
+      %th= t('member.full_name')
+      %th= t('receipt.id')
+      %th= t('receipt.date')
+      %th= t('receipt.total')
+      %th
+      %th
+      %th
+
+  %tbody
+    - @receipts.each do |receipt|
+      %tr
+        %td= receipt.member.full_name
+        %td= receipt.receipt_id
+        %td= receipt.date.strftime("%d. %b %Y")
+        %td
+          = number_to_currency receipt.total
+          %br
+          - receipt.items.each do |ri|
+            %small
+              = "#{ri.donation.name}: "
+              = number_to_currency ri.amount
+            %br
+        %td
+          =link_to member_receipt_path(receipt.member_id, receipt.id), :title => "#{t('table.show')}" do
+            %span.glyphicon.glyphicon-search
+        %td
+          = link_to edit_member_receipt_path(receipt.member_id, receipt.id), :title => "#{t('table.edit')}" do
+            %span.glyphicon.glyphicon-edit
+        %td
+          = link_to member_receipt_path(receipt.member_id, receipt.id), :method => :delete, :data => { :confirm => 'Are you sure?' }, :title => "#{t('table.delete')}" do
+            %span.glyphicon.glyphicon-trash.color-red

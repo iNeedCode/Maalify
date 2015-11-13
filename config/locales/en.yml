@@ -37,6 +37,7 @@ en:
     error:
       double_receipt_item: "Double entry of a donation"
       no_budget_period_available: "No corresponding budget for the selected date available"
+    figures: "Figures"
   member:
     last_name: "Lastname"
     first_name: "Firstname"
@@ -96,3 +97,4 @@ en:
     remainingPromise: "Remaining"
     elapsed_time: "elapsed time"
     remaining_time: "remaining period"
+    receipts: "Receipts"

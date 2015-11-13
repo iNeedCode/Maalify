@@ -3,6 +3,10 @@ class ReceiptsController < ApplicationController
 
   respond_to :html
 
+  def all
+    @receipts = Receipt.all.order(:date)
+  end
+
   def index
     @receipts = member.receipts.order(date: :desc)
     respond_with(@receipts)

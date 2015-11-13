@@ -9,9 +9,17 @@ $(document).on 'ready page:load', ->
     $(this).closest('fieldset').hide()
     event.preventDefault()
 
-$(document).on 'ready page:load', ->
   $('form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
+
+  $("#all-receipts-table").DataTable
+    autoWidth: true
+    pagingType: "simple"
+    processing: true
+    stateSave: true
+    language:
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+    dom: 'C<"clear">lfrtip'

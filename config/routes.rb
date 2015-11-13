@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     get :new_with_parameter, on: :collection
   end
 
+
   resources :donations
 
+  get 'receipts/all'
   get 'set_language/english'
   get 'set_language/german'
 
