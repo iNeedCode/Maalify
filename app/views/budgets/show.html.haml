@@ -1,28 +1,39 @@
-%p#notice= notice
+.container-fluid
+  %p#notice= notice
 
-%p
-  %b= t('view.budget.title')
-  = @budget.title
-%p
-  %b= t('budget.promise')
-  = number_to_currency(@budget.promise, locale: :de)
-%p
-  %b= t('budget.rest_promise_from_past_budget')
-  = number_to_currency(@budget.rest_promise_from_past_budget, locale: :de)
-%p
-  %b= t('budget.start_date')
-  = @budget.start_date.strftime("%d. %b %Y")
-%p
-  %b= t('budget.end_date')
-  = @budget.end_date.strftime("%d. %b %Y")
-%p
-  %b= t('member.full_name')
-  = @budget.member.full_name
-%p
-  %b= t('donation.name')
-  = @budget.donation.name
+.container-fluid
+  .col-sm-12
+    %h1
+      = @budget.title
+      %small
+        = @budget.member.full_name
 
-  - unless @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@budget.member).empty?
+.container-fluid
+  .col-sm-12
+    %h3
+      = "#{t('donation.name')}: "
+      = @budget.donation.name
+
+.container-fluid
+  .col-sm-6
+    %h4
+      = "#{t('budget.promise')}: "
+      = number_to_currency(@budget.promise, locale: :de)
+    %h4
+      = "#{t('budget.rest_promise_from_past_budget')}: "
+      = number_to_currency(@budget.rest_promise_from_past_budget, locale: :de)
+
+.container-fluid
+  .col-sm-6
+    %p.text-center.lead
+      = @budget.start_date.strftime("%d. %B %Y")
+  .col-sm-6
+    %p.text-center.lead
+      = @budget.end_date.strftime("%d. %B %Y")
+
+
+- unless @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@budget.member).empty?
+  .container-fluid
     .col-sm-12
       %h3= t('budget.receipts')
       %table.table.table-striped.table-bordered.table-hover.table-condensed
@@ -31,20 +42,15 @@
             %th= t('receipt.id')
             %th= t('receipt.date')
             %th= t('receipt.amount')
-            %th= t('donation.name')
         %tbody
           - @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@budget.member).sort{|a, b| a.receipt.date <=> b.receipt.date}.each do |ri|
             %tr
               %td= ri.receipt.id
               %td= ri.receipt.date.strftime("%d.%m.%Y")
               %td= number_to_currency(ri.amount)
-              %td
-                = ri.donation.name
-                = ri.receipt.member.full_name
 
 
 
 
-= link_to t('view.edit'), edit_budget_path(@budget), class: 'btn btn-primary'
-\|
-= link_to t('view.back'), budgets_path, class: 'btn btn-default'
+= link_to t('view.edit'), edit_budget_path(@budget), class: 'btn btn-primary btn-xs'
+= link_to t('view.back'), budgets_path, class: 'btn btn-default btn-xs'
