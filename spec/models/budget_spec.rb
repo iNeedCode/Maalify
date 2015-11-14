@@ -159,7 +159,7 @@ RSpec.describe Budget, :type => :model do
     end
   end
 
-  describe 'Tests with a none budget based donation types', focus: true do
+  describe 'Tests with a none budget based donation types' do
     before(:each) do
       @member = FactoryGirl.create(:member)
       @donation = FactoryGirl.create(:ishaat_khuddam_donation)
@@ -174,7 +174,6 @@ RSpec.describe Budget, :type => :model do
 
     it "should be valid if there is no income" do
       @member.incomes.delete_all
-
       expect(@budget).to be_valid
     end
   end
@@ -252,7 +251,7 @@ RSpec.describe Budget, :type => :model do
       expect(@budget.remainingPromiseCurrentBudget).to be(90)
     end
 
-    xit 'should calculate remainng promise and rest promise of last budget period',skip_before: true , focus: true do
+    it 'should calculate remainng promise and rest promise of last budget period',skip_before: true do
       Donation.delete_all; Member.delete_all; Budget.delete_all
       @member1 = FactoryGirl.create(:member, aims_id: "43210")
       income = FactoryGirl.create(:income, member: @member1)
@@ -261,19 +260,24 @@ RSpec.describe Budget, :type => :model do
       receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
       receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
       receipt1.items << ReceiptItem.create(id: 1, donation: donation1, amount: 10, receipt_id: 1)
-      receipt2.items << ReceiptItem.create(id: 2, donation: donation1, amount: 100, receipt_id: 2)
+      receipt2.items << ReceiptItem.create(id: 2, donation: donation1, amount: 10, receipt_id: 2)
       receipt1.save
       receipt2.save
 
-      budget2 = FactoryGirl.create(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: @member1)
-
-      # @budget.save
+      @budget.save
+      @budget.reload
       @budget.calculate_budget
       @budget.save
-      budget2.calculate_budget
-      budget2.save
 
-      # debugger
+
+
+      budget2 = FactoryGirl.create(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31',
+                                   donation: donation1, member: @member1)
+
+      budget2.reload
+      budget2.calculate_budget
+      budget2.transfer_old_remaining_promise_to_current_budget
+      budget2.save
 
       expect(budget2.remainingPromiseCurrentBudget).to be(220)
     end
@@ -286,12 +290,10 @@ RSpec.describe Budget, :type => :model do
       @budget = FactoryGirl.build(:budget, donation: donation1, member: @member1)
       receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
       receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
-      receipt1.items << ReceiptItem.create!(id: 1, donation: donation1, amount: 10, receipt_id: 1)
-      receipt2.items << ReceiptItem.create!(id: 2, donation: donation1, amount: 20, receipt_id: 2)
-      receipt2.save
-      receipt1.save
+      receipt1.items << ReceiptItem.create(id: 1, donation: donation1, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create(id: 2, donation: donation1, amount: 20, receipt_id: 2)
+
       member3 = FactoryGirl.create(:member, aims_id: "987653")
-      member3.save
 
       budget2 = FactoryGirl.build(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: @member1)
 
@@ -299,6 +301,9 @@ RSpec.describe Budget, :type => :model do
       budget2.calculate_budget
       @budget.save
       budget2.save
+
+      receipt1.save
+      receipt2.save
 
       total_budgets = Budget.remaining_promise_for_whole_budget_title
       expect(total_budgets.first[:title]).to eq("MKAD-2014-15")
@@ -309,15 +314,20 @@ RSpec.describe Budget, :type => :model do
       budget3 = FactoryGirl.build(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: member3)
       budget3.calculate_budget
       budget3.save
+      budget3.reload
+      budget3.save
+
 
       total_budgets = Budget.remaining_promise_for_whole_budget_title
       expect(total_budgets.last[:title]).to eq("MKAD-2015-16")
       expect(total_budgets.last[:promise]).to eq(156)
       expect(total_budgets.last[:remainingPromise]).to eq(156)
 
-      receipt3 = Receipt.create!(id: 4, date: '2015-12-01', member: member3)
-      receipt3.items << ReceiptItem.create!(id: 3, donation: donation1, amount: 10, receipt_id: 1)
-
+      budget3.save
+      budget3.reload
+      receipt3 = Receipt.new(id: 4, date: '2015-12-01', member: member3)
+      receipt3.items << ReceiptItem.create(id: 3, donation: donation1, amount: 10, receipt_id: 1)
+      receipt3.save
 
       total_budgets = Budget.remaining_promise_for_whole_budget_title
       expect(total_budgets.last[:title]).to eq("MKAD-2015-16")
@@ -331,7 +341,7 @@ RSpec.describe Budget, :type => :model do
       expect(Budget.find_distict_budget_names.size).to eq(1)
       FactoryGirl.create(:budget, title: "other title", donation_id: 2, member: @member2)
       expect(Budget.find_distict_budget_names.size).to eq(2)
-      FactoryGirl.create(:budget, title: "other title 1", donation_id: 2, member: @member1)
+      FactoryGirl.create(:budget, start_date: '2016-01-01', end_date: '2016-12-31' , title: "other title 1", donation_id: 2, member: @member1)
       expect(Budget.find_distict_budget_names.size).to eq(3)
       Budget.delete_all
       expect(Budget.find_distict_budget_names.size).to eq(0)
