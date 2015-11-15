@@ -251,6 +251,49 @@ RSpec.describe Budget, :type => :model do
       expect(@budget.remainingPromiseCurrentBudget).to be(90)
     end
 
+    it 'should calculate correctly if the payment was higher then the budget itself' do
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 120, receipt_id: 2)
+      receipt1.save
+      receipt2.save
+
+      expect(@budget.promise).to be(120)
+      expect(@budget.remainingPromiseCurrentBudget).to be(0)
+    end
+
+    it 'should calculate remainng promise and rest promise of last budget period when the payment was higher in the past year',skip_before: true do
+      Donation.delete_all; Member.delete_all; Budget.delete_all
+      @member1 = FactoryGirl.create(:member, aims_id: "43210")
+      income = FactoryGirl.create(:income, member: @member1)
+      donation1 = FactoryGirl.create(:majlis_khuddam_donation)
+      @budget = FactoryGirl.create(:budget, donation: donation1, member: @member1)
+      receipt1 = Receipt.new(id: 1, date: '2015-01-01', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2015-02-01', member: @member1)
+      receipt1.items << ReceiptItem.create(id: 1, donation: donation1, amount: 10, receipt_id: 1)
+      receipt2.items << ReceiptItem.create(id: 2, donation: donation1, amount: 120, receipt_id: 2)
+      receipt1.save
+      receipt2.save
+
+      @budget.save
+      @budget.reload
+      @budget.calculate_budget
+      @budget.save
+
+
+
+      budget2 = FactoryGirl.create(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31',
+                                   donation: donation1, member: @member1)
+
+      budget2.reload
+      budget2.calculate_budget
+      budget2.transfer_old_remaining_promise_to_current_budget
+      budget2.save
+
+      expect(budget2.remainingPromiseCurrentBudget).to be(120)
+    end
+
     it 'should calculate remainng promise and rest promise of last budget period',skip_before: true do
       Donation.delete_all; Member.delete_all; Budget.delete_all
       @member1 = FactoryGirl.create(:member, aims_id: "43210")

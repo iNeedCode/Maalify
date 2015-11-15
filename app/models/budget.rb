@@ -64,11 +64,9 @@ class Budget < ActiveRecord::Base
     return self.rest_promise_from_past_budget = 0 if budgets.nil?
     rest = 0
     unless budgets.nil?
-      # debugger
       budgets.each { |b| rest += b.remainingPromiseCurrentBudget }
     end
     self.rest_promise_from_past_budget = rest.abs
-    # save
   end
 
 # Public: Get all incomes of a member from the budget period.
@@ -160,7 +158,11 @@ class Budget < ActiveRecord::Base
       paid += ri.amount
     end
 
-    (rest_promise_from_past_budget + promise) - paid
+    if ((rest_promise_from_past_budget + promise) < paid)
+      return 0
+    else
+      return (rest_promise_from_past_budget + promise) - paid
+    end
   end
 
 # Public: Get all budget title name distict
