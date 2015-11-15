@@ -390,6 +390,21 @@ RSpec.describe Budget, :type => :model do
       expect(Budget.find_distict_budget_names.size).to eq(0)
     end
 
-  end
+    it 'should calculate the average payment for the remaining promise' do
+      receipt1 = Receipt.new(id: 1, date: '2014-11-15', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2014-11-15', member: @member1)
 
+      Timecop.freeze(Date.parse("14-11-2014"))
+      expect(@budget.average_payment).to be(10)
+
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 20, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 20, receipt_id: 2)
+      receipt1.save
+      receipt2.save
+
+      expect(@budget.promise).to be(120)
+      expect(@budget.average_payment).to be(7)
+    end
+
+  end
 end

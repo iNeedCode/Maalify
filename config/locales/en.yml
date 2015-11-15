@@ -98,3 +98,5 @@ en:
     elapsed_time: "elapsed time"
     remaining_time: "remaining period"
     receipts: "Receipts"
+    average_payment: "Average payment"
+    paid: "Paid"

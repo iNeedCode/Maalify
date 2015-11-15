@@ -152,17 +152,23 @@ class Budget < ActiveRecord::Base
 #
 # Returns all receipt items in the budget period for A SPECIFIC member.
   def remainingPromiseCurrentBudget
-    all_receipt_items = getAllReceiptsItemsfromBudgetPeriodforMember(self.member)
-    paid = 0
-    all_receipt_items.each do |ri|
-      paid += ri.amount
-    end
+    paid = paid_amount
 
     if ((rest_promise_from_past_budget + promise) < paid)
       return 0
     else
       return (rest_promise_from_past_budget + promise) - paid
     end
+  end
+
+  def paid_amount
+    all_receipt_items = getAllReceiptsItemsfromBudgetPeriodforMember(self.member)
+    paid = 0
+    all_receipt_items.each do |ri|
+      paid += ri.amount
+    end
+
+    paid
   end
 
 # Public: Get all budget title name distict
@@ -181,7 +187,7 @@ class Budget < ActiveRecord::Base
     budget_names = Budget.find_distict_budget_names
     all_budget_overview = []
     budget_names.each do |budget_title|
-    total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0}
+      total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0}
       same_budgets = Budget.where(title: budget_title)
       # debugger
       total_sum_budget[:title] = budget_title
@@ -195,6 +201,17 @@ class Budget < ActiveRecord::Base
       all_budget_overview << total_sum_budget
     end
     all_budget_overview
+  end
+
+# Public: Gives the remaing months till end of the budget date
+# Returns: 1..12
+  def remaining_months
+    ((end_date - Date.today).to_i / 30.0).ceil
+  end
+
+# Public: Gives average payment amount till budget ending
+  def average_payment
+    (remainingPromiseCurrentBudget / remaining_months.to_f).ceil
   end
 
   private

@@ -11,9 +11,7 @@
   .col-sm-6
     %b= t('member.date_of_birth')
     = @member.date_of_birth.strftime("%d. %B %Y")
-    %br
-    %b= t('member.age')
-    = @member.age
+    = "(#{@member.age})"
 
   .col-sm-6
     %address.text-right
@@ -48,26 +46,28 @@
       %table.table.table-striped.table-bordered.table-hover.table-condensed
         %thead
           %tr
-            %th= t('budget.title')
+            %th= t('view.budget.title')
             %th= t('view.donation.title')
             %th= t('budget.promise')
-            %th= t('budget.rest_promise_from_past_budget')
+            %th= t('budget.paid')
             %th= t('budget.elapsed_time')
-            %th= t('budget.remaining_time')
+            %th= t('budget.average_payment')
         %tbody
           - @member.budgets.each do |budget|
             - next unless (budget.start_date..budget.end_date).include?(Date.today)
             %tr
               %td= link_to budget.title, budget_path(budget.id)
               %td= link_to budget.donation.name, donation_path(budget.donation.id)
-              %td= number_to_currency(budget.promise, locale: :de)
-              %td= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
+              %td
+                = number_to_currency(budget.promise, locale: :de)
+                %br
+                %small= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
+              %td= number_to_currency(budget.paid_amount, locale: :de)
               %td
                 = budget.start_date.strftime("%d.%m.%y")
-                = " - "
+                %br
                 = budget.end_date.strftime("%d.%m.%y")
-                = "(#{(budget.end_date - budget.start_date).to_i} Tage)"
-              %td= "#{(budget.end_date - Date.today).to_i} Tage"
+              %td= number_to_currency(budget.average_payment, locale: :de)
 
 .container-fluid
   .col-sm-6

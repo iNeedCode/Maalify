@@ -45,7 +45,7 @@
         %tbody
           - @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@budget.member).sort{|a, b| a.receipt.date <=> b.receipt.date}.each do |ri|
             %tr
-              %td= ri.receipt.id
+              %td= link_to ri.receipt.id, member_receipt_path(ri.receipt.member.id, ri.receipt.id)
               %td= ri.receipt.date.strftime("%d.%m.%Y")
               %td= number_to_currency(ri.amount)
 
