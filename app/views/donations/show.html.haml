@@ -1,17 +1,33 @@
-%p#notice= notice
+.container-fluid
+  .col-ms-12
+    %p#notice= notice
 
-%p
-  %b= t('donation.name')
-  = @donation.name
-%p
-  %b= t('donation.budget')
-  = @donation.budget
-%p
-  %b= t('donation.formula')
-  = @donation.formula
-%p
-  %b= t('donation.organization')
-  = @donation.organization
+    %h1
+      = @donation.name
+      %small
+        = "(#{@donation.organization})"
+        %small= show_boolean_value_as_glyphicon @donation.budget, 'Budget'
+
+
+.container-fluid
+  .col-ms-12
+    %h3= t('donation.calculation_rules')
+    %p.well.lead.text-center
+      - if @donation.budget
+        %b
+          = @donation.formula
+        = t('donation.calculation_rules_description_budget')
+        %b= number_to_currency(@donation.minimum_budget, locale: :de)
+      - else
+        = t('donation.calculation_rules_description_none_budget')
+        %b= number_to_currency(@donation.minimum_budget, locale: :de)
+
+
+
+  - unless @donation.description.nil?
+    .col-ms-12
+      %p.well
+        = @donation.description
 
 
 = link_to t('view.edit'), edit_donation_path(@donation), :class => "btn btn-default btn-xs"

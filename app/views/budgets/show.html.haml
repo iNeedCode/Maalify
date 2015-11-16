@@ -6,7 +6,7 @@
     %h1
       = @budget.title
       %small
-        = @budget.member.full_name
+        = link_to @budget.member.full_name, member_path(@budget.member_id)
 
 .container-fluid
   .col-sm-12

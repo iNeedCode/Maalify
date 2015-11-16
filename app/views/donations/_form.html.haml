@@ -21,5 +21,8 @@
   .form-group
     = f.label t('donation.organization')
     = f.select :organization, %w(Khuddam Atfal Ansar All Lajna Nasirat),{}, {class: "selectpicker"}
+  .form-group
+    = f.label t('donation.description')
+    = f.text_area :description, :class => "form-control"
   .actions
     = f.submit t('view.save'), :class => "btn btn-success"

@@ -8,11 +8,11 @@ module ApplicationHelper
     address.present? ? link_to("#{address}", "mailto:#{address}") : address
   end
 
-  def show_boolean_value_as_glyphicon(value)
+  def show_boolean_value_as_glyphicon(value, title = 'Wassiyat')
     if value
-      content_tag(:span, "", class: "glyphicon glyphicon-ok", title: "Wassiyat", data: {toggle: "toogle", placement: "placement"})
+      content_tag(:span, "", class: "glyphicon glyphicon-ok", title: title, data: {toggle: "toogle", placement: "placement"})
     else
-      content_tag(:span, "", class: "glyphicon glyphicon-remove", title: "Wassiyat", data: {toggle: "toogle", placement: "placement"})
+      content_tag(:span, "", class: "glyphicon glyphicon-remove", title: title, data: {toggle: "toogle", placement: "placement"})
     end
   end
 

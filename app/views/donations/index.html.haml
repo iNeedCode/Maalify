@@ -16,7 +16,7 @@
     - @donations.each do |donation|
       %tr
         %td= donation.name
-        %td= show_boolean_value_as_glyphicon donation.budget
+        %td= show_boolean_value_as_glyphicon donation.budget, 'Budget'
         %td= donation.formula
         %td= number_to_currency(donation.minimum_budget, locale: :de)
         %td= donation.organization

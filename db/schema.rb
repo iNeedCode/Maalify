@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109203429) do
+ActiveRecord::Schema.define(version: 20151116072707) do
 
   create_table "budgets", force: :cascade do |t|
     t.string   "title"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20151109203429) do
     t.integer  "minimum_budget", default: 0
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "description"
   end
 
   add_index "donations", ["name"], name: "index_donations_on_name", unique: true

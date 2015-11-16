@@ -60,6 +60,7 @@ de:
     donation:
       title: "Chanda"
       new: "Neue Chanda"
+      edit: "Chanda bearbeiten"
     budget:
       title: "Budget"
       new: "Neues Budget"
@@ -272,6 +273,11 @@ de:
     name: "Chanda"
     organization: "Unterorganisation"
     minimum: "Minimal Versprechen"
+    minimum_budget: "Mindestens Budget"
+    description: "Beschreibung"
+    calculation_rules: "Berechnungsregeln"
+    calculation_rules_description_budget: "multipliziert mit dem Einkommen. Mit einem mindest Budget von "
+    calculation_rules_description_none_budget: "Mindest Versprechen von"
   budget:
     promise: "Versprechen"
     rest_promise_from_past_budget: "Rest aus Vorjahr"

@@ -76,6 +76,7 @@ en:
     donation:
       title: "Chanda"
       new: "New Chanda"
+      edit: "Edit Donation"
     budget:
       title: "Budget"
       new: "New Budget"
@@ -88,6 +89,11 @@ en:
     budget: "Budget"
     name: "Chanda"
     minimum: "Mininum promise"
+    minimum_budget: "Minimum Budget"
+    description: "Description"
+    calculation_rules: "Calculation rules"
+    calculation_rules_description_budget: "multiplied by the income. With a mininum Budget of "
+    calculation_rules_description_none_budget: "Minimum promise of"
   budget:
     promise: "promise"
     rest_promise_from_past_budget: "Rest from previous year"
