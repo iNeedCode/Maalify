@@ -20,7 +20,7 @@ $(document).on 'ready page:load', ->
     $.get "/members.json", (data) ->
       options = ""
       for key of data
-        if data[key].tanzeem == organization
+        if data[key].tanzeem == organization || organization == "All"
           options += "<option value='#{data[key].id}'> #{data[key].full_name}</option> "
       $("#budget_member_id").html(options)
       $('#budget_member_id').multiselect('rebuild');
