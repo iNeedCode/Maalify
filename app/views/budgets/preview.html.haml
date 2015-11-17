@@ -4,7 +4,7 @@
     %h2
       = "#{@budget_previews[0].donation.name}"
       %br
-      %small= "#{@budget_previews[0].start_date.strftime("%d.%B %Y")} - #{@budget_previews[0].end_date.strftime("%d.%B %Y")}"
+      %small= "#{@budget_previews[0].start_date.strftime("%d. %B %Y")} - #{@budget_previews[0].end_date.strftime("%d. %B %Y")}"
 
 = form_tag({controller: "budgets", action: "create"}, method: "post", class: "form-horizontal") do
   - @budget_previews.each_with_index do |budget,i|
