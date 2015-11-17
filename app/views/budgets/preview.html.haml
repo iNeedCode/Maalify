@@ -1,14 +1,15 @@
-.well
-  %h2= @budget_previews[0].title
-  = "#{@budget_previews[0].donation.name}"
-  %br
-  = "#{@budget_previews[0].start_date} - #{@budget_previews[0].end_date}"
+.row
+  .well.text-center
+    %b.lead= @budget_previews[0].title
+    %h2
+      = "#{@budget_previews[0].donation.name}"
+      %br
+      %small= "#{@budget_previews[0].start_date.strftime("%d.%B %Y")} - #{@budget_previews[0].end_date.strftime("%d.%B %Y")}"
 
 = form_tag({controller: "budgets", action: "create"}, method: "post", class: "form-horizontal") do
   - @budget_previews.each_with_index do |budget,i|
-    .col-sm-12
-
-      %h3= budget.member.full_name
+    .col-sm-12.well.well-sm
+      %h3.text-center= budget.member.full_name
       %div{"data-member-preview-#{i}": "member-preview-#{i}"}
         = hidden_field_tag "budgets[#{i}][title]", budget.title
         = hidden_field_tag "budgets[#{i}][start_date]", budget.start_date
@@ -28,8 +29,8 @@
         .col-sm-10
           = check_box_tag "budgets_#{i}_none_payer", 'yes', false, class: 'btn none_payer_check_box',
             data: {"member-preview": "member-preview-#{i}", "promise": "budgets_#{i}_promise", 'rest_promise_from_past_budget': "budgets_#{i}_rest_promise_from_past_budget" }
-  .field.form-group.col-sm-5
-    = submit_tag t('view.save'), class: 'btn btn-primary'
+  .field.form-group.col-sm-12.text-center
+    = submit_tag t('view.save'), class: 'btn btn-success btn-lg btn-block'
     %br
     = link_to t('view.back'), :back, class: 'btn btn-default btn-xs'
 
