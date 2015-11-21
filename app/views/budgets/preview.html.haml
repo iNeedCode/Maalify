@@ -32,7 +32,8 @@
       .form-group
         = label_tag '', t('budget.none_payer'), class: 'col-sm-2 control-label', for: "budgets_#{i}_none_payer"
         .col-sm-10
-          = check_box_tag "budgets_#{i}_none_payer", 'yes', false, class: 'btn none_payer_check_box',
+          = hidden_field_tag "budgets[#{i}][none_payer]", false
+          = check_box_tag "budgets[#{i}][none_payer]", value = "true", checked = false, class: 'btn none_payer_check_box',
             data: {"member-preview": "member-preview-#{i}", "promise": "budgets_#{i}_promise", 'rest_promise_from_past_budget': "budgets_#{i}_rest_promise_from_past_budget" }
   .field.form-group.col-sm-12.text-center
     = submit_tag t('view.save'), class: 'btn btn-success btn-lg btn-block'

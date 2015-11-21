@@ -15,8 +15,8 @@
   %tbody
     - @receipts.each do |receipt|
       %tr
-        %td= receipt.member.full_name
-        %td= receipt.receipt_id
+        %td= link_to receipt.member.full_name, member_path(receipt.member_id)
+        %td= link_to receipt.receipt_id, member_receipt_path(receipt.member_id, receipt.id)
         %td= receipt.date.strftime("%d. %b %Y")
         %td
           = number_to_currency receipt.total

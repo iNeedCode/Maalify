@@ -36,8 +36,8 @@
         %td= number_to_currency(budget.promise, locale: :de)
         %td= budget.start_date.strftime("%d. %b %Y")
         %td= budget.end_date.strftime("%d. %b %Y")
-        %td= budget.member.full_name
-        %td= budget.donation.name
+        %td= link_to budget.member.full_name, member_path(budget.member_id)
+        %td= link_to budget.donation.name, donation_path(budget.donation_id)
         %td
           =link_to budget, :title => "#{t('table.show')}" do
             %span.glyphicon.glyphicon-search

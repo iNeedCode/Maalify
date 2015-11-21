@@ -77,6 +77,6 @@ class BudgetsController < ApplicationController
   end
 
   def budget_params
-    params.require(:budget).permit(:title, :promise, :start_date, :end_date, :rest_promise_from_past_budget, :donation_id, member_id: [])
+    params.require(:budget).permit(:title, :promise, :start_date, :end_date, :rest_promise_from_past_budget, :none_payer, :donation_id, member_id: [])
   end
 end
