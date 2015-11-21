@@ -1,5 +1,5 @@
 class AddNonePayerToBudget < ActiveRecord::Migration
   def change
-    add_column :budgets, :add_none_payer, :boolean
+    add_column :budgets, :none_payer, :boolean
   end
 end

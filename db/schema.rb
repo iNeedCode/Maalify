@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20151117204349) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.integer  "rest_promise_from_past_budget", default: 0
-    t.boolean  "add_none_payer"
+    t.boolean  "none_payer"
   end
 
   add_index "budgets", ["donation_id"], name: "index_budgets_on_donation_id"
