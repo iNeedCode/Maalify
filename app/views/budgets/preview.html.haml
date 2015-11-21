@@ -4,12 +4,17 @@
     %h2
       = "#{@budget_previews[0].donation.name}"
       %br
-      %small= "#{@budget_previews[0].start_date.strftime("%d. %B %Y")} - #{@budget_previews[0].end_date.strftime("%d. %B %Y")}"
+      %small
+        = "#{@budget_previews[0].start_date.strftime("%d. %B %Y")} - #{@budget_previews[0].end_date.strftime("%d. %B %Y")}"
+        %small
+          %em= "[#{(@budget_previews[0].end_date - @budget_previews[0].start_date).to_i} Tage]"
 
 = form_tag({controller: "budgets", action: "create"}, method: "post", class: "form-horizontal") do
   - @budget_previews.each_with_index do |budget,i|
     .col-sm-12.well.well-sm
-      %h3.text-center= budget.member.full_name
+      %h3.text-center
+        = budget.member.full_name
+        %small= budget.member.id
       %div{"data-member-preview-#{i}": "member-preview-#{i}"}
         = hidden_field_tag "budgets[#{i}][title]", budget.title
         = hidden_field_tag "budgets[#{i}][start_date]", budget.start_date

@@ -50,6 +50,7 @@
             %th= t('view.donation.title')
             %th= t('budget.promise')
             %th= t('budget.paid')
+            %th= t('budget.rest_current_budget')
             %th= t('budget.elapsed_time')
             %th= t('budget.average_payment')
         %tbody
@@ -63,6 +64,7 @@
                 %br
                 %small= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
               %td= number_to_currency(budget.paid_amount, locale: :de)
+              %td= number_to_currency(budget.promise - budget.paid_amount, locale: :de)
               %td
                 = budget.start_date.strftime("%d.%m.%y")
                 %br
