@@ -13,7 +13,13 @@ $(document).on 'ready page:load', ->
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'
 
-  $('#budget_member_id').multiselect();
+  $('#budget_member_id').multiselect
+    includeSelectAllOption: true,
+    enableFiltering: true
+    enableCaseInsensitiveFiltering: true
+    buttonWidth: '380px'
+    numberDisplayed: 2
+
   $("#member_select_fields").hide() if $("#budget_donation_id").val() == ""
 
   FilterMembers = (organization) ->
