@@ -63,12 +63,16 @@ $(document).on 'ready page:load', ->
   $(".none_payer_check_box").change ->
     fieldMemberData = $(this).data("member-preview")
     fieldPromiseId = $(this).data("promise")
+    fieldDescriptionWrapper = $(this).data("description")
+    console.log(fieldDescriptionWrapper)
+
     fieldRestPromiseId = $(this).data("rest-promise-from-past-budget")
     fieldMember = $("div").find("\[data-#{fieldMemberData}=#{fieldMemberData}\]")[0]
     fieldMemberWrap = $("div").find("\[data-#{fieldMemberData}=#{fieldMemberData}\]")
 
     if ( this.checked )
       fieldMemberWrap.hide()
+      $("#" + fieldDescriptionWrapper).show()
       fieldPromiseValue = $("#" + fieldPromiseId).val()
       fieldRestPromiseValue = $("#" + fieldRestPromiseId).val()
       $.data(fieldMember, "fieldPromiseValue", fieldPromiseValue)
@@ -77,6 +81,7 @@ $(document).on 'ready page:load', ->
       $("#" + fieldRestPromiseId).val(0)
     else
       fieldMemberWrap.show()
+      $("#" + fieldDescriptionWrapper).hide()
       fieldPromiseValue = $.data(fieldMember, "fieldPromiseValue")
       fieldRestPromiseValue = $.data(fieldMember, "fieldRestPromiseValue")
       $("#" + fieldPromiseId).val(fieldPromiseValue)

@@ -62,7 +62,14 @@ class BudgetsController < ApplicationController
   end
 
   def update
-    flash[:notice] = 'Member was successfully updated.' if @budget.update(budget_params)
+    if @budget.update(budget_params)
+      flash[:notice] = 'Member was successfully updated.'
+      unless @budget.none_payer
+        @budget.calculate_budget
+        @budget.transfer_old_remaining_promise_to_current_budget
+        @budget.save
+      end
+    end
     respond_with(@budget)
   end
 
@@ -77,6 +84,6 @@ class BudgetsController < ApplicationController
   end
 
   def budget_params
-    params.require(:budget).permit(:title, :promise, :start_date, :end_date, :rest_promise_from_past_budget, :none_payer, :donation_id, member_id: [])
+    params.require(:budget).permit(:title, :promise, :start_date, :end_date, :rest_promise_from_past_budget, :description, :none_payer, :donation_id, member_id: [])
   end
 end

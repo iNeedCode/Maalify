@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117204349) do
+ActiveRecord::Schema.define(version: 20151121225101) do
 
   create_table "budgets", force: :cascade do |t|
     t.string   "title"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20151117204349) do
     t.datetime "updated_at",                                null: false
     t.integer  "rest_promise_from_past_budget", default: 0
     t.boolean  "none_payer"
+    t.string   "description"
   end
 
   add_index "budgets", ["donation_id"], name: "index_budgets_on_donation_id"

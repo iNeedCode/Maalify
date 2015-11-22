@@ -23,7 +23,12 @@
   .field
     = f.label :end_date
     = f.text_field :end_date, :class => "form-control datepicker"
-
+  .field
+    = f.label :none_payer
+    = f.check_box :none_payer, :class => "form-control"
+  .field
+    = f.label :description
+    = f.text_area :description, :class => "form-control"
 
   .actions
     = f.submit t('view.save'), :class => "btn btn-success"

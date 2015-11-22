@@ -1,7 +1,4 @@
 .container-fluid
-  %p#notice= notice
-
-.container-fluid
   .col-sm-12
     %h1
       = @budget.title
@@ -31,6 +28,11 @@
   .col-sm-6
     %p.text-center.lead
       = @budget.end_date.strftime("%d. %B %Y")
+  - unless @budget.description.nil?
+    .col-sm-12
+      %p.text-center.lead
+        = @budget.description
+
 
 
 - unless @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@budget.member).empty?

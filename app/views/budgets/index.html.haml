@@ -5,15 +5,17 @@
   %thead
     %tr
       %th= t('view.budget.title')
-      %th= t('view.budget.title')
       %th= t('budget.rest_promise_from_past_budget')
+      %th= t('budget.promise')
+      %th= t('budget.paid')
       %th= t('budget.remainingPromise')
   %tbody
     - @budget_overview.each do |budget|
       %tr
         %td= budget[:title]
-        %td= number_to_currency budget[:promise]
         %td= number_to_currency budget[:rest_promise_from_past_budget]
+        %td= number_to_currency budget[:promise]
+        %td= number_to_currency budget[:promise] - budget[:remainingPromise]
         %td= number_to_currency budget[:remainingPromise]
 
 %table#budget-table.table.table-striped.table-bordered.table-hover.table-condensed
