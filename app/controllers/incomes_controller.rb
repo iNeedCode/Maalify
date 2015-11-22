@@ -38,6 +38,7 @@ class IncomesController < ApplicationController
 
   def destroy
     @income.destroy
+    @income.recalculate_budget
     respond_with(@income.member, @income)
   end
 
