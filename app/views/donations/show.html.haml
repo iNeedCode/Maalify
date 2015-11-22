@@ -12,7 +12,7 @@
 .container-fluid
   .col-ms-12
     %h3= t('donation.calculation_rules')
-    %p.well.lead.text-center
+    %p.well.well-lg.lead.text-center
       - if @donation.budget
         %b
           = @donation.formula
@@ -26,9 +26,9 @@
 
   - unless @donation.description.nil?
     .col-ms-12
-      %p.well
+      %p.well.text-center
         = @donation.description
 
-
-= link_to t('view.edit'), edit_donation_path(@donation), :class => "btn btn-default btn-xs"
-= link_to t('view.back'), donations_path, :class => "btn btn-default btn-xs"
+.container-fluid
+  = link_to t('view.edit'), edit_donation_path(@donation), :class => "btn btn-default btn-xs"
+  = link_to t('view.back'), donations_path, :class => "btn btn-default btn-xs"

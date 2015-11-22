@@ -187,19 +187,20 @@ class Budget < ActiveRecord::Base
     budget_names = Budget.find_distict_budget_names
     all_budget_overview = []
     budget_names.each do |budget_title|
-      total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0}
+      total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0, start_date: Date.new, end_date: Date.new}
       same_budgets = Budget.where(title: budget_title)
-      # debugger
       total_sum_budget[:title] = budget_title
 
       same_budgets.each do |budget|
-        # debugger
+        total_sum_budget[:start_date] = budget.start_date
+        total_sum_budget[:end_date] = budget.end_date
         total_sum_budget[:promise] += budget.promise
         total_sum_budget[:rest_promise_from_past_budget] += budget.rest_promise_from_past_budget
         total_sum_budget[:remainingPromise] += budget.remainingPromiseCurrentBudget
       end
       all_budget_overview << total_sum_budget
     end
+
     all_budget_overview
   end
 

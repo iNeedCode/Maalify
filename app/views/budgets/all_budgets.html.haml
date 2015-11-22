@@ -1,0 +1,44 @@
+%p
+  %ul.nav.nav-pills
+    %li{:role => "presentation"}
+      =link_to t('view.budget.overview'), budgets_path
+    %li.active{:role => "presentation"}
+      =link_to t('view.budget.all_budgets'), all_budgets_budgets_path
+%br
+%table#budget-table.table.table-striped.table-bordered.table-hover.table-condensed
+  %thead
+    %tr
+      %th= t('budget.title')
+      %th= t('budget.promise')
+      %th= t('budget.start_date')
+      %th= t('budget.end_date')
+      %th= t('budget.member')
+      %th= t('view.donation.title')
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @budgets.each do |budget|
+      %tr
+        %td= budget.title
+        %td= number_to_currency(budget.promise, locale: :de)
+        %td= I18n.l(budget.start_date, format: :default)
+        %td= I18n.l(budget.end_date, format: :default)
+        %td= link_to budget.member.full_name, member_path(budget.member_id)
+        %td= link_to budget.donation.name, donation_path(budget.donation_id)
+        %td
+          =link_to budget, :title => "#{t('table.show')}" do
+            %span.glyphicon.glyphicon-search
+        %td
+          = link_to edit_budget_path(budget), :title => "#{t('table.edit')}" do
+            %span.glyphicon.glyphicon-edit
+        %td
+          = link_to budget, :method => :delete, :data => { :confirm => 'Are you sure?' }, :title => "#{t('table.delete')}" do
+            %span.glyphicon.glyphicon-trash.color-red
+
+.row
+  %br
+  .col-md-4
+    = link_to "#{t('view.budget.new')}", new_budget_path, :class => "btn btn-success btn-block"
+

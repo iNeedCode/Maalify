@@ -1,16 +1,12 @@
-%h2
+%h1
   = t('view.income.title')
-  %small= @income.member.full_name
+  %small= link_to @income.member.full_name, member_path(@income.member_id)
 
-%p
-  %b= t('income.amount')
-  = number_to_currency(@income.amount, locale: :de)
-%p
-  %b= t('income.starting_date')
-  = @income.starting_date.strftime("%B %Y")
-%p
-  %b Member:
-  = @income.member.full_name
+%p.well.well-lg.text-center.lead
+  %b= number_to_currency(@income.amount, locale: :de)
+  = " ab "
+  %small
+    = I18n.l(@income.starting_date, format: :long)
 
 = link_to t('view.edit'), edit_member_income_path(params[:member_id], @income.id), :class => "btn btn-default btn-xs"
 = link_to t('view.back'), member_incomes_path, :class => "btn btn-default btn-xs"

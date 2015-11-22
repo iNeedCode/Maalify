@@ -4,9 +4,17 @@
 
 
 $(document).on 'ready page:load', ->
+  $("#budget-overview").DataTable
+    autoWidth: true
+    pagingType: "simple_numbers"
+    processing: true
+    stateSave: true
+    language:
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+
   $("#budget-table").DataTable
     autoWidth: true
-    pagingType: "simple"
+    pagingType: "simple_numbers"
     processing: true
     stateSave: true
     language:

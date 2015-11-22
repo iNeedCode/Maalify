@@ -6,7 +6,7 @@ de:
   income:
     amount: "Betrag"
     starting_date: "Beginn"
-    recalculate_budget: "Budgets new berechnen"
+    recalculate_budget: "Budgets neu berechnen"
   receipt:
     date: "Datum"
     id: "Belegnummer"  
@@ -37,7 +37,9 @@ de:
     tanzeem: "Tanzeem"
     full_name: "Name"
     current_budgets: "Aktuelle Budgets"
-    gender: "Geschlect"
+    gender: "Geschlecht"
+    wassiyyat: "Wassiyyat"
+    aims_id: "Aims Id"
   view:
     save: "Sichern"
     show: "Anzeigen"
@@ -49,6 +51,7 @@ de:
       new: "Mitglied hinzufügen"   
       title: "Mitglieder"
       select_budget_box: "Füge dieses Mitglied zu einem Budget hinzu"
+      aktion: "Aktionen"
     income:
       new: "Einkommen hinzufügen"    
       title: "Einkommen"
@@ -66,6 +69,8 @@ de:
       new: "Neues Budget"
       calculate: "Berechnen"
       edit: "Budget bearbeiten"
+      all_budgets: "Alle Budgets"
+      overview: "Übersicht"
   date:
     abbr_day_names:
     - So
@@ -274,7 +279,7 @@ de:
     organization: "Unterorganisation"
     minimum: "Minimal Versprechen"
     minimum_budget: "Mindestens Budget"
-    description: "Beschreibung"
+    description: "Verwendungszweck"
     calculation_rules: "Berechnungsregeln"
     calculation_rules_description_budget: "multipliziert mit dem Einkommen. Mit einem mindest Budget von "
     calculation_rules_description_none_budget: "Mindest Versprechen von"
@@ -291,3 +296,8 @@ de:
     average_payment: "Durchschnittliche Bezahlung"
     paid: "Gezahlt"
     rest_current_budget: "Rest"
+    description: "Bemerkung"
+    title: "Name"
+    member: "Mitglied"
+  receipt_item:
+    number: "Nummer"

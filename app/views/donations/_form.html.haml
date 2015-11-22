@@ -1,4 +1,4 @@
-= form_for @donation, :html => {:class => "formform-inline"} do |f|
+= form_for @donation, :html => {:class => "form-horizontal"} do |f|
   - if @donation.errors.any?
     #error_explanation
       %h2= "#{pluralize(@donation.errors.count, "error")} prohibited this donation from being saved:"
@@ -7,22 +7,31 @@
           %li= msg
 
   .form-group
-    = f.label t('donation.name')
-    = f.text_field :name, :class => "form-control"
+    = f.label t('donation.name'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, class: "form-control"
   .form-group
-    = f.label t('donation.budget')
-    = f.check_box :budget, class: "form-control"
+    = f.label t('donation.budget'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.check_box :budget, class: "form-control"
   .form-group#formula_fields
-    = f.label t('donation.formula')
-    = f.text_field :formula, :class => "form-control"
+    = f.label t('donation.formula'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :formula, class: "form-control"
   .form-group#minimum_budget_fields
-    = f.label t('donation.minimum')
-    = f.text_field :minimum_budget, :class => "form-control"
+    = f.label t('donation.minimum'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :minimum_budget, class: "form-control"
   .form-group
-    = f.label t('donation.organization')
-    = f.select :organization, %w(Khuddam Atfal Ansar All Lajna Nasirat),{}, {class: "selectpicker"}
+    = f.label t('donation.organization'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.select :organization, %w(Khuddam Atfal Ansar All Lajna Nasirat),{}, {class: "selectpicker"}
   .form-group
-    = f.label t('donation.description')
-    = f.text_area :description, :class => "form-control"
-  .actions
-    = f.submit t('view.save'), :class => "btn btn-success"
+    = f.label t('donation.description'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :description, class: "form-control"
+  .container-fluid
+    .col-md-offset-2.col-md-3
+      .form-group
+        .actions
+          = f.submit t('view.save'), :class => "btn btn-success btn-block"

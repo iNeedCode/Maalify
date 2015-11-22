@@ -1,9 +1,9 @@
 %h1
 	= t('view.member.edit')
-	%small= @member.full_name
+	%small= link_to @member.full_name, member_path(@member.id)
 
 = render 'form'
 
 %br
-= link_to 'Show', @member, :class => "btn btn-default btn-xs"
-= link_to 'Back', members_path, :class => "btn btn-default btn-xs"
+= link_to t('view.show'), @member, :class => "btn btn-default btn-xs"
+= link_to t('view.back'), members_path, :class => "btn btn-default btn-xs"

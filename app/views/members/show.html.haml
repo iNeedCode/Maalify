@@ -72,16 +72,16 @@
               %td= number_to_currency(budget.average_payment, locale: :de)
 
 .container-fluid
-  .col-sm-6
-    %h3 Aktionen
+  %h3= t('view.member.aktion')
+  .col-sm-4
     = link_to member_incomes_path(params[:id]), :class => "btn btn-default btn-block"  do
       %span.glyphicon.glyphicon-euro
       = t('view.income.title')
-
+  .col-sm-4
     = link_to member_receipts_path(params[:id]), :class => "btn btn-default btn-block"  do
       %span.glyphicon.glyphicon-inbox
         = t('view.receipt.title')
-
+  .col-sm-4
     = collection_select(:budget, :selector_for_member, @member.list_available_budgets,:title, :title,
       options= {prompt: t('view.member.select_budget_box')}, html_options= {class: "selectpicker", data:{width:'auto'}})
 

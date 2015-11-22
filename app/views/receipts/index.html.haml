@@ -16,8 +16,15 @@
     - @receipts.each do |receipt|
       %tr
         %td= receipt.receipt_id
-        %td= receipt.date.strftime("%d. %b %Y")
-        %td= number_to_currency receipt.total
+        %td= I18n.l(receipt.date, format: :long)
+        %td
+          = number_to_currency receipt.total
+          %br
+          - receipt.items.each do |ri|
+            %small
+              = "#{ri.donation.name}: "
+              = number_to_currency ri.amount
+            %br
         %td
           =link_to member_receipt_path(params[:member_id], receipt.id), :title => "#{t('table.show')}" do
             %span.glyphicon.glyphicon-search        

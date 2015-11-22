@@ -59,6 +59,7 @@ en:
     full_name: "Name"
     current_budgets: "Current budgets"
     gender: "Gender"
+    wassiyyat: "Wassiyyat"
   view:
     save: "Save"
     show: "Show"
@@ -69,6 +70,7 @@ en:
       new: "Add Member"
       title: "Members"
       select_budget_box: "Select a Budget to add this Member"
+      aktion: "Actions"
     receipt:
       edit: "Edit receipt"
       new: "Add receipt"   
@@ -82,6 +84,8 @@ en:
       new: "New Budget"
       calculate: "Calculate"
       edit: "Edit budget"
+      all_budgets: "All budgets"
+      overview: "Overview"
   donation:
     formula: "Formula"
     organization: "Organization"
@@ -90,7 +94,7 @@ en:
     name: "Chanda"
     minimum: "Mininum promise"
     minimum_budget: "Minimum Budget"
-    description: "Description"
+    description: "Purpose"
     calculation_rules: "Calculation rules"
     calculation_rules_description_budget: "multiplied by the income. With a mininum Budget of "
     calculation_rules_description_none_budget: "Minimum promise of"
@@ -107,3 +111,8 @@ en:
     average_payment: "Average payment"
     paid: "Paid"
     rest_current_budget: "Rest"
+    description: "Remark"
+    title: "Name"
+    member: "Member"
+  receipt_item:
+    number: "Number"

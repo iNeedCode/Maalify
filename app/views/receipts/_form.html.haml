@@ -1,4 +1,4 @@
-= form_for([@member, @receipt], :html => {:class => "formform-inline"}) do |f|
+= form_for([@member, @receipt], :html => {:class => "form-horizontal"}) do |f|
   - if @receipt.errors.any?
     #error_explanation
       %h2= "#{pluralize(@receipt.errors.count, "error")} prohibited this receipt from being saved:"
@@ -7,17 +7,20 @@
           %li= msg
 
   .form-group
-    = f.label :receipt_id, t('receipt.id')
-    = f.text_field :receipt_id, :class => "form-control"
+    = f.label :receipt_id, t('receipt.id'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :receipt_id, :class => "form-control"
   .form-group
-    = f.label :date, t('receipt.date')
-    = f.text_field :date, :class => "form-control datepicker"
+    = f.label :date, t('receipt.date'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :date, :class => "form-control datepicker"
+  .container
+    .col-md-offset-1
+      = f.fields_for :items do |builder|
+        = render 'item_fields', f: builder
 
-  = f.fields_for :items do |builder|
-    = render 'item_fields', f: builder
-
-  .form-group
-    = link_to_add_fields(t('receipt.add_item'), f, :items)
+      .form-group
+        = link_to_add_fields(t('receipt.add_item'), f, :items)
 
   %br
   .actions

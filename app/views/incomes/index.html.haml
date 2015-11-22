@@ -15,7 +15,7 @@
     - @incomes.each do |income|
       %tr
         %td= number_to_currency(income.amount, locale: :de)
-        %td= income.starting_date.strftime("%B %Y")
+        %td= I18n.l(income.starting_date, format: :long)
         %td
           =link_to member_income_path(params[:member_id], income.id), :title => "#{t('table.show')}" do
             %span.glyphicon.glyphicon-search        

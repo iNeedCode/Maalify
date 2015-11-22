@@ -7,22 +7,22 @@
   = @receipt.receipt_id
 %p
   %b= t('receipt.date')
-  = @receipt.date.strftime("%d. %B %Y")
+  = I18n.l(@receipt.date, format: :long)
 
 %table.table.table-bordered.table-condensed.table-hover
   %thead
     %th= t('receipt_item.number')
-    %th= t('receipt_item.donation')
-    %th= t('receipt_item.amount')
+    %th= t('donation.name')
+    %th= t('receipt.amount')
   %tbody
     - @receipt.items.each_with_index do |item, index|
       %tr
         %td= index + 1
-        %td= item.donation.name
+        %td= link_to item.donation.name, donation_path(item.donation_id)
         %td= number_to_currency(item.amount, locale: :de)
 
 
-%p
+%h4
   %b= t('receipt.total')
   = number_to_currency(@receipt.total, locale: :de)
 

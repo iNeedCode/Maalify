@@ -1,4 +1,4 @@
-= form_for([@member, @income], :html => {:class => "formform-inline"}) do |f|
+= form_for([@member, @income], :html => {:class => "form-horizontal"}) do |f|
   - if @income.errors.any?
     #error_explanation
       %h2= "#{pluralize(@income.errors.count, "error")} prohibited this income from being saved:"
@@ -7,15 +7,20 @@
           %li= msg
 
   .form-group
-    = f.label :amount, t('income.amount')
-    = f.number_field :amount, :class => "form-control"
+    = f.label :amount, t('income.amount'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :amount, :class => "form-control"
   .form-group
-    = f.label :starting_date, t('income.starting_date')
-    %br
-    = f.text_field :starting_date, :class => "form-control datepicker-income"
+    = f.label :starting_date, t('income.starting_date'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :starting_date, :class => "form-control datepicker-income"
   .form-group
-    = label_tag :recalculate, t('income.recalculate_budget')
-    = hidden_field_tag :recalculate, false
-    = check_box_tag :recalculate, true, {checked: "checked"}
-  .form-group
-    = f.submit t('view.save'), :class => "btn btn-success"
+    = label_tag :recalculate, t('income.recalculate_budget'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = hidden_field_tag :recalculate, false
+      = check_box_tag :recalculate, true, {checked: "checked"}, class: "form-control"
+  .container-fluid
+    .col-md-offset-2.col-md-3
+      .form-group
+        .actions
+          = f.submit t('view.save'), :class => 'btn btn-success btn-block'

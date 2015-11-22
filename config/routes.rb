@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :budgets do
     post :preview, on: :collection
     get :new_with_parameter, on: :collection
+    get :all_budgets, on: :collection
   end
 
 
