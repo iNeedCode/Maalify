@@ -1,0 +1,38 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+      = stylesheet_link_tag :email
+  %body
+    .mail-wrapper
+      %div
+        %center
+          %small Assalam o Alaikum Warahmatullah,
+          %br
+        Sehr geehrter #{@member.first_name} #{@member.last_name} Sb.
+      - unless @member.budgets.empty?
+        %center
+          %h2= t('member.current_budgets')
+          %table.main{border: "1px"}
+            %thead
+              %tr
+                %th= t('view.donation.title')
+                %th= t('budget.rest_current_budget')
+                %th= t('budget.elapsed_time')
+                %th= t('budget.average_payment')
+            %tbody
+              - @member.budgets.each do |budget|
+                - next unless (budget.start_date..budget.end_date).include?(Date.today)
+                %tr
+                  %td= budget.donation.name
+                  %td= number_to_currency(budget.promise - budget.paid_amount + budget.rest_promise_from_past_budget, {locale: :de, precision: 0})
+                  %td
+                    = I18n.l(budget.start_date, format: :default)
+                    %br
+                    = I18n.l(budget.end_date, format: :default)
+                  %td= number_to_currency(budget.average_payment, {locale: :de, precision: 0})
+      %table.footer
+        %tr
+          Wassalam
+          %br
+          Abteilung Maal

@@ -4,7 +4,7 @@ class ReceiptsController < ApplicationController
   respond_to :html
 
   def all
-    @receipts = Receipt.all.order(:date)
+    @receipts = Receipt.all.order(date: :desc)
   end
 
   def index

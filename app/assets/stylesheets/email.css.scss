@@ -1,0 +1,185 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ */
+
+// http://stefan.magnuson.co/articles/rails/sending-emails-using-rails-and-bootstrap/
+
+.mail-wrapper {
+  /* Client-specific Styles */
+  #outlook a {
+    padding: 0;
+  }
+
+  small {
+    color: #7C7C7C;
+    font-style: italic;
+  }
+  /* Force Outlook to provide a "view in browser" menu link. */
+
+  body {
+    width: 100% !important;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design. */
+
+  .ExternalClass {
+    width: 100%;
+    line-height: 100%;
+    p, span, font, td, div {
+      line-height: 100%;
+    }
+  }
+
+  /* Force Hotmail to display emails at full width */
+  /* Force Hotmail to display normal line spacing.*/
+
+  #backgroundTable {
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+    line-height: 100% !important;
+  }
+
+  img {
+    outline: none;
+    text-decoration: none;
+    border: none;
+    -ms-interpolation-mode: bicubic;
+  }
+
+  a img {
+    border: none;
+  }
+
+  .image_fix {
+    display: block;
+  }
+
+  p {
+    margin: 0px 0px !important;
+  }
+
+  table {
+    thead {
+      background-color: #d5d5d5;
+      color: #4b4b4b;
+    }
+    td {
+      padding: 0.1em 0.2em 0em 0.2em;
+      border-collapse: collapse;
+    }
+    border-collapse: collapse;
+    border: solid 0.5px #7C7C7C;
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+  }
+
+  a {
+    color: #0a8cce;
+    text-decoration: none;
+    text-decoration: none !important;
+  }
+
+  /*STYLES*/
+
+  table[class=full] {
+    width: 100%;
+    clear: both;
+  }
+
+  /*IPAD STYLES*/
+  @media only screen and (max-width: 640px) {
+    a {
+      &[href^="tel"], &[href^="sms"] {
+        text-decoration: none;
+        color: #0a8cce;
+        /* or whatever your want */
+        pointer-events: none;
+        cursor: default;
+      }
+    }
+    .mobile_link a {
+      &[href^="tel"], &[href^="sms"] {
+        text-decoration: default;
+        color: #0a8cce !important;
+        pointer-events: auto;
+        cursor: default;
+      }
+    }
+    table {
+      &[class=devicewidth] {
+        width: 440px !important;
+        text-align: center !important;
+      }
+      &[class=devicewidthinner] {
+        width: 420px !important;
+        text-align: center !important;
+      }
+    }
+    img {
+      &[class=banner], &[class=colimg2] {
+        width: 440px !important;
+        height: 220px !important;
+      }
+    }
+  }
+
+  /*IPHONE STYLES*/
+  @media only screen and (max-width: 480px) {
+    a {
+      &[href^="tel"], &[href^="sms"] {
+        text-decoration: none;
+        color: #0a8cce;
+        /* or whatever your want */
+        pointer-events: none;
+        cursor: default;
+      }
+    }
+    .mobile_link a {
+      &[href^="tel"], &[href^="sms"] {
+        text-decoration: default;
+        color: #0a8cce !important;
+        pointer-events: auto;
+        cursor: default;
+      }
+    }
+    table {
+      &[class=devicewidth] {
+        width: 280px !important;
+        text-align: center !important;
+      }
+      &[class=devicewidthinner] {
+        width: 260px !important;
+        text-align: center !important;
+      }
+    }
+    img {
+      &[class=banner], &[class=colimg2] {
+        width: 280px !important;
+        height: 140px !important;
+      }
+    }
+    td {
+      &[class=mobile-hide] {
+        display: none !important;
+      }
+      &[class="padding-bottom25"] {
+        padding-bottom: 25px !important;
+      }
+    }
+  }
+}

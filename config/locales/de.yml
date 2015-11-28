@@ -299,5 +299,6 @@ de:
     description: "Bemerkung"
     title: "Name"
     member: "Mitglied"
+    remark: "Notiz"
   receipt_item:
     number: "Nummer"

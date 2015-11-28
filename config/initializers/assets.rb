@@ -11,3 +11,4 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( bootstrap-select.js bootstrap-select.css )
 
 Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'images')
+Rails.application.config.assets.precompile += %w( email.css )
