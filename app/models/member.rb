@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :date_of_birth, :aims_id, :gender
   validates_uniqueness_of :aims_id
   validate :at_least_one_communication_chanel_is_given
+  validates :email, format: { with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/ }
   validates :gender, inclusion: {in: %w(male female),
                                  message: "'%{value}' is not a valid Gender"}, allow_nil: false
 
