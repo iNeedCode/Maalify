@@ -70,7 +70,15 @@ de:
       calculate: "Berechnen"
       edit: "Budget bearbeiten"
       all_budgets: "Alle Budgets"
-      overview: "Übersicht"
+      overview: "Budget Übersicht"
+    prompt: "Mitglied Auswählen"
+    visitor:
+      quick_add: "Hinzufügen"
+      quick_add_header: "Beleg hinzufügen"
+      welcome_text1: "Assalam-o-Alaikum, Ihr System um Finanzdaten zu verwalten, speziell für das AMJ Spendensystem."
+      welcome_text2: "Direktlinks"
+      welcome_text3: "Gelangen Sie direkt zu den einzelnen Seiten."
+    donations: "Chandajaat"
   date:
     abbr_day_names:
     - So
@@ -292,7 +300,7 @@ de:
     remainingPromise: "Rest"
     elapsed_time: "Laufzeit"
     remaining_time: "Restlaufzeit"
-    receipts: "Belege"
+    receipts: "Alle Belege"
     average_payment: "Durchschnittliche Bezahlung"
     paid: "Gezahlt"
     rest_current_budget: "Rest"

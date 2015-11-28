@@ -1,0 +1,36 @@
+.container-fluid
+  .text-center
+    %blockquote
+      %em= t('view.visitor.welcome_text1')
+    %h2= t('view.visitor.quick_add_header')
+    = form_tag "", id: "quick-receipt-form", method: :get do
+      .btn-group
+        = select_tag "member_id_quick_select", options_for_select(Member.all.map{|m| [m.full_name, m.id,
+          { 'data-url': new_member_receipt_path(member_id: m.id) }]}), {prompt: t('view.prompt')}
+.container-fluid
+  %br
+  .jumbotron{style:"background-color:#f7f7f7;"}
+    .text-center
+      %h1= t('view.visitor.welcome_text2')
+      %p= t('view.visitor.welcome_text3')
+      %p
+        =link_to budgets_path, class: "btn btn-lg btn-default" do
+          %span.glyphicon.glyphicon-credit-card
+          = t('view.budget.overview')
+          %span.badge
+            = Budget.select(:title).distinct(:title).map(&:title).size
+        =link_to receipts_all_path, class: "btn btn-default btn-lg" do
+          %span.glyphicon.glyphicon-list
+          =t('budget.receipts')
+          %span.badge
+            = Receipt.all.size
+        =link_to members_path, class: "btn btn-default btn-lg" do
+          %span.glyphicon.glyphicon-user
+          =t('view.member.title')
+          %span.badge
+            = Member.all.size
+        =link_to donations_path, class: "btn btn-default btn-lg" do
+          %span.glyphicon.glyphicon-user
+          =t('view.donation.title')
+          %span.badge
+            = Donation.all.size
