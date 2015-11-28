@@ -26,8 +26,12 @@ class ReceiptsController < ApplicationController
 
   def create
     @receipt = member.receipts.new(receipt_params)
-    flash[:notice] = 'Receipt was successfully created.' if @receipt.save
-    respond_with(@receipt.member, @receipt)
+    if @receipt.save
+      flash[:notice] = "Receipt was successfully created."
+      redirect_to root_path
+    else
+      respond_with(@receipt.member, @receipt)
+    end
   end
 
   def update
