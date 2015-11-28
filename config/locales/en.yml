@@ -28,6 +28,7 @@ en:
     amount: "Amount"
     starting_date: "As of"
     recalculate_budget: "Calculate budget again"
+    current: "Current income"
   receipt:
     date: "Date"
     id: "Receipt number"  
@@ -94,6 +95,8 @@ en:
       welcome_text2: "Quicklinks"
       welcome_text3: "Leads directly to the individual pages."
     donations: "Chandajaat"
+    income:
+      title: "Income"
   donation:
     formula: "Formula"
     organization: "Organization"

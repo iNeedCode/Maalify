@@ -36,8 +36,8 @@
 
     - if @member.current_income.present?
       %p
-        %b Aktuelles Einkommen
-        = number_to_currency(@member.current_income.amount, locale: :de)
+        %b= number_to_currency(@member.current_income.amount, locale: :de)
+        = t('income.current')
 
 - unless @member.budgets.empty?
   .container-fluid
