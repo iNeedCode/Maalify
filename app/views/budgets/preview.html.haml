@@ -5,7 +5,7 @@
       = "#{@budget_previews[0].donation.name}"
       %br
       %small
-        = "#{@budget_previews[0].start_date.strftime("%d. %B %Y")} - #{@budget_previews[0].end_date.strftime("%d. %B %Y")}"
+        = "#{I18n.l(@budget_previews[0].start_date, format: :long)} - #{I18n.l(@budget_previews[0].end_date, format: :long)}"
         %small
           %em= "[#{(@budget_previews[0].end_date - @budget_previews[0].start_date).to_i} Tage]"
 

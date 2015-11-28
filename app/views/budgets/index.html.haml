@@ -18,14 +18,14 @@
       %th= t('budget.remainingPromise')
   %tbody
     - @budget_overview.each do |budget|
-      %tr
+      %tr{:class => ("success" if (budget[:start_date]..budget[:end_date]).include?(Date.today))}
         %td= budget[:title]
         %td= I18n.l(budget[:start_date], format: :default)
         %td= I18n.l(budget[:end_date], format: :default)
-        %td= number_to_currency budget[:rest_promise_from_past_budget]
-        %td= number_to_currency budget[:promise]
-        %td= number_to_currency budget[:promise] - budget[:remainingPromise]
-        %td= number_to_currency budget[:remainingPromise]
+        %td= number_to_currency budget[:rest_promise_from_past_budget], {locale: :de, precision: 0}
+        %td= number_to_currency budget[:promise], {locale: :de, precision: 0}
+        %td= number_to_currency (budget[:promise] + budget[:rest_promise_from_past_budget]) - budget[:remainingPromise], {locale: :de, precision: 0}
+        %td= number_to_currency budget[:remainingPromise], {locale: :de, precision: 0}
 
 .row
   .col-md-4

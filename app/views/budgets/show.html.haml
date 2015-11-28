@@ -10,27 +10,29 @@
   .col-sm-12
     %h3
       = "#{t('donation.name')}: "
-      = @budget.donation.name
+      = link_to @budget.donation.name, donations_path(@budget.donation_id)
 
 .container-fluid
   .col-sm-6
+    %h5
+      = "#{t('budget.rest_promise_from_past_budget')}: "
+      = number_to_currency(@budget.rest_promise_from_past_budget, locale: :de)
     %h4
       = "#{t('budget.promise')}: "
       = number_to_currency(@budget.promise, locale: :de)
-    %h4
-      = "#{t('budget.rest_promise_from_past_budget')}: "
-      = number_to_currency(@budget.rest_promise_from_past_budget, locale: :de)
 
 .container-fluid
-  .col-sm-6
+  .col-sm-offset-3.col-sm-3
     %p.text-center.lead
-      = @budget.start_date.strftime("%d. %B %Y")
-  .col-sm-6
+      = I18n.l(@budget.start_date, format: :long)
+  .col-sm-3
     %p.text-center.lead
-      = @budget.end_date.strftime("%d. %B %Y")
+      = I18n.l(@budget.end_date, format: :long)
   - unless @budget.description.nil?
     .col-sm-12
-      %p.text-center.lead
+      %p.text-center.lead.well
+        %b= t('budget.remark')
+        %br
         = @budget.description
 
 
@@ -49,8 +51,8 @@
           - @budget.getAllReceiptsItemsfromBudgetPeriodforMember(@budget.member).sort{|a, b| a.receipt.date <=> b.receipt.date}.each do |ri|
             %tr
               %td= link_to ri.receipt.id, member_receipt_path(ri.receipt.member.id, ri.receipt.id)
-              %td= ri.receipt.date.strftime("%d.%m.%Y")
-              %td= number_to_currency(ri.amount)
+              %td= I18n.l(ri.receipt.date, format: :long)
+              %td= number_to_currency(ri.amount, locale: :de)
 
 
 

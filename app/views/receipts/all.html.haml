@@ -17,14 +17,14 @@
       %tr
         %td= link_to receipt.member.full_name, member_path(receipt.member_id)
         %td= link_to receipt.receipt_id, member_receipt_path(receipt.member_id, receipt.id)
-        %td= receipt.date.strftime("%d. %b %Y")
+        %td= I18n.l(receipt.date, format: :default)
         %td
-          = number_to_currency receipt.total
+          = number_to_currency receipt.total, locale: :de
           %br
           - receipt.items.each do |ri|
             %small
               = "#{ri.donation.name}: "
-              = number_to_currency ri.amount
+              = number_to_currency ri.amount, locale: :de
             %br
         %td
           =link_to member_receipt_path(receipt.member_id, receipt.id), :title => "#{t('table.show')}" do

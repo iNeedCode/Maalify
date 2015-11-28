@@ -9,6 +9,7 @@ class MembersController < ApplicationController
   end
 
   def show
+    # BudgetMailer.mail_to_member(@member).deliver_later
     respond_with(@member)
   end
 

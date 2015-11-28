@@ -105,7 +105,7 @@ en:
     start_date: "start date"
     none_payer: "None payer"
     remainingPromise: "Remaining"
-    elapsed_time: "elapsed time"
+    elapsed_time: "Period"
     remaining_time: "remaining period"
     receipts: "Receipts"
     average_payment: "Average payment"
@@ -114,5 +114,6 @@ en:
     description: "Remark"
     title: "Name"
     member: "Member"
+    remark: "Remark"
   receipt_item:
     number: "Number"
