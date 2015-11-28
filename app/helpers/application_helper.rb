@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def link_to_telephone(phone)
-    phone.present? ? link_to("#{phone}", "tel:#{phone}") : phone
+    phone.present? ? link_to("#{phone}", "tel:#{phone.gsub(/[^\w-]/, '')}") : phone
   end
 
   def link_to_address(address)
