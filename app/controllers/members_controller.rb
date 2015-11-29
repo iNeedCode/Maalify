@@ -37,6 +37,15 @@ class MembersController < ApplicationController
     respond_with(@member)
   end
 
+  def import
+    imported = Member.import(params[:file])
+    redirect_to members_path, notice: t(:imported, :quantity=> imported)
+  end
+
+  def import_page
+
+  end
+
   private
     def set_member
       @member = Member.find(params[:id])

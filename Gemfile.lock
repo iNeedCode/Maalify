@@ -276,6 +276,7 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     slop (3.6.0)
+    smarter_csv (1.1.0)
     spring (1.2.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -360,6 +361,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   simplecov
+  smarter_csv
   spring
   spring-commands-rspec
   sqlite3

@@ -14,6 +14,7 @@ gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails', :git
 gem 'premailer-rails'
 gem 'nokogiri'
 gem 'whenever', :require => false
+gem 'smarter_csv'
 
 group :development, :test do
   gem 'byebug'

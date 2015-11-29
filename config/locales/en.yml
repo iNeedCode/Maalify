@@ -61,6 +61,8 @@ en:
     current_budgets: "Current budgets"
     gender: "Gender"
     wassiyyat: "Wassiyyat"
+    import_text: "Data from Khuddam software"
+    import: "Import"
   view:
     save: "Save"
     show: "Show"
@@ -72,6 +74,8 @@ en:
       title: "Members"
       select_budget_box: "Select a Budget to add this Member"
       aktion: "Actions"
+      all: "All Members"
+      import: "Import member"
     receipt:
       edit: "Edit receipt"
       new: "Add receipt"   
@@ -128,3 +132,4 @@ en:
     remark: "Remark"
   receipt_item:
     number: "Number"
+  imported: "%{quantity} Members imported"

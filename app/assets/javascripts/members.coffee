@@ -6,7 +6,7 @@
 $(document).on 'ready page:load', ->
   $("#tajnied-table").DataTable
     autoWidth: true
-    pagingType: "simple"
+    pagingType: "simple_numbers"
     processing: true
     stateSave: true
     responsive: true

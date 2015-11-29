@@ -1,3 +1,4 @@
+require 'smarter_csv'
 class Member < ActiveRecord::Base
 
 # Assoziations
@@ -10,7 +11,7 @@ class Member < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :date_of_birth, :aims_id, :gender
   validates_uniqueness_of :aims_id
   validate :at_least_one_communication_chanel_is_given
-  validates :email, format: { with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/ }
+  validates :email, allow_blank: true, format: {with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/}
   validates :gender, inclusion: {in: %w(male female),
                                  message: "'%{value}' is not a valid Gender"}, allow_nil: false
 
@@ -82,6 +83,38 @@ class Member < ActiveRecord::Base
 
   def budgets_of_member
     Budget.where(member: self)
+  end
+
+  def self.import(file)
+    khuddam_de_mapping = {:"\"jamaat_id\"" => :aims_id,       :"\"vorname\"" => :first_name,
+                          :"\"familien_name\"" => :last_name, :"\"geburtsdatum\"" => :date_of_birth,
+                          :"\"straße\"" => :street,           :"\"plz\"" => :plz,
+                          :"\"stadt\"" => :city,              :"\"e_mail\"" => :email,
+                          :"\"handy\"" => :mobile_no,         :"\"tanziem\"" => :gender,
+                          :"\"hausnr\"" => :hausnr,           :"\"festnetz\"" => :landline}
+
+    lines = SmarterCSV.process(file.path, options= {col_sep: ';', force_simple_split: true, quote_char: '"',
+                                                    remove_unmapped_keys: true, key_mapping: khuddam_de_mapping})
+
+    imported = 0
+    lines.each do |line|
+      member_hash = line.map { |k, str| [k, str.delete('\\"')] }.to_h
+      member = find_by_aims_id(line[:aims_id].delete('\\"')) || new
+
+      unless member_hash[:straße].nil?
+        member_hash[:straße] << " #{member_hash[:hausnr]}" unless member_hash[:hausnr].empty?
+      end
+
+      member_hash.delete(:hausnr)
+      member.attributes = member_hash
+
+      member.gender = 'male' if (member_hash[:gender] == 'Tifl' || member_hash[:gender] == 'Khadim')
+      member.date_of_birth = nil if (member_hash[:date_of_birth] == '01.01.1970')
+
+      member.save
+      imported += 1 if member.valid?
+    end
+    imported
   end
 
   private

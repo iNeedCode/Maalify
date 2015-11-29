@@ -41,6 +41,8 @@ de:
     gender: "Geschlecht"
     wassiyyat: "Wassiyyat"
     aims_id: "Aims Id"
+    import: "Importieren"
+    import_text: "Daten von Khuddam Software"
   view:
     save: "Sichern"
     show: "Anzeigen"
@@ -53,6 +55,8 @@ de:
       title: "Mitglieder"
       select_budget_box: "Füge dieses Mitglied zu einem Budget hinzu"
       aktion: "Aktionen"
+      all: "Alle Mitglieder"
+      import: "Miglieder importieren"
     income:
       new: "Einkommen hinzufügen"    
       title: "Einkommen"
@@ -311,3 +315,4 @@ de:
     remark: "Notiz"
   receipt_item:
     number: "Nummer"
+  imported: "%{quantity} Mitglieder importiert"
