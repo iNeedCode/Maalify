@@ -9,9 +9,13 @@
   %h1
     = t('member.import')
     %small= t('member.import_text')
+  %p.well.well-lg.lead
+    = t('member.import_description')
+    =image_tag "csv-header.png", class: "img-thumbnail"
+
   .col-md-offset-3.col-md-3
     = form_tag import_members_path, class:"form-horizontal", multipart: true do
       .form-group
-        = label_tag "Datei auswählen"
+        = label_tag t('view.file.select')
         = file_field_tag :file, class:"form-control"
       = submit_tag t('member.import'), class: "btn btn-success"

@@ -84,6 +84,8 @@
   .col-sm-4
     = collection_select(:budget, :selector_for_member, @member.list_available_budgets,:title, :title,
       options= {prompt: t('view.member.select_budget_box')}, html_options= {class: "selectpicker", data:{width:'auto'}})
+  .col-sm-4
+    = link_to "send email", send_mail_member_path, method: :post
 
 .container-fluid
   .col-sm-12

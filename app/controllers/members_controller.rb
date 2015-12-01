@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_member, only: [:show, :edit, :update, :destroy, :send_mail]
 
   respond_to :html, :json
 
@@ -43,7 +43,11 @@ class MembersController < ApplicationController
   end
 
   def import_page
+  end
 
+  def send_mail
+    BudgetMailer.mail_to_member(@member).deliver_later
+    redirect_to member_path(@member), notice: t('mail.success')
   end
 
   private

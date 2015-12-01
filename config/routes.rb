@@ -15,8 +15,15 @@ Rails.application.routes.draw do
 
 
   resources :members do
-    get :import_page, on: :collection
-    collection { post :import }
+    member do
+      post :send_mail
+    end
+
+    collection do
+      post :import
+      get :import_page
+    end
+
     resources :incomes
     resources :receipts
   end

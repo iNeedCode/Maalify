@@ -43,6 +43,7 @@ de:
     aims_id: "Aims Id"
     import: "Importieren"
     import_text: "Daten von Khuddam Software"
+    import_description: "Laden Sie die entsprechend exportierte CSV Datei hoch, um Mitglieder ohne selbst einzugeben im System aufzunehmen."
   view:
     save: "Sichern"
     show: "Anzeigen"
@@ -84,6 +85,8 @@ de:
       welcome_text2: "Direktlinks"
       welcome_text3: "Gelangen Sie direkt zu den einzelnen Seiten."
     donations: "Chandajaat"
+    file:
+      select: "Datei auswählen..."
   date:
     abbr_day_names:
     - So
@@ -316,3 +319,5 @@ de:
   receipt_item:
     number: "Nummer"
   imported: "%{quantity} Mitglieder importiert"
+  mail:
+    success: "Erfolgreich Email versand"
