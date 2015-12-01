@@ -44,6 +44,7 @@ de:
     import: "Importieren"
     import_text: "Daten von Khuddam Software"
     import_description: "Laden Sie die entsprechend exportierte CSV Datei hoch, um Mitglieder ohne selbst einzugeben im System aufzunehmen."
+    send_mail: "Email senden"
   view:
     save: "Sichern"
     show: "Anzeigen"
