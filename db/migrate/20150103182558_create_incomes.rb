@@ -3,7 +3,7 @@ class CreateIncomes < ActiveRecord::Migration
     create_table :incomes do |t|
       t.integer :amount
       t.date :starting_date
-      t.belongs_to :member, index: true
+      t.references :member, index: true
 
       t.timestamps null: false
     end
