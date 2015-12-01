@@ -14,7 +14,6 @@ gem 'premailer-rails'
 gem 'nokogiri'
 gem 'whenever', :require => false
 gem 'smarter_csv'
-gem 'pg'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
@@ -51,6 +50,8 @@ group :development, :test do
 end
 group :production do
   gem 'unicorn'
+  gem 'pg'
+  gem 'rails_12factor'
 end
 group :test do
   gem 'capybara'
