@@ -22,7 +22,6 @@ class IncomesController < ApplicationController
   end
 
   def create
-    ap params
     @income = member.incomes.new(income_params)
     flash[:notice] = 'Income was successfully created.' if @income.save
     @income.recalculate_budget if (params[:recalculate] == "true")
