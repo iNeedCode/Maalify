@@ -9,23 +9,23 @@
           %li= msg
 
   .field.form-group
-    = f.label :title, class: 'col-sm-2 control-label'
+    = f.label t('budget.title'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.text_field :title, class: 'form-control'
   .field.form-group
-    = f.label :donation_id, class: 'col-sm-2 control-label'
+    = f.label t('view.donation.title'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.collection_select(:donation_id, Donation.all, :id, :name, {prompt: true}, {class: "selectpicker"})
   .field.form-group
-    = f.label :start_date, class: 'col-sm-2 control-label'
+    = f.label t('budget.start_date'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.text_field :start_date, class: "form-control datepicker"
   .field.form-group
-    = f.label :end_date, class: 'col-sm-2 control-label'
+    = f.label t('budget.end_date'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.text_field :end_date, class: "form-control datepicker"
   .field.form-group#member_select_fields
-    = f.label :member, class: 'col-sm-2 control-label'
+    = f.label t('budget.member'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.collection_select(:member_id, Member.all, :id, :full_name, {}, {:multiple => true})
 
