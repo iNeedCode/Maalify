@@ -82,3 +82,5 @@ pickle-email-*.html
 # docs for the coverage
 /doc/coverage/
 
+# for 'yaml_db' rake task
+db/data.yml

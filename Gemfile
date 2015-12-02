@@ -19,6 +19,8 @@ gem 'devise'
 gem 'haml-rails'
 gem 'bootstrap-multiselect-rails'
 gem "js-routes"
+gem 'pg'
+gem 'yaml_db'
 
 group :development, :test do
   gem 'sqlite3'
@@ -50,7 +52,6 @@ group :development, :test do
 end
 group :production do
   gem 'unicorn'
-  gem 'pg'
   gem 'rails_12factor'
 end
 group :test do
