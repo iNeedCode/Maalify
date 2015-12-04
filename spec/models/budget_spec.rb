@@ -78,6 +78,29 @@ RSpec.describe Budget, :type => :model do
       expect(budget.promise).to eq(36)
     end
 
+    it 'should calculate the correct promise from no income to income a within a budget period', skip_before: true do
+      Member.delete_all;Budget.delete_all;Donation.delete_all;Income.delete_all
+      member = FactoryGirl.create(:member)
+      donation = FactoryGirl.create(:majlis_khuddam_donation)
+      FactoryGirl.create(:income, member: member, starting_date: '2015-12-01', amount: 1300)
+      budget = FactoryGirl.build(:budget, title: 'Lajna', donation: donation, member: member , start_date: '2015-10-01', end_date: '2016-09-30')
+
+      budget.calculate_budget
+      expect(budget.promise).to eq(136)
+    end
+
+    it 'should calculate the correct promise for increased income', skip_before: true do
+      Member.delete_all;Budget.delete_all;Donation.delete_all;Income.delete_all
+      member = FactoryGirl.create(:member)
+      donation = FactoryGirl.create(:majlis_khuddam_donation)
+      FactoryGirl.create(:income, member: member, starting_date: '2015-01-01', amount: 100)
+      FactoryGirl.create(:income, member: member, starting_date: '2015-12-01', amount: 1300)
+      budget = FactoryGirl.build(:budget, title: 'Lajna', donation: donation, member: member , start_date: '2015-10-01', end_date: '2016-09-30')
+
+      budget.calculate_budget
+      expect(budget.promise).to eq(135)
+    end
+
     it 'should get an adapted promise for income change between the budget range', skip_before: true do
       Member.delete_all
       Donation.delete_all
@@ -99,7 +122,7 @@ RSpec.describe Budget, :type => :model do
 
       budget = FactoryGirl.create(:budget, donation: donation, member: member)
 
-      expect(budget.promise).to eq(36)
+      expect(budget.promise).to eq(50)
     end
 
     it 'should fail if a donation period is already occupied (start_date)', skip_before: true do

@@ -35,7 +35,18 @@ class Budget < ActiveRecord::Base
       if incomes.size == 0
         total_budget = donation.minimum_budget
       elsif incomes.size == 1
-        total_budget = calculator.evaluate("#{donation.formula} * #{incomes.first.amount}").to_i
+        income = incomes.first
+        if income.starting_date > start_date
+          months_before_budget_start = (income.starting_date - start_date).to_i / 30
+          min_budget_per_month = donation.minimum_budget / (total_days_of_budget / 30).to_i
+          total_budget += months_before_budget_start * min_budget_per_month
+
+          total_months = (total_days_of_budget / 30).to_i
+          rest_months = ((end_date - start_date) - (income.starting_date - start_date)).to_i / 30
+          total_budget += calculator.evaluate("#{donation.formula} * #{incomes.first.amount} / #{total_months} * #{rest_months}").to_i
+        else
+          total_budget = calculator.evaluate("#{donation.formula} * #{income.amount}").to_i
+        end
       elsif incomes.size > 1
         incomes.each_with_index do |inc, i|
           next_income_date = incomes[i+1].nil? ? end_date : incomes[i+1].starting_date
@@ -45,7 +56,10 @@ class Budget < ActiveRecord::Base
             start_date_actual = inc.starting_date
           end
           days_diff = (next_income_date - start_date_actual).to_f
-          total_budget += calculator.evaluate("#{inc.amount} * #{donation.formula} / #{total_days_of_budget} * #{days_diff}").to_i
+          partial_budget = calculator.evaluate("#{inc.amount} * #{donation.formula} / #{total_days_of_budget} * #{days_diff}").to_i
+          min_budget_per_month = donation.minimum_budget / (total_days_of_budget / 30).to_i
+          min_budget_period = min_budget_per_month * (days_diff / 30).to_i
+          total_budget += partial_budget > min_budget_period ? partial_budget : min_budget_period
         end
       end
 
