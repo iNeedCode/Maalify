@@ -44,6 +44,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'terminal-notifier-guard'
   gem 'rack-mini-profiler'
+  gem 'capistrano-rails'
 end
 group :development, :test do
   gem 'factory_girl_rails'
