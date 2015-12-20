@@ -45,6 +45,7 @@ group :development do
   gem 'terminal-notifier-guard'
   gem 'rack-mini-profiler'
   gem 'capistrano-rails'
+  gem 'capistrano-rvm'
 end
 group :development, :test do
   gem 'factory_girl_rails'
