@@ -3,7 +3,7 @@ lock '3.4.0'
 
 set :application, 'maalify'
 set :repo_url, 'git@github.com:iNeedCode/Maalify.git'
-set :rbenv_ruby, '2.2.1p85'
+set :rbenv_ruby, '2.2.1'
 set :deploy_to, '/opt/www/maalify'
 set :user, 'root'
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets}
