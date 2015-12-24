@@ -16,10 +16,10 @@ require 'capistrano/rails' # support for asset pipeline and db migration files
 #   https://github.com/capistrano/rails
 #   https://github.com/capistrano/passenger
 #
-require 'capistrano/rvm'
-# require 'capistrano/rbenv'
+# require 'capistrano/rvm'
+require 'capistrano/rbenv'
 # require 'capistrano/chruby'
-# require 'capistrano/bundler'
+require 'capistrano/bundler'
 # require 'capistrano/rails/assets'
 # require 'capistrano/rails/migrations'
 # require 'capistrano/passenger'
