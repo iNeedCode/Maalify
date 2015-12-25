@@ -20,7 +20,7 @@ timeout 30
 
 # Set up socket location
 
-listen "/tmp/unicorn.maalify.sock", :backlog => 64
+listen "#{app_dir}/tmp/unicorn.maalify.sock", :backlog => 64
 
 # Logging
 stderr_path "#{app_dir}/log/unicorn.log"
