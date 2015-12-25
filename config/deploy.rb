@@ -52,24 +52,35 @@ set :format, :pretty
 
 namespace :deploy do
 
-  %w[start stop restart].each do |command|
-    desc 'Manage Unicorn'
-    task command do
-      on roles(:app), in: :sequence, wait: 1 do
-        execute "/etc/init.d/unicorn_#{fetch(:application)} #{command}"
-      end
-    end
+  desc "Start unicorn"
+  task :start, :except => { :no_release => true } do
+    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -D"
+    run "ps aux | grep unicorn_rails | head -n 1 | awk '{print $2}' > #{deploy_to}/shared/tmp/pids/unicorn.pid"
   end
 
-  after :publishing, :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
+  desc "Stop unicorn"
+  task :stop, :except => { :no_release => true } do
+    run "kill -s QUIT `cat  #{deploy_to}/shared/tmp/pids/unicorn.pid`"
   end
+
+  # %w[start stop restart].each do |command|
+  #   desc 'Manage Unicorn'
+  #   task command do
+  #     on roles(:app), in: :sequence, wait: 1 do
+  #       execute "/etc/init.d/unicorn_#{fetch(:application)} #{command}"
+  #     end
+  #   end
+  # end
+  #
+  # after :publishing, :restart
+  #
+  # after :restart, :clear_cache do
+  #   on roles(:web), in: :groups, limit: 3, wait: 10 do
+  #     # Here we can do anything such as:
+  #     # within release_path do
+  #     #   execute :rake, 'cache:clear'
+  #     # end
+  #   end
+  # end
 
 end
