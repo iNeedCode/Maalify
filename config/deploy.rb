@@ -16,6 +16,55 @@ set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 set :rbenv_roles, :all
 set :linked_files, %w{config/database.yml .rbenv-vars} # create these files manually ones on the server
 
+
+
+# Capristrano3 unicorn
+
+set :unicorn_pid, "/opt/www/maalify/current/shared/pids/unicorn.pid"
+set :unicorn_config_path, "/opt/www/maalify/current/config/unicorn.rb"
+
+# Clean up all older releases
+
+before :deploy, "unicorn:stop"
+after "deploy:publishing", "unicorn:start"
+# after "deploy:restart", "deploy:cleanup"
+
+
+namespace :deploy do
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      execute :rake, 'cache:clear'
+    end
+  end
+
+end
+#
+#
+# namespace :deploy do
+#
+#   %w[start stop restart].each do |command|
+#     desc 'Manage Unicorn'
+#     task command do
+#       on roles(:app), in: :sequence, wait: 1 do
+#         execute "/etc/init.d/unicorn_#{fetch(:application)} #{command}"
+#       end
+#     end
+#   end
+#
+#   after :publishing, :restart
+#
+#   after :restart, :clear_cache do
+#     on roles(:web), in: :groups, limit: 3, wait: 10 do
+#       # Here we can do anything such as:
+#       # within release_path do
+#       #   execute :rake, 'cache:clear'
+#       # end
+#     end
+#   end
+#
+# end
+
+
 # SSHKit.config.command_map[:rake] = "bundle exec rake"
 # set :rvm_ruby_version, '2.2.0@maalify'
 # set :rvm_type, :system
@@ -49,27 +98,3 @@ set :format, :pretty
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-
-namespace :deploy do
-
-  %w[start stop restart].each do |command|
-    desc 'Manage Unicorn'
-    task command do
-      on roles(:app), in: :sequence, wait: 1 do
-        execute "/etc/init.d/unicorn_#{fetch(:application)} #{command}"
-      end
-    end
-  end
-
-  after :publishing, :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
-
-end

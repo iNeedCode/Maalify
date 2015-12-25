@@ -20,6 +20,7 @@ require 'capistrano/rails' # support for asset pipeline and db migration files
 require 'capistrano/rbenv'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
+require 'capistrano3/unicorn'
 # require 'capistrano/rails/assets'
 # require 'capistrano/rails/migrations'
 # require 'capistrano/passenger'

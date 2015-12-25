@@ -46,6 +46,7 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
+  gem 'capistrano3-unicorn'
 end
 group :development, :test do
   gem 'factory_girl_rails'
