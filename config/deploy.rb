@@ -27,7 +27,7 @@ set :unicorn_config_path, "/opt/www/maalify/current/config/unicorn.rb"
 
 before :deploy, "unicorn:stop"
 after "deploy:publishing", "unicorn:start"
-# after "deploy:restart", "deploy:cleanup"
+after "deploy:restart", "deploy:cleanup"
 
 
 namespace :deploy do
