@@ -3,10 +3,18 @@ lock '3.4.0'
 
 set :application, 'maalify'
 set :repo_url, 'git@github.com:iNeedCode/Maalify.git'
-set :rbenv_ruby, '2.2.1'
 set :deploy_to, '/opt/www/maalify'
 set :user, 'root'
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets}
+
+
+set :rbenv_ruby, '2.2.1'
+set :rbenv_type, :user
+set :rbenv_path, "~/.rbenv"
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w(rake gem bundle ruby rails)
+set :rbenv_roles, :all
+set :linked_files, %w{config/database.yml .rbenv-vars} # create these files manually ones on the server
 
 # SSHKit.config.command_map[:rake] = "bundle exec rake"
 # set :rvm_ruby_version, '2.2.0@maalify'
