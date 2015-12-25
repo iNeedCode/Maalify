@@ -23,8 +23,8 @@ timeout 30
 listen "/tmp/unicorn.maalify.sock", :backlog => 64
 
 # Logging
-stderr_path "#{root}/log/unicorn.log"
-stdout_path "#{root}/log/unicorn.log"
+stderr_path "#{app_dir}/log/unicorn.log"
+stdout_path "#{app_dir}/log/unicorn.log"
 # stderr_path "#{shared_dir}/log/unicorn.stderr.log"
 # stdout_path "#{shared_dir}/log/unicorn.stdout.log"
 
