@@ -20,7 +20,7 @@ set :linked_files, %w{config/database.yml .rbenv-vars} # create these files manu
 
 # Capristrano3 unicorn
 
-set :unicorn_pid, "/opt/www/maalify/current/shared/pids/unicorn.pid"
+set :unicorn_pid, "/opt/www/maalify/current/shared/tmp/pids/unicorn.pid"
 set :unicorn_config_path, "/opt/www/maalify/current/config/unicorn.rb"
 
 # Clean up all older releases
