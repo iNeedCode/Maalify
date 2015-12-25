@@ -53,14 +53,14 @@ set :format, :pretty
 namespace :deploy do
 
   desc "Start unicorn"
-  task :start, :except => { :no_release => true } do
-    run "cd #{current_path} ; bundle exec unicorn_rails -c config/unicorn.rb -D"
-    run "ps aux | grep unicorn_rails | head -n 1 | awk '{print $2}' > #{deploy_to}/shared/tmp/pids/unicorn.pid"
+  task :start do
+    run "cd #{deploy_to}/current ; bundle exec unicorn_rails -c config/unicorn.rb -D"
+    run "ps aux | grep unicorn_rails | head -n 1 | awk '{print $2}' > #{deploy_to}/tmp/pids/unicorn.pid"
   end
 
   desc "Stop unicorn"
-  task :stop, :except => { :no_release => true } do
-    run "kill -s QUIT `cat  #{deploy_to}/shared/tmp/pids/unicorn.pid`"
+  task :stop do
+    run "kill -s QUIT `cat  #{deploy_to}/tmp/pids/unicorn.pid`"
   end
 
   # %w[start stop restart].each do |command|
