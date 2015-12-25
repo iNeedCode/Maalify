@@ -13,7 +13,7 @@
 
 app_dir = "/opt/www/maalify"
 shared_dir = "#{app_dir}/shared"
-working_directory app_dir
+working_directory "#{app_dir}/current"
 
 # Set unicorn options
 
