@@ -83,3 +83,6 @@ pickle-email-*.html
 
 # for 'yaml_db' rake task
 db/data.yml
+
+# enviroment variables
+.rbenv-vars
