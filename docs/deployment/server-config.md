@@ -196,6 +196,10 @@ esac
 look into log file for the exact error in `$ less /opt/www/maalify/shared/log/unicorn.stderr.log` or empty out the pid file `$ less /opt/www/maalify/shared/tmp/pids/unicorn.pid`
 
 
+##postgres
+vi /etc/postgresql/9.4/main/pg_hba.conf
+
+
 ## Resources
 
 - http://www.rubytreesoftware.com/resources/ruby-on-rails-41-ubuntu-1404-server-deployment
