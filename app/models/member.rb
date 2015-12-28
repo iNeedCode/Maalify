@@ -116,10 +116,10 @@ class Member < ActiveRecord::Base
 
       member.date_of_birth = nil if (member_hash[:date_of_birth] == '01.01.1970')
 
-      ap "----------------------------------------------------------------------"
-      ap member
-      ap member.errors.to_s
-      ap "----------------------------------------------------------------------"
+      # ap "----------------------------------------------------------------------"
+      # ap member
+      # ap member.errors.to_s
+      # ap "----------------------------------------------------------------------"
 
       member.save
       imported += 1 if member.valid?

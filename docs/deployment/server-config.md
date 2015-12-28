@@ -65,6 +65,44 @@ gem install bundler
 rbenv rehash
 ```
 
+### Postgres
+following setup is needed for the postgres setup:  
+
+the following conf file need be updated `$ vi /etc/postgresql/9.4/main/pg_hba.conf` to the following configurations.
+
+
+```
+# Database administrative login by Unix domain socket
+local   all             postgres                               ident
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                    md5
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            md5
+# IPv6 local connections:
+host    all             all             ::1/128                 md5
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+#local   replication     postgres                                peer
+#host    replication     postgres        127.0.0.1/32            md5
+#host    replication     postgres        ::1/128                 md5
+```
+
+Afterwards postgres needs to be restarted with `$ service nginx restart` and `$ /etc/init.d/postgresql reload`
+
+#### Create the database user
+
+Change to the postgres user with `$ su - postgres` and then open the console `$ psql` and paste the following commands in order to create the user.
+
+```
+create user maalify with password 'SET-YOUR-PASSWORD-HERE';
+  create database maalify_production owner maalify;
+  alter user maalify superuser createrole createdb replication;
+```
+
+
 
 # Deployment
 
@@ -195,17 +233,15 @@ esac
 ##### master failed to start, check stderr log for details
 look into log file for the exact error in `$ less /opt/www/maalify/shared/log/unicorn.stderr.log` or empty out the pid file `$ less /opt/www/maalify/shared/tmp/pids/unicorn.pid`
 
-
-##postgres
-vi /etc/postgresql/9.4/main/pg_hba.conf
+kill the unicorn master worker with `$ kill PID`. Search the right process with `$ ps -ef | grep unicorn`.
 
 
 ## Resources
 
-- http://www.rubytreesoftware.com/resources/ruby-on-rails-41-ubuntu-1404-server-deployment
-- http://www.rubytreesoftware.com/resources/ruby-on-rails-41-ubuntu-1404-server-configuration
-- https://www.youtube.com/watch?v=2NIm4iRKb6E
-- http://ymcagodme.logdown.com/posts/280168-deploy-rails-app
-- http://vladigleba.com/blog/2014/06/30/backup-a-rails-database-with-the-backup-and-whenever-gems/- 
+- [Server Deployment](http://www.rubytreesoftware.com/resources/ruby-on-rails-41-ubuntu-1404-server-deployment) and the  according [video](https://www.youtube.com/watch?v=2NIm4iRKb6E) 
+- [Server Configuration](http://www.rubytreesoftware.com/resources/ruby-on-rails-41-ubuntu-1404-server-configuration)
+- [Rails deployment](http://ymcagodme.logdown.com/posts/280168-deploy-rails-app)
+- [Digital Ocean with Unicorn and Nginx](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-unicorn-and-nginx-on-ubuntu-14-04)
+- [Postgres Backup](http://vladigleba.com/blog/2014/06/30/backup-a-rails-database-with-the-backup-and-whenever-gems/)
 
 
