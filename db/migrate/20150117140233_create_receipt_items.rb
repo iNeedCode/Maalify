@@ -7,7 +7,7 @@ class CreateReceiptItems < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :receipt_items, :receipts
-    add_foreign_key :receipt_items, :donations
+    add_foreign_key :receipt_items, :receipts, column: :receipt_id
+    add_foreign_key :receipt_items, :donations, column: :donation_id
   end
 end

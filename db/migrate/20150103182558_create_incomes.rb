@@ -7,6 +7,6 @@ class CreateIncomes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :incomes, :members
+    add_foreign_key :incomes, :members, column: :member_aims_id
   end
 end

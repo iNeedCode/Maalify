@@ -4,11 +4,10 @@ class CreateReceipts < ActiveRecord::Migration
       t.primary_key :receipt_id
       t.date :date
       t.belongs_to :member, index: true
-
       t.references :member, index: true
 
       t.timestamps null: false
     end
-    add_foreign_key :receipts, :members
+    add_foreign_key :receipts, :members, column: :member_aims_id
   end
 end
