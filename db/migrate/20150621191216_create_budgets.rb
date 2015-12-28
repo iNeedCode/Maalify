@@ -10,7 +10,7 @@ class CreateBudgets < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :budgets, :members, column: :member_aims_id
+    add_foreign_key :budgets, :members, column: :member_id
     add_foreign_key :budgets, :donations, column: :donation_id
   end
 end
