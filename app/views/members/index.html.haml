@@ -39,7 +39,7 @@
             %td= member.first_name
             %td= member.tanzeem
             %td= show_boolean_value_as_glyphicon(member.wassiyyat)
-            %td= member.age
+            %td= content_tag(:span, "#{member.age}" , title: member.date_of_birth.strftime("%d.%m.%Y"), data: {toggle: "toogle", placement: "placement"})
             %td= member.street
             %td= member.plz
             %td= member.city
