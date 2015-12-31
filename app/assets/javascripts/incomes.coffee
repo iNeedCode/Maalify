@@ -7,9 +7,9 @@
 $(document).on 'ready page:load', ->
 
   $('.datepicker-income').datepicker
-    format: "yyyy-mm-dd"
+    format: "dd.mm.yyyy"
     weekStart: 1
     language: "de"
     minViewMode: 1
-    autoclose: true,
+    autoclose: true
     todayHighlight: true

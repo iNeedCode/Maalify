@@ -9,16 +9,18 @@ $(document).on 'ready page:load', ->
     pagingType: "simple_numbers"
     processing: true
     stateSave: true
+    "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
     responsive: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'
 
   $('.datepicker-member').datepicker
-    format: "yyyy-mm-dd",
-    weekStart: 1,
-    endDate: "Date.today()",
-    startView: 2,
-    language: "de",
-    orientation: "bottom auto",
+    format: "dd.mm.yyyy"
+    weekStart: 1
+    endDate: "Date.today()"
+    startView: 2
+    autoclose: true
+    language: "de"
+    orientation: "bottom auto"
     todayHighlight: true

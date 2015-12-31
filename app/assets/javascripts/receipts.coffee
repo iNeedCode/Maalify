@@ -19,6 +19,7 @@ $(document).on 'ready page:load', ->
     autoWidth: true
     pagingType: "simple"
     processing: true
+    "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
     stateSave: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"

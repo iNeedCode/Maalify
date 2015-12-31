@@ -38,7 +38,7 @@ $(document).on('ready page:load', function() {
 
     $(document).ready(function(){
         $('.datepicker').datepicker({
-            format: "yyyy-mm-dd",
+            format: "dd.mm.yyyy",
             weekStart: 1,
             language: "de",
             autoclose: true,

@@ -9,6 +9,7 @@ $(document).on 'ready page:load', ->
     pagingType: "simple_numbers"
     processing: true
     stateSave: true
+    "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
 
@@ -17,6 +18,7 @@ $(document).on 'ready page:load', ->
     pagingType: "simple_numbers"
     processing: true
     stateSave: true
+    "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'
@@ -62,7 +64,6 @@ $(document).on 'ready page:load', ->
     numberPattern = /\d+/g;
     budget_title = this.options[this.selectedIndex].value
     member_id = location.pathname.match(numberPattern).toString()
-    console.log(location.pathname)
     window.location.href = Routes.new_with_parameter_budgets_path(
       'budget_title': budget_title,
       'member_id': member_id)
@@ -72,7 +73,6 @@ $(document).on 'ready page:load', ->
     fieldMemberData = $(this).data("member-preview")
     fieldPromiseId = $(this).data("promise")
     fieldDescriptionWrapper = $(this).data("description")
-    console.log(fieldDescriptionWrapper)
 
     fieldRestPromiseId = $(this).data("rest-promise-from-past-budget")
     fieldMember = $("div").find("\[data-#{fieldMemberData}=#{fieldMemberData}\]")[0]
