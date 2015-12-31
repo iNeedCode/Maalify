@@ -74,7 +74,7 @@ class Member < ActiveRecord::Base
     all_budget = Budget.select(:start_date, :end_date, :title, :donation_id).distinct(:title)
     budgets_of_member_title = budgets_of_member.map(&:title)
     budget_from_same_organization = all_budget.select do |budget|
-      if (budget.donation.organization == self.tanzeem or budget.donation.organization == "all") and !budgets_of_member_title.include?(budget.title)
+      if (budget.donation.organization == self.tanzeem or budget.donation.organization == "All") and !budgets_of_member_title.include?(budget.title)
         budget
       end
     end
