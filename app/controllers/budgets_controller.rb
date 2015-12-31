@@ -68,9 +68,9 @@ class BudgetsController < ApplicationController
   def update
     if @budget.update(budget_params)
       flash[:notice] = 'Member was successfully updated.'
-      unless @budget.none_payer
-        @budget.calculate_budget
-        @budget.transfer_old_remaining_promise_to_current_budget
+      if @budget.none_payer
+        @budget.promise = 0
+        @budget.rest_promise_from_past_budget = 0
         @budget.save
       end
     end
