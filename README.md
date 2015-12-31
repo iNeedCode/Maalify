@@ -1,48 +1,24 @@
 Maalify
 ================
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/)..
-
-Rails Composer is open source and supported by subscribers. Please join RailsApps to support development of Rails Composer.
-
-Problems? Issues?
------------
-
-Need help? Ask on Stack Overflow with the tag 'railsapps.'
-
-Your application contains diagnostics in the README file. Please provide a copy of the README file when reporting any issues.
-
-If the application doesn't work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include the diagnostics.
-
-Ruby on Rails
--------------
-
-This application requires:
-
-- Ruby 2.2.0
-- Rails 4.2.0
-
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+Application was build in particular for the so called `nazim` in order to help him in his daily work.
 
 Getting Started
 ---------------
 
-Documentation and Support
--------------------------
+#### This application requires:
+
+- Ruby 2.2.1
+- Rails 4.2.0
+- Postgres 9 (in production)
+
 
 Issues
 -------------
-
-Similar Projects
-----------------
+Issues and features can been requested over the [Github Issue Tracker](https://github.com/iNeedCode/Maalify/issues).
 
 Contributing
 ------------
-
-Credits
--------
 
 License
 -------
