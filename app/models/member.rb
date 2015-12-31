@@ -2,9 +2,9 @@ require 'smarter_csv'
 class Member < ActiveRecord::Base
 
 # Assoziations
-  has_many :incomes, -> { order "starting_date ASC" }
-  has_many :receipts
-  has_many :budgets
+  has_many :incomes, -> { order "starting_date ASC" }, dependent: :destroy
+  has_many :receipts, dependent: :destroy
+  has_many :budgets, dependent: :destroy
   has_many :donations, through: :budgets
 
 # Validations
