@@ -21,6 +21,7 @@ gem 'bootstrap-multiselect-rails'
 gem "js-routes"
 gem 'pg'
 gem 'yaml_db'
+gem 'seed_dump'
 
 group :development, :test do
   gem 'sqlite3'
@@ -43,7 +44,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'spring-commands-rspec'
   gem 'terminal-notifier-guard'
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', require: false
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano3-unicorn'
