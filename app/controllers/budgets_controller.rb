@@ -9,7 +9,7 @@ class BudgetsController < ApplicationController
   end
 
   def all_budgets
-    @budgets = Budget.all.order(:title)
+    @budgets = Budget.includes([:member, :donation]).all.order(:title)
     respond_with(@budgets)
   end
 
@@ -61,7 +61,7 @@ class BudgetsController < ApplicationController
     unless @budget_validate_values.include?(false)
       @budgets.each { |b| b.save }
       flash[:notice] = "Successfully created #{@budgets.size} budgets."
-      redirect_to budgets_path
+      redirect_to all_budgets_budgets_path
     end
   end
 
