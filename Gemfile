@@ -48,6 +48,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano3-unicorn'
+  gem "bullet"
 end
 group :development, :test do
   gem 'factory_girl_rails'
@@ -55,7 +56,6 @@ group :development, :test do
   gem 'rspec-rails'
 end
 group :production do
-  gem 'sqlite3'
   gem 'unicorn'
   gem 'rails_12factor'
 end

@@ -4,7 +4,7 @@ class ReceiptsController < ApplicationController
   respond_to :html
 
   def all
-    @receipts = Receipt.all.order(date: :desc)
+    @receipts = Receipt.includes(:member, items: [:donation]).all.order(date: :desc)
   end
 
   def index
@@ -46,7 +46,7 @@ class ReceiptsController < ApplicationController
 
   protected
   def member
-    @member = Member.find(params[:member_id])
+    @member = Member.includes(receipts: [items: [:donation]]).find(params[:member_id])
   end
 
 

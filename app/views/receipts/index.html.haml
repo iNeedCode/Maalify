@@ -1,6 +1,6 @@
 %h1
   = t('view.receipt.title')
-  %small= link_to Member.find(params[:member_id]).full_name, member_path(params[:member_id])
+  %small= link_to @receipts.first.member.full_name, member_path(params[:member_id])
 
 %table.table.table-striped.table-bordered.table-hover.table-condensed
   %thead
@@ -18,12 +18,12 @@
         %td= receipt.receipt_id
         %td= I18n.l(receipt.date, format: :long)
         %td
-          = number_to_currency receipt.total
+          = number_to_currency(receipt.total, locale: :de)
           %br
           - receipt.items.each do |ri|
             %small
               = "#{ri.donation.name}: "
-              = number_to_currency ri.amount
+              = number_to_currency(ri.amount, locale: :de)
             %br
         %td
           =link_to member_receipt_path(params[:member_id], receipt.id), :title => "#{t('table.show')}" do

@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151121225101) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "budgets", force: :cascade do |t|
     t.string   "title"
     t.integer  "promise",                       default: 0
@@ -27,8 +30,8 @@ ActiveRecord::Schema.define(version: 20151121225101) do
     t.string   "description"
   end
 
-  add_index "budgets", ["donation_id"], name: "index_budgets_on_donation_id"
-  add_index "budgets", ["member_id"], name: "index_budgets_on_member_id"
+  add_index "budgets", ["donation_id"], name: "index_budgets_on_donation_id", using: :btree
+  add_index "budgets", ["member_id"], name: "index_budgets_on_member_id", using: :btree
 
   create_table "donations", force: :cascade do |t|
     t.string   "name"
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 20151121225101) do
     t.string   "description"
   end
 
-  add_index "donations", ["name"], name: "index_donations_on_name", unique: true
+  add_index "donations", ["name"], name: "index_donations_on_name", unique: true, using: :btree
 
   create_table "incomes", force: :cascade do |t|
     t.integer  "amount"
@@ -51,7 +54,7 @@ ActiveRecord::Schema.define(version: 20151121225101) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "incomes", ["member_id"], name: "index_incomes_on_member_id"
+  add_index "incomes", ["member_id"], name: "index_incomes_on_member_id", using: :btree
 
   create_table "members", primary_key: "aims_id", force: :cascade do |t|
     t.string   "last_name"
@@ -78,8 +81,8 @@ ActiveRecord::Schema.define(version: 20151121225101) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "receipt_items", ["donation_id"], name: "index_receipt_items_on_donation_id"
-  add_index "receipt_items", ["receipt_id"], name: "index_receipt_items_on_receipt_id"
+  add_index "receipt_items", ["donation_id"], name: "index_receipt_items_on_donation_id", using: :btree
+  add_index "receipt_items", ["receipt_id"], name: "index_receipt_items_on_receipt_id", using: :btree
 
   create_table "receipts", primary_key: "receipt_id", force: :cascade do |t|
     t.date     "date"
@@ -88,7 +91,7 @@ ActiveRecord::Schema.define(version: 20151121225101) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "receipts", ["member_id"], name: "index_receipts_on_member_id"
+  add_index "receipts", ["member_id"], name: "index_receipts_on_member_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -106,7 +109,19 @@ ActiveRecord::Schema.define(version: 20151121225101) do
     t.string   "name"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "budgets", "donations"
+  add_foreign_key "budgets", "donations"
+  add_foreign_key "budgets", "members", primary_key: "aims_id"
+  add_foreign_key "budgets", "members", primary_key: "aims_id"
+  add_foreign_key "incomes", "members", primary_key: "aims_id"
+  add_foreign_key "incomes", "members", primary_key: "aims_id"
+  add_foreign_key "receipt_items", "donations"
+  add_foreign_key "receipt_items", "donations"
+  add_foreign_key "receipt_items", "receipts", primary_key: "receipt_id"
+  add_foreign_key "receipt_items", "receipts", primary_key: "receipt_id"
+  add_foreign_key "receipts", "members", primary_key: "aims_id"
+  add_foreign_key "receipts", "members", primary_key: "aims_id"
 end

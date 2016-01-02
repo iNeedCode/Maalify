@@ -102,6 +102,16 @@ create user maalify with password 'SET-YOUR-PASSWORD-HERE';
   alter user maalify superuser createrole createdb replication;
 ```
 
+#### dump production data to seeds file
+
+In order to dump the production data to the seed file you need to add the following Gemfile `
+gem 'seed_dump'` and afterwards execute the according rake task with `rake db:seed:dump`. That will ***override*** your seeds.rb file.
+
+```
+$ ~/Desktop
+$ scp root@192.168.178.100:/opt/www/maalify/current/db/seeds.rb ./
+```
+
 
 
 # Deployment

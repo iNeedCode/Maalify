@@ -3,11 +3,13 @@
   %small= link_to @receipt.member.full_name, member_path(@receipt.member)
 
 %p
-  %b= t('receipt.id')
-  = @receipt.receipt_id
+  %h5
+    %b= t('receipt.id')
+    = @receipt.receipt_id
 %p
-  %b= t('receipt.date')
-  = I18n.l(@receipt.date, format: :long)
+  %h5
+    %b= t('receipt.date')
+    = I18n.l(@receipt.date, format: :long)
 
 %table.table.table-bordered.table-condensed.table-hover
   %thead
