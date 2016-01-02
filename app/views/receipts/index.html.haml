@@ -1,6 +1,6 @@
 %h1
   = t('view.receipt.title')
-  %small= link_to @receipts.first.member.full_name, member_path(params[:member_id])
+  %small= link_to Member.find(params[:member_id]).full_name, member_path(params[:member_id])
 
 %table.table.table-striped.table-bordered.table-hover.table-condensed
   %thead
