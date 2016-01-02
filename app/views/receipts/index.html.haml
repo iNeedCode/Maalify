@@ -18,7 +18,7 @@
         %td= receipt.receipt_id
         %td= I18n.l(receipt.date, format: :long)
         %td
-          = number_to_currency(receipt.total, locale: :de)
+          %b= number_to_currency(receipt.total, locale: :de)
           %br
           - receipt.items.each do |ri|
             %small
