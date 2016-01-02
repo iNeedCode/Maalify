@@ -15,7 +15,7 @@
   .field.form-group
     = f.label t('view.donation.title'), class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.collection_select(:donation_id, Donation.all, :id, :name, {prompt: true}, {class: "selectpicker"})
+      = f.collection_select(:donation_id, Donation.all.order("name"), :id, :name, {prompt: true}, {class: "selectpicker"})
   .field.form-group
     = f.label t('budget.start_date'), class: 'col-sm-2 control-label'
     %div.col-sm-8

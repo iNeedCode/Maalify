@@ -9,12 +9,12 @@ class BudgetsController < ApplicationController
   end
 
   def all_budgets
-    @budgets = Budget.includes([:member, :donation]).all.order(:title)
+    @budgets = Budget.includes(:member, :donation).all.order(:title)
     respond_with(@budgets)
   end
 
   def new_with_parameter
-    @budget = Budget.where(title: params[:budget_title]).first
+    @budget = Budget.includes(:donation).where(title: params[:budget_title]).first
     @budget.member_id = params[:member_id]
     render :new
   end
@@ -39,7 +39,7 @@ class BudgetsController < ApplicationController
   end
 
   def new
-    @budget = Budget.new
+    @budget = Budget.includes(:donation).new
     respond_with(@budget)
   end
 
