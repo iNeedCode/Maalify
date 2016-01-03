@@ -4,7 +4,9 @@ class BudgetsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @budget_overview = Budget.remaining_promise_for_whole_budget_title
+    # @budget_overview = Budget.remaining_promise_for_whole_budget_title
+    @budget_overview = [{title: 'no', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0, start_date: Date.new, end_date: Date.new},
+                        {title: 'no', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0, start_date: Date.new, end_date: Date.new}]
     respond_with(@budgets)
   end
 
