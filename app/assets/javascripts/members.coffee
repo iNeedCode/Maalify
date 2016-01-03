@@ -5,9 +5,28 @@
 
 $(document).on 'ready page:load', ->
   $("#tajnied-table").DataTable
+    processing: true
+    serverSide: true
+    ajax: $('#tajnied-table').data('source')
+    columns: [
+      {data: '0' }
+      {data: '1' }
+      {data: '2' }
+      {data: '3' }
+      {data: '4' }
+      {data: '5' }
+      {data: '6' }
+      {data: '7' }
+      {data: '8' }
+      {data: '9' }
+      {data: '10' }
+      {data: '11' }
+      {data: '12' }
+      {data: '13' }
+      {data: '14' }
+    ]
     autoWidth: true
     pagingType: "simple_numbers"
-    processing: true
     stateSave: true
     "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
     responsive: true

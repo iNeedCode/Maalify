@@ -11,7 +11,6 @@ class BudgetsController < ApplicationController
   end
 
   def all_budgets
-    @budgets = Budget.includes(:member, :donation).all.order(:title)
     respond_to do |format|
       format.html
       format.json { render json: BudgetDatatable.new(view_context) }

@@ -4,8 +4,10 @@ class MembersController < ApplicationController
   respond_to :html, :json
 
   def index
-    @members = Member.all.order(:last_name, :first_name)
-    respond_with(@members)
+    respond_to do |format|
+      format.html
+      format.json { render json: MemberDatatable.new(view_context) }
+    end
   end
 
   def show
