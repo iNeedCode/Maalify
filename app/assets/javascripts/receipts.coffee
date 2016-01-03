@@ -16,10 +16,21 @@ $(document).on 'ready page:load', ->
     event.preventDefault()
 
   $("#all-receipts-table").DataTable
-    autoWidth: true
-    pagingType: "simple"
     processing: true
-    "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
+    serverSide: true
+    ajax: $('#all-receipts-table').data('source')
+    columns: [
+      {data: '0' }
+      {data: '1' }
+      {data: '2' }
+      {data: '3' }
+      {data: '4' }
+      {data: '5' }
+      {data: '6' }
+    ]
+    autoWidth: true
+    pagingType: "simple_numbers"
+    "lengthMenu": [[50, 100, 200, 500], [50, 100, 200, 500]]
     stateSave: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"

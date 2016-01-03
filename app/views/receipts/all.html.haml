@@ -1,7 +1,7 @@
 %h1
   = t('budget.receipts')
 
-%table#all-receipts-table.table.table-striped.table-bordered.table-hover.table-condensed
+%table#all-receipts-table.table.table-striped.table-bordered.table-hover.table-condensed{"data-source" => receipts_all_url(format: "json")}
   %thead
     %tr
       %th= t('member.full_name')
@@ -13,7 +13,7 @@
       %th
 
   %tbody
-    - @receipts.each do |receipt|
+    -#- @receipts.each do |receipt|
       %tr
         %td= link_to receipt.member.full_name, member_path(receipt.member_id)
         %td= link_to receipt.receipt_id, member_receipt_path(receipt.member_id, receipt.id)

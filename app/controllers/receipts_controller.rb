@@ -1,10 +1,14 @@
 class ReceiptsController < ApplicationController
   before_action :set_receipt, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def all
-    @receipts = Receipt.includes(:member, items: [:donation]).all.order(date: :desc)
+    # @receipts = Receipt.includes(:member, items: [:donation]).all.order(date: :desc)
+    respond_to do |format|
+      format.html
+      format.json { render json: ReceiptDatatable.new(view_context) }
+    end
   end
 
   def index
