@@ -14,11 +14,24 @@ $(document).on 'ready page:load', ->
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
 
   $("#budget-table").DataTable
+    processing: true
+    serverSide: true
+    ajax: $('#budget-table').data('source')
+    columns: [
+      {data: '0' }
+      {data: '1' }
+      {data: '2' }
+      {data: '3' }
+      {data: '4' }
+      {data: '5' }
+      {data: '6' }
+      {data: '7' }
+      {data: '8' }
+    ]
     autoWidth: true
     pagingType: "simple_numbers"
-    processing: true
     stateSave: true
-    "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
+    "lengthMenu": [[50, 100, 200, 500], [50, 100, 200, 500]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'

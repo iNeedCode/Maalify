@@ -1,7 +1,7 @@
 class BudgetsController < ApplicationController
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @budget_overview = Budget.remaining_promise_for_whole_budget_title
@@ -10,7 +10,10 @@ class BudgetsController < ApplicationController
 
   def all_budgets
     @budgets = Budget.includes(:member, :donation).all.order(:title)
-    respond_with(@budgets)
+    respond_to do |format|
+      format.html
+      format.json { render json: BudgetDatatable.new(view_context) }
+    end
   end
 
   def new_with_parameter
