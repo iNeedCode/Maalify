@@ -1,5 +1,5 @@
 class BudgetsController < ApplicationController
-  before_action :set_budget, only: [:show, :edit, :update, :destroy]
+  before_action :set_budget, only: [:edit, :update, :destroy]
 
   respond_to :html, :json
 
@@ -39,6 +39,7 @@ class BudgetsController < ApplicationController
   end
 
   def show
+    @budget = Budget.includes(:donation, member:[receipts: [:items]]).find(params[:id])
     respond_with(@budget)
   end
 
