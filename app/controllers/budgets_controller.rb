@@ -1,16 +1,20 @@
 class BudgetsController < ApplicationController
-  before_action :set_budget, only: [:show, :edit, :update, :destroy]
+  before_action :set_budget, only: [:edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
-    @budget_overview = Budget.remaining_promise_for_whole_budget_title
+    # @budget_overview = Budget.remaining_promise_for_whole_budget_title
+    @budget_overview = [{title: 'no', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0, start_date: Date.new, end_date: Date.new},
+                        {title: 'no', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0, start_date: Date.new, end_date: Date.new}]
     respond_with(@budgets)
   end
 
   def all_budgets
-    @budgets = Budget.includes(:member, :donation).all.order(:title)
-    respond_with(@budgets)
+    respond_to do |format|
+      format.html
+      format.json { render json: BudgetDatatable.new(view_context) }
+    end
   end
 
   def new_with_parameter
@@ -35,6 +39,7 @@ class BudgetsController < ApplicationController
   end
 
   def show
+    @budget = Budget.includes(:donation, member:[receipts: [:items]]).find(params[:id])
     respond_with(@budget)
   end
 

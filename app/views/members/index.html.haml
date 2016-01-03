@@ -9,10 +9,10 @@
   .col-lg-12
     %h1
       = t('view.member.title')
-      %small= "(#{@members.size})"
+      %small= "(#{Member.all.size})"
 
   .col-lg-12
-    %table#tajnied-table.table.table-striped.table-bordered.table-hover.table-condensed.responsive.no-wrap.display
+    %table#tajnied-table.table.table-striped.table-bordered.table-hover.table-condensed.responsive.no-wrap.display{"data-source" => members_url(format: "json")}
       %thead
         %tr
           %th= t('member.aims_abbr')
@@ -32,29 +32,6 @@
           %th
 
       %tbody
-        - @members.each do |member|
-          %tr
-            %td= member.aims_id
-            %td= member.last_name
-            %td= member.first_name
-            %td= member.tanzeem
-            %td= show_boolean_value_as_glyphicon(member.wassiyyat)
-            %td= content_tag(:span, "#{member.age}" , title: member.date_of_birth.strftime("%d.%m.%Y"), data: {toggle: "toogle", placement: "placement"})
-            %td= member.street
-            %td= member.plz
-            %td= member.city
-            %td= link_to_telephone(member.landline)
-            %td= link_to_telephone(member.mobile_no)
-            %td= link_to_address(member.email)
-            %td
-              =link_to member, :title => "#{t('table.show')}" do
-                %span.glyphicon.glyphicon-search
-            %td
-              = link_to edit_member_path(member), :title => "#{t('table.edit')}" do
-                %span.glyphicon.glyphicon-edit
-            %td
-              = link_to member, :method => :delete, :data => { :confirm => 'Are you sure?' }, :title => "#{t('table.delete')}" do
-                %span.glyphicon.glyphicon-trash.color-red
 
 
   %br
