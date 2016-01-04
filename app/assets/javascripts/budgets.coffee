@@ -31,7 +31,7 @@ $(document).on 'ready page:load', ->
     autoWidth: true
     pagingType: "simple_numbers"
     stateSave: true
-    "lengthMenu": [[50, 100, 200, 500], [50, 100, 200, 500]]
+    "lengthMenu": [[25, 100, 200, 500], [25, 100, 200, 500]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'

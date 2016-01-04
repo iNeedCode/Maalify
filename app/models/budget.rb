@@ -118,18 +118,7 @@ class Budget < ActiveRecord::Base
 #
 # Returns all receipt items in the budget period
   def getAllReceiptsItemsfromBudgetPeriod
-    all_receipts_in_period = Receipt.where(date: self.start_date..self.end_date)
-    all_receipt_items_in_period_for_budget_donation = []
-
-    all_receipts_in_period.each do |receipt|
-      receipt.items.each do |ri|
-        if ri.donation == self.donation
-          all_receipt_items_in_period_for_budget_donation << ri
-        end
-      end
-    end
-
-    all_receipt_items_in_period_for_budget_donation
+    ReceiptItem.joins(:receipt, :donation).where(receipts: {date: self.start_date..self.end_date}, donations: {id: self.donation})
   end
 
 # Public: Get all receipt items from the budget period for A SPECIFIC member.
@@ -143,16 +132,7 @@ class Budget < ActiveRecord::Base
 #
 # Returns all receipt items in the budget period for A SPECIFIC member.
   def getAllReceiptsItemsfromBudgetPeriodforMember(_member)
-    all_receipt_items_for_all_members = getAllReceiptsItemsfromBudgetPeriod
-
-    all_receipt_items_for_one_member = []
-    all_receipt_items_for_all_members.each do |ri|
-      if ri.receipt.member == _member
-        all_receipt_items_for_one_member << ri
-      end
-
-    end
-    all_receipt_items_for_one_member
+    ReceiptItem.includes(receipt: [:member]).joins(:donation, :receipt).where(receipts: {member_id: _member.id, date: self.start_date..self.end_date}, donations: {id: self.donation})
   end
 
 # Public: Get all receipt items from the budget period for A SPECIFIC member.

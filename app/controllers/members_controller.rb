@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :edit, :update, :destroy, :send_mail]
+  before_action :set_member, only: [:edit, :update, :destroy, :send_mail]
 
   respond_to :html, :json
 
@@ -11,7 +11,7 @@ class MembersController < ApplicationController
   end
 
   def show
-    # BudgetMailer.mail_to_member(@member).deliver_later
+    @member = Member.includes(budgets:[:donation]).find(params[:id])
     respond_with(@member)
   end
 

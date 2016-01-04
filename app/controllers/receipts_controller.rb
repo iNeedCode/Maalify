@@ -1,5 +1,5 @@
 class ReceiptsController < ApplicationController
-  before_action :set_receipt, only: [:show, :edit, :update, :destroy]
+  before_action :set_receipt, only: [:edit, :update, :destroy]
 
   respond_to :html, :json
 
@@ -12,11 +12,14 @@ class ReceiptsController < ApplicationController
   end
 
   def index
+    member = Member.includes(receipts: [items: [:donation]]).find(params[:member_id])
     @receipts = member.receipts.order(date: :desc)
     respond_with(@receipts)
   end
 
   def show
+    @member = Member.includes(receipts: [items: [:donation]]).find(params[:member_id])
+    @receipt = member.receipts.find(params[:id])
     respond_with(@receipt)
   end
 
@@ -50,7 +53,7 @@ class ReceiptsController < ApplicationController
 
   protected
   def member
-    @member = Member.includes(receipts: [items: [:donation]]).find(params[:member_id])
+    @member = Member.find(params[:member_id])
   end
 
 
