@@ -429,5 +429,21 @@ RSpec.describe Budget, :type => :model do
       expect(@budget.average_payment).to be(7)
     end
 
+    it 'should calculate the paid amount for the budget from the receipt items' do
+      receipt1 = Receipt.new(id: 1, date: '2014-11-15', member: @member1)
+      receipt2 = Receipt.new(id: 2, date: '2014-11-15', member: @member1)
+
+      Timecop.freeze(Date.parse("14-11-2014"))
+      expect(@budget.average_payment).to be(10)
+
+      expect(@budget.paid_amount).to be(0)
+      receipt1.items << ReceiptItem.create!(id: 1, donation_id: 1, amount: 20, receipt_id: 1)
+      receipt2.items << ReceiptItem.create!(id: 2, donation_id: 1, amount: 20, receipt_id: 2)
+      receipt1.save
+      receipt2.save
+
+      expect(@budget.paid_amount).to be(40)
+    end
+
   end
 end

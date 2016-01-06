@@ -156,13 +156,12 @@ class Budget < ActiveRecord::Base
   end
 
   def paid_amount
-    all_receipt_items = getAllReceiptsItemsfromBudgetPeriodforMember(self.member)
-    paid = 0
-    all_receipt_items.each do |ri|
-      paid += ri.amount
-    end
+    ReceiptItem.includes(receipt: [:member]).joins(:donation, :receipt).where(receipts: {member_id: self.member.id, date: self.start_date..self.end_date}, donations: {id: self.donation}).sum(:amount)
+  end
 
-    paid
+  def remaining_promise_budget_title(_title)
+    # ReceiptItem.includes(donation: [:budgets]).joins(:donation, :receipt).where(budgets: {title: _title}).sum(:amount)
+    ReceiptItem.includes(donation: [:budgets]).joins(:donation, :receipt).where(budgets: {title: "Nasirat Fund 2015-16"}).sum(:amount)
   end
 
 # Public: Get all budget title name distict
@@ -174,22 +173,28 @@ class Budget < ActiveRecord::Base
 #
 # Returns all receipt items in the budget period for A SPECIFIC member.
   def self.find_distict_budget_names
-    Budget.select(:title).distinct(:title).map(&:title)
+    Budget.pluck('DISTINCT title')
   end
 
   def self.remaining_promise_for_whole_budget_title
     budget_names = Budget.find_distict_budget_names
+    budgets = Budget.all
     all_budget_overview = []
     budget_names.each do |budget_title|
       total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0, start_date: Date.new, end_date: Date.new}
-      same_budgets = Budget.where(title: budget_title)
+      same_budgets = budgets.select { |b| b.title== budget_title }
+
       total_sum_budget[:title] = budget_title
+      total_sum_budget[:start_date] = same_budgets.first.start_date
+      total_sum_budget[:end_date] = same_budgets.first.end_date
+      total_sum_budget[:promise] = same_budgets.map(&:promise).sum
+      total_sum_budget[:rest_promise_from_past_budget] = same_budgets.map(&:rest_promise_from_past_budget).sum
+      # total_sum_budget[:remainingPromise] = 0
+
+
+      # ap "#{budget_title}: #{same_budgets.size}"
 
       same_budgets.each do |budget|
-        total_sum_budget[:start_date] = budget.start_date
-        total_sum_budget[:end_date] = budget.end_date
-        total_sum_budget[:promise] += budget.promise
-        total_sum_budget[:rest_promise_from_past_budget] += budget.rest_promise_from_past_budget
         total_sum_budget[:remainingPromise] += budget.remainingPromiseCurrentBudget
       end
       all_budget_overview << total_sum_budget
