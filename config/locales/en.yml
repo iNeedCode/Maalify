@@ -137,6 +137,7 @@ en:
     remark: "Remark"
   receipt_item:
     number: "Number"
+    total: "Total"
   imported: "%{quantity} Members imported"
   mail:
     success: "Successfully send email"

@@ -1,7 +1,7 @@
 %fieldset.well.well-sm.form-inline
   = f.hidden_field :id
   = f.label t('receipt.amount')
-  = f.number_field :amount, class: "form-control"
+  = f.number_field :amount, class: "form-control receipt-item", placeholder: 0
   = f.label t('view.donation.title')
   = f.collection_select(:donation_id, @receipt.member.list_of_possible_donation_types, :id, :name, {prompt: true},{class: "form-control"})
   = f.hidden_field :_destroy

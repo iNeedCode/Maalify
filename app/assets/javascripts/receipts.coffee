@@ -13,6 +13,8 @@ $(document).on 'ready page:load', ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
+    triggerCalculate()
+    $( ".receipt-item" ).last().focus()
     event.preventDefault()
 
   $("#all-receipts-table").DataTable
@@ -35,3 +37,24 @@ $(document).on 'ready page:load', ->
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'
+
+  calculateSum = ->
+    sum = 0
+    #iterate through each textboxes and add the values
+    $('.receipt-item').each ->
+      #add only if the value is number
+      if !isNaN(@value) and @value.length != 0
+        sum += parseFloat(@value)
+      return
+    #.toFixed() method will roundoff the final sum to 2 decimal places
+    $('#total_sum').html sum.toFixed(2) + " €"
+    return
+
+  triggerCalculate = ->
+    #iterate through each textboxes and add keyup
+    $('.receipt-item').each ->
+      $(this).keyup ->
+        calculateSum()
+        return
+      return
+    return

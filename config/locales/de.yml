@@ -319,6 +319,7 @@ de:
     remark: "Notiz"
   receipt_item:
     number: "Nummer"
+    total: "Summe"
   imported: "%{quantity} Mitglieder importiert"
   mail:
     success: "Erfolgreich Email versand"
