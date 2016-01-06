@@ -2,7 +2,7 @@
   .text-center
     %blockquote
       %em= t('view.visitor.welcome_text1')
-    %h2= t('view.visitor.quick_add_header')
+    %h1= t('view.visitor.quick_add_header')
     = form_tag "", id: "quick-receipt-form", method: :get do
       .btn-group
         = select_tag "member_id_quick_select", options_for_select(Member.all.map{|m| [m.full_name, m.id,

@@ -181,22 +181,18 @@ class Budget < ActiveRecord::Base
     budgets = Budget.all
     all_budget_overview = []
     budget_names.each do |budget_title|
-      total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, remainingPromise: 0, start_date: Date.new, end_date: Date.new}
+      total_sum_budget = {title: '', promise: 0, rest_promise_from_past_budget: 0, paid_amount: 0, start_date: Date.new, end_date: Date.new}
       same_budgets = budgets.select { |b| b.title== budget_title }
 
       total_sum_budget[:title] = budget_title
       total_sum_budget[:start_date] = same_budgets.first.start_date
       total_sum_budget[:end_date] = same_budgets.first.end_date
-      total_sum_budget[:promise] = same_budgets.map(&:promise).sum
       total_sum_budget[:rest_promise_from_past_budget] = same_budgets.map(&:rest_promise_from_past_budget).sum
-      # total_sum_budget[:remainingPromise] = 0
+      total_sum_budget[:promise] = same_budgets.map(&:promise).sum
+      total_sum_budget[:paid_amount] = Budget.includes(donation:[:receipt_items]).where(title: budget_title, start_date: same_budgets.first.start_date, end_date: same_budgets.first.end_date).all.collect(&:donation).collect(&:receipt_items).flatten.uniq.collect(&:amount).sum
 
+      #TODO bug in `paid_amount` because it also getting receipt amount from past budget from same donation.
 
-      # ap "#{budget_title}: #{same_budgets.size}"
-
-      same_budgets.each do |budget|
-        total_sum_budget[:remainingPromise] += budget.remainingPromiseCurrentBudget
-      end
       all_budget_overview << total_sum_budget
     end
 

@@ -24,8 +24,8 @@
         %td= I18n.l(budget[:end_date], format: :default)
         %td= number_to_currency budget[:rest_promise_from_past_budget], {locale: :de, precision: 0}
         %td= number_to_currency budget[:promise], {locale: :de, precision: 0}
-        %td= number_to_currency (budget[:promise] + budget[:rest_promise_from_past_budget]) - budget[:remainingPromise], {locale: :de, precision: 0}
-        %td= number_to_currency budget[:remainingPromise], {locale: :de, precision: 0}
+        %td= number_to_currency budget[:paid_amount], {locale: :de, precision: 0}
+        %td= number_to_currency (budget[:rest_promise_from_past_budget] + budget[:promise]) - budget[:paid_amount], {locale: :de, precision: 0}
 
 .row
   .col-md-4

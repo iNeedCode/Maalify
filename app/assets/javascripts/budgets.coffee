@@ -9,7 +9,7 @@ $(document).on 'ready page:load', ->
     pagingType: "simple_numbers"
     processing: true
     stateSave: true
-    "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]]
+    "lengthMenu": [[20, 50, 100, 500], [20, 50, 100, 500]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
 
@@ -46,7 +46,7 @@ $(document).on 'ready page:load', ->
   $("#member_select_fields").hide() if $("#budget_donation_id").val() == ""
 
   FilterMembers = (organization) ->
-    $.get "/members.json", (data) ->
+    $.get "/members/get_all_members.json", (data) ->
       options = ""
       for key of data
         if data[key].tanzeem == organization || organization == "All"

@@ -375,7 +375,7 @@ RSpec.describe Budget, :type => :model do
       expect(total_budgets.first[:title]).to eq("MKAD-2014-15")
       expect(total_budgets.first[:promise]).to eq(120)
       expect(total_budgets.first[:rest_promise_from_past_budget]).to eq(0)
-      expect(total_budgets.first[:remainingPromise]).to eq(90)
+      expect(total_budgets.first[:paid_amount]).to eq(30)
 
       budget3 = FactoryGirl.build(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: member3)
       budget3.calculate_budget
@@ -387,7 +387,7 @@ RSpec.describe Budget, :type => :model do
       total_budgets = Budget.remaining_promise_for_whole_budget_title
       expect(total_budgets.last[:title]).to eq("MKAD-2015-16")
       expect(total_budgets.last[:promise]).to eq(156)
-      expect(total_budgets.last[:remainingPromise]).to eq(156)
+      expect(total_budgets.last[:paid_amount]).to eq(30)
 
       budget3.save
       budget3.reload
@@ -399,7 +399,7 @@ RSpec.describe Budget, :type => :model do
       expect(total_budgets.last[:title]).to eq("MKAD-2015-16")
       expect(total_budgets.last[:promise]).to eq(156)
       expect(total_budgets.last[:rest_promise_from_past_budget]).to eq(0)
-      expect(total_budgets.last[:remainingPromise]).to eq(146)
+      expect(total_budgets.last[:paid_amount]).to eq(40)
     end
 
     it 'should return distict Budget names of existing budgets in the database' do

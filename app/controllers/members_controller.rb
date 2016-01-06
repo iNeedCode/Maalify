@@ -3,6 +3,12 @@ class MembersController < ApplicationController
 
   respond_to :html, :json
 
+  def get_all_members
+    @members = Member.all
+    respond_with(@members)
+  end
+
+
   def index
     respond_to do |format|
       format.html
