@@ -55,7 +55,7 @@ class MembersController < ApplicationController
 
   def send_mail
     BudgetMailer.mail_to_member(@member).deliver_later
-    redirect_to member_path(@member), notice: t('mail.success')
+    redirect_to member_path(@member), notice: t('mail.success', fullname: @member.full_name)
   end
 
   private

@@ -46,7 +46,7 @@ de:
     import_description: "Laden Sie die entsprechend exportierte CSV Datei hoch, um Mitglieder ohne selbst einzugeben im System aufzunehmen."
     send_mail: "Email senden"
   view:
-    save: "Sichern"
+    save: "Speichern"
     show: "Anzeigen"
     edit: "Bearbeiten"
     delete: "Löschen"
@@ -67,6 +67,7 @@ de:
       edit: "Beleg bearbeiten"
       new: "Beleg hinzufügen"   
       title: "Beleg"
+      created: "Beleg erfolgreich gespeichert für %{fullname} mit einer Summe von %{amount} €."
     donation:
       title: "Chanda"
       new: "Neue Chanda"
@@ -322,4 +323,4 @@ de:
     total: "Summe"
   imported: "%{quantity} Mitglieder importiert"
   mail:
-    success: "Erfolgreich Email versand"
+    success: "Erfolgreich Email versand an %{fullname}"

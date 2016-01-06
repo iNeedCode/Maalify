@@ -4,7 +4,6 @@ class ReceiptsController < ApplicationController
   respond_to :html, :json
 
   def all
-    # @receipts = Receipt.includes(:member, items: [:donation]).all.order(date: :desc)
     respond_to do |format|
       format.html
       format.json { render json: ReceiptDatatable.new(view_context) }
@@ -34,7 +33,7 @@ class ReceiptsController < ApplicationController
   def create
     @receipt = member.receipts.new(receipt_params)
     if @receipt.save
-      flash[:notice] = "Receipt was successfully created."
+      flash[:notice] = t('view.receipt.created', {fullname: @receipt.member.full_name, amount: @receipt.total})
       redirect_to root_path
     else
       respond_with(@receipt.member, @receipt)
