@@ -35,6 +35,10 @@
     .col-sm-10
       = f.text_field :street, :class => "form-control"
   .form-group
+    = f.label :plz, t('member.plz'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :plz, :class => "form-control"
+  .form-group
     = f.label :city, t('member.city'), class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :city, :class => "form-control"
@@ -42,10 +46,6 @@
     = f.label :email, t('member.email'), class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :email, :class => "form-control"
-  .form-group
-    = f.label :plz, t('member.plz'), class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.number_field :plz, :class => "form-control"
   .form-group
     = f.label :landline, t('member.landline'), class: "col-sm-2 control-label"
     .col-sm-10
