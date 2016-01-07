@@ -9,7 +9,7 @@ class BudgetDatatable < AjaxDatatablesRails::Base
 
   def searchable_columns
     # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= %w(Budget.title Budget.promise Budget.start_date Budget.end_date)
+    @searchable_columns ||= %w(Budget.title Budget.promise Budget.start_date Budget.end_date Member.last_name Member.first_name Donation.name)
   end
 
   private
@@ -42,7 +42,7 @@ class BudgetDatatable < AjaxDatatablesRails::Base
 
   def get_raw_records
     # insert query here
-    Budget.includes(:member, :donation).all
+    Budget.includes(:member, :donation).joins(:member, :donation).all
   end
 
 # ==== Insert 'presenter'-like methods below if necessary

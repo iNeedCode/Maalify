@@ -1,7 +1,13 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :edit, :update, :destroy, :send_mail]
+  before_action :set_member, only: [:edit, :update, :destroy, :send_mail]
 
   respond_to :html, :json
+
+  def get_all_members
+    @members = Member.all
+    respond_with(@members)
+  end
+
 
   def index
     respond_to do |format|
@@ -11,7 +17,7 @@ class MembersController < ApplicationController
   end
 
   def show
-    # BudgetMailer.mail_to_member(@member).deliver_later
+    @member = Member.includes(budgets:[:donation]).find(params[:id])
     respond_with(@member)
   end
 
@@ -49,7 +55,7 @@ class MembersController < ApplicationController
 
   def send_mail
     BudgetMailer.mail_to_member(@member).deliver_later
-    redirect_to member_path(@member), notice: t('mail.success')
+    redirect_to member_path(@member), notice: t('mail.success', fullname: @member.full_name)
   end
 
   private

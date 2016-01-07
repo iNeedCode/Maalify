@@ -1,10 +1,9 @@
 class ReceiptsController < ApplicationController
-  before_action :set_receipt, only: [:show, :edit, :update, :destroy]
+  before_action :set_receipt, only: [:edit, :update, :destroy]
 
   respond_to :html, :json
 
   def all
-    # @receipts = Receipt.includes(:member, items: [:donation]).all.order(date: :desc)
     respond_to do |format|
       format.html
       format.json { render json: ReceiptDatatable.new(view_context) }
@@ -12,11 +11,14 @@ class ReceiptsController < ApplicationController
   end
 
   def index
-    @receipts = member.receipts.order(date: :desc)
+    @member = Member.includes(receipts: [items: [:donation]]).find(params[:member_id])
+    @receipts = @member.receipts.order(date: :desc)
     respond_with(@receipts)
   end
 
   def show
+    @member = Member.includes(receipts: [items: [:donation]]).find(params[:member_id])
+    @receipt = member.receipts.find(params[:id])
     respond_with(@receipt)
   end
 
@@ -31,7 +33,7 @@ class ReceiptsController < ApplicationController
   def create
     @receipt = member.receipts.new(receipt_params)
     if @receipt.save
-      flash[:notice] = "Receipt was successfully created."
+      flash[:notice] = t('view.receipt.created', {fullname: @receipt.member.full_name, amount: @receipt.total})
       redirect_to root_path
     else
       respond_with(@receipt.member, @receipt)
@@ -50,7 +52,7 @@ class ReceiptsController < ApplicationController
 
   protected
   def member
-    @member = Member.includes(receipts: [items: [:donation]]).find(params[:member_id])
+    @member = Member.find(params[:member_id])
   end
 
 

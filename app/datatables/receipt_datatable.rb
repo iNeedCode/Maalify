@@ -9,7 +9,7 @@ class ReceiptDatatable < AjaxDatatablesRails::Base
 
   def searchable_columns
     # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= %w( Receipt.receipt_id Receipt.date )
+    @searchable_columns ||= %w( Receipt.receipt_id Receipt.date Member.last_name Member.first_name Member.aims_id )
   end
 
   private
@@ -37,7 +37,7 @@ class ReceiptDatatable < AjaxDatatablesRails::Base
 
   def get_raw_records
     # insert query here
-    Receipt.includes(:member, items: [:donation]).all.order(date: :desc)
+    Receipt.includes(:member, items: [:donation]).joins(:member).all.order(date: :desc)
   end
 
 # ==== Insert 'presenter'-like methods below if necessary

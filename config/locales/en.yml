@@ -82,6 +82,7 @@ en:
       edit: "Edit receipt"
       new: "Add receipt"   
       title: "Receipt"
+      created: "Receipt was successfully created for %{fullname} with a total amount of %{amount} €."
     donation:
       title: "Chanda"
       new: "New Chanda"
@@ -137,6 +138,7 @@ en:
     remark: "Remark"
   receipt_item:
     number: "Number"
+    total: "Total"
   imported: "%{quantity} Members imported"
   mail:
-    success: "Successfully send email"
+    success: "Successfully send email to %{fullname}"

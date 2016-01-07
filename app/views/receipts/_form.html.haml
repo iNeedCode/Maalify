@@ -22,6 +22,12 @@
       .form-group
         = link_to_add_fields(t('receipt.add_item'), f, :items)
 
+    .col-md-12
+      %h3
+        = t('receipt_item.total')
+        %small#total_sum
+
+
   %br
   .actions
     = f.submit t('view.save'), :class => "btn btn-success"

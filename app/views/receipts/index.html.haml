@@ -1,6 +1,6 @@
 %h1
   = t('view.receipt.title')
-  %small= link_to Member.find(params[:member_id]).full_name, member_path(params[:member_id])
+  %small= link_to @member.full_name, member_path(params[:member_id])
 
 %table.table.table-striped.table-bordered.table-hover.table-condensed
   %thead
@@ -26,15 +26,15 @@
               = number_to_currency(ri.amount, locale: :de)
             %br
         %td
-          =link_to member_receipt_path(params[:member_id], receipt.id), :title => "#{t('table.show')}" do
+          =link_to member_receipt_path(params[:member_id], receipt.id), title: "#{t('table.show')}" do
             %span.glyphicon.glyphicon-search        
         %td
-          = link_to edit_member_receipt_path(params[:member_id], receipt.id), :title => "#{t('table.edit')}" do
+          = link_to edit_member_receipt_path(params[:member_id], receipt.id), title: "#{t('table.edit')}" do
             %span.glyphicon.glyphicon-edit
         %td
-          = link_to member_receipt_path(params[:member_id], receipt.id), :method => :delete, :data => { :confirm => 'Are you sure?' }, :title => "#{t('table.delete')}" do
+          = link_to member_receipt_path(params[:member_id], receipt.id), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t('table.delete')}" do
             %span.glyphicon.glyphicon-trash.color-red     
 
 %br
 
-= link_to t('view.receipt.new'), new_member_receipt_path, :class => "btn btn-primary"
+= link_to t('view.receipt.new'), new_member_receipt_path, class: "btn btn-primary"

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
 
     collection do
+      get :get_all_members
       post :import
       get :import_page
     end
