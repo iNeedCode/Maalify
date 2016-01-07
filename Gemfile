@@ -24,6 +24,7 @@ gem 'pg'
 gem 'yaml_db'
 gem 'seed_dump'
 gem 'kaminari'
+gem "select2-rails"
 
 group :development, :test do
   gem 'sqlite3'

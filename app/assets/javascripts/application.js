@@ -23,6 +23,8 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.de.js
 //= require dataTables/extras/dataTables.responsive
+//= require select2
+//= require select2_locale_de
 //= require_tree .
 
 
