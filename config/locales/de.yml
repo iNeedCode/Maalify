@@ -75,7 +75,7 @@ de:
     budget:
       title: "Budget"
       new: "Neues Budget"
-      calculate: "Berechnen"
+      calculate: "Berechnen ohne zu Speichern"
       edit: "Budget bearbeiten"
       all_budgets: "Alle Budgets"
       overview: "Budget Übersicht"
@@ -301,6 +301,7 @@ de:
     calculation_rules: "Berechnungsregeln"
     calculation_rules_description_budget: "multipliziert mit dem Einkommen. Mit einem mindest Budget von "
     calculation_rules_description_none_budget: "Mindest Versprechen von"
+    description_placeholder: "Wozu dient diese Chanda?"
   budget:
     promise: "Versprechen"
     rest_promise_from_past_budget: "Rest aus Vorjahr"
@@ -318,6 +319,7 @@ de:
     title: "Name"
     member: "Mitglied"
     remark: "Notiz"
+    description_placeholder: "Grund der nicht teilnahme an dem Budget?"
   receipt_item:
     number: "Nummer"
     total: "Summe"

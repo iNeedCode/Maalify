@@ -90,7 +90,7 @@ en:
     budget:
       title: "Budget"
       new: "New Budget"
-      calculate: "Calculate"
+      calculate: "Calculate without saving"
       edit: "Edit budget"
       all_budgets: "All budgets"
       overview: "Budget overview"
@@ -119,6 +119,7 @@ en:
     calculation_rules: "Calculation rules"
     calculation_rules_description_budget: "multiplied by the income. With a mininum Budget of "
     calculation_rules_description_none_budget: "Minimum promise of"
+    description_placeholder: "For what is that donation?"
   budget:
     promise: "promise"
     rest_promise_from_past_budget: "Rest from previous year"
@@ -136,6 +137,7 @@ en:
     title: "Name"
     member: "Member"
     remark: "Remark"
+    description_placeholder: "Reason to not participate to the budget?"
   receipt_item:
     number: "Number"
     total: "Total"

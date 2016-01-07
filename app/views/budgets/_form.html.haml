@@ -35,7 +35,7 @@
   .form-group
     = f.label t('budget.description'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :description, class: "form-control"
+      = f.text_area :description, class: "form-control", placeholder: t('budget.description_placeholder')
   .container-fluid
     .col-md-offset-2.col-md-3
       .form-group

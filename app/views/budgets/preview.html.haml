@@ -38,7 +38,7 @@
       .form-group{id: "budgets_#{i}_none_payer_description_wrapper", style: "display: none;"}
         = label_tag '', t('budget.description'), class: 'col-sm-2 control-label', for: "budgets_#{i}_none_payer_description"
         .col-sm-10
-          = text_area_tag "budgets[#{i}][description]", budget.description, class: "form-control"
+          = text_area_tag "budgets[#{i}][description]", budget.description, class: "form-control", placeholder: t('budget.description_placeholder')
   .field.form-group.col-sm-12.text-center
     = submit_tag t('view.save'), class: 'btn btn-success btn-lg btn-block'
     %br

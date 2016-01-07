@@ -9,11 +9,11 @@
   .form-group
     = f.label :amount, t('income.amount'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :amount, :class => "form-control"
+      = f.number_field :amount, :class => "form-control", placeholder: '1000'
   .form-group
     = f.label :starting_date, t('income.starting_date'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :starting_date, :class => "form-control datepicker-income"
+      = f.text_field :starting_date, :class => "form-control datepicker-income", placeholder: '01.01.2016'
   .form-group
     = label_tag :recalculate, t('income.recalculate_budget'), class: "col-sm-2 control-label"
     .col-sm-10

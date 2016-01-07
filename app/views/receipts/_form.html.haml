@@ -9,11 +9,11 @@
   .form-group
     = f.label :receipt_id, t('receipt.id'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :receipt_id, :class => "form-control"
+      = f.text_field :receipt_id, :class => "form-control", placeholder: '123456'
   .form-group
     = f.label :date, t('receipt.date'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :date, :class => "form-control datepicker"
+      = f.text_field :date, :class => "form-control datepicker", placeholder: '01.01.2016'
   .container
     .col-md-offset-1
       = f.fields_for :items do |builder|
@@ -22,7 +22,7 @@
       .form-group
         = link_to_add_fields(t('receipt.add_item'), f, :items)
 
-    .col-md-12
+    .col-md-offset-1
       %h3
         = t('receipt_item.total')
         %small#total_sum

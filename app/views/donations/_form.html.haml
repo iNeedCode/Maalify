@@ -9,7 +9,7 @@
   .form-group
     = f.label t('donation.name'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :name, class: "form-control"
+      = f.text_field :name, class: "form-control", placeholder: 'Majlis'
   .form-group
     = f.label t('donation.budget'), class: "col-sm-2 control-label"
     .col-sm-10
@@ -17,19 +17,19 @@
   .form-group#formula_fields
     = f.label t('donation.formula'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :formula, class: "form-control"
+      = f.text_field :formula, class: "form-control", placeholder: '0.01*12'
   .form-group#minimum_budget_fields
     = f.label t('donation.minimum'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :minimum_budget, class: "form-control"
+      = f.number_field :minimum_budget, class: "form-control", placeholder: '36'
   .form-group
     = f.label t('donation.organization'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.select :organization, %w(Khuddam Atfal Ansar All Lajna Nasirat),{}, {class: "selectpicker"}
+      = f.select :organization, %w(Atfal Khuddam Ansar All Nasirat Lajna),{}, {class: "selectpicker"}
   .form-group
     = f.label t('donation.description'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :description, class: "form-control"
+      = f.text_area :description, class: "form-control", placeholder: t('donation.description_placeholder')
   .container-fluid
     .col-md-offset-2.col-md-3
       .form-group

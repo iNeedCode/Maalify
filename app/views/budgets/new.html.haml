@@ -11,7 +11,7 @@
   .field.form-group
     = f.label t('budget.title'), class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.text_field :title, class: 'form-control'
+      = f.text_field :title, class: 'form-control', placeholder: 'Hissa Aamad 2015-16'
   .field.form-group
     = f.label t('view.donation.title'), class: 'col-sm-2 control-label'
     %div.col-sm-8
@@ -19,17 +19,18 @@
   .field.form-group
     = f.label t('budget.start_date'), class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.text_field :start_date, class: "form-control datepicker"
+      = f.text_field :start_date, class: "form-control datepicker", placeholder: '01.01.2016'
   .field.form-group
     = f.label t('budget.end_date'), class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.text_field :end_date, class: "form-control datepicker"
+      = f.text_field :end_date, class: "form-control datepicker", placeholder: '31.12.2016'
   .field.form-group#member_select_fields
     = f.label t('budget.member'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.collection_select(:member_id, Member.all, :id, :full_name, {}, {:multiple => true})
 
   .actions.col-md-offset-2
-    = f.submit t('view.budget.calculate'), class: 'btn btn-primary'
+    = f.submit t('view.budget.calculate'), class: 'btn btn-success'
+    %br
     %br
     = link_to t('view.back'), budgets_path, class: 'btn btn-default btn-xs'
