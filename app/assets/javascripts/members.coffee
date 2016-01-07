@@ -28,7 +28,7 @@ $(document).on 'ready page:load', ->
     autoWidth: true
     pagingType: "simple_numbers"
     stateSave: true
-    "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]]
+    "lengthMenu": [[50, 100, 200, 500], [50, 100, 200, 500]]
     responsive: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
@@ -43,3 +43,9 @@ $(document).on 'ready page:load', ->
     language: "de"
     orientation: "bottom auto"
     todayHighlight: true
+
+  $('#member_plz').blur ->
+    plzServiceUrl = "http://api.zippopotam.us/de/#{this.value}"
+    $.get plzServiceUrl , (data) ->
+      $('#member_city').val(data.places[0]["place name"])
+      return
