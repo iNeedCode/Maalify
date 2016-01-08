@@ -19,6 +19,10 @@ class Receipt < ActiveRecord::Base
     sum
   end
 
+  def date_of_last_change
+    Receipt.includes(:items).where(receipt_id: self.id).order("receipt_items.updated_at DESC").collect(&:items).flatten.map(&:updated_at).first
+  end
+
   private
   def single_donation_used_in_one_receipt
     unless items.map(&:donation_id).length == items.map(&:donation_id).uniq.length

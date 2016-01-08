@@ -18,6 +18,7 @@ de:
       double_receipt_item: "Doppelter Eintrag für die Chanda im Beleg"
       no_budget_period_available: "Kein passendes Budget für das ausgewählte Datum vorhanden"
     figures: "Beräge"
+    updated: "Aktualisert"
   member:
     last_name: "Nachname"
     first_name: "Vorname"
