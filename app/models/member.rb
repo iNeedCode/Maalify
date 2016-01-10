@@ -21,7 +21,7 @@ class Member < ActiveRecord::Base
   end
 
   def current_income
-    incomes.order(starting_date: :desc).first
+    Income.joins(:member).where(member: [aims_id = self.id]).order('incomes.starting_date DESC').first
   end
 
   def oldest_income
@@ -86,12 +86,12 @@ class Member < ActiveRecord::Base
   end
 
   def self.import(file)
-    khuddam_de_mapping = {:"\"jamaat_id\"" => :aims_id,       :"\"vorname\"" => :first_name,
+    khuddam_de_mapping = {:"\"jamaat_id\"" => :aims_id, :"\"vorname\"" => :first_name,
                           :"\"familien_name\"" => :last_name, :"\"geburtsdatum\"" => :date_of_birth,
-                          :"\"straße\"" => :street,           :"\"plz\"" => :plz,
-                          :"\"stadt\"" => :city,              :"\"e_mail\"" => :email,
-                          :"\"handy\"" => :mobile_no,         :"\"tanziem\"" => :gender,
-                          :"\"hausnr\"" => :hausnr,           :"\"festnetz\"" => :landline}
+                          :"\"straße\"" => :street, :"\"plz\"" => :plz,
+                          :"\"stadt\"" => :city, :"\"e_mail\"" => :email,
+                          :"\"handy\"" => :mobile_no, :"\"tanziem\"" => :gender,
+                          :"\"hausnr\"" => :hausnr, :"\"festnetz\"" => :landline}
 
     lines = SmarterCSV.process(file.path, options= {col_sep: ';', force_simple_split: true, quote_char: '"',
                                                     remove_unmapped_keys: true, key_mapping: khuddam_de_mapping})

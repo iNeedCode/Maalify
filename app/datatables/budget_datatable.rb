@@ -20,9 +20,9 @@ class BudgetDatatable < AjaxDatatablesRails::Base
           # comma separated list of the values for each cell of a table row
           # example: record.attribute,
           record.title,
-          record.promise,
-          record.start_date,
-          record.end_date,
+          number_to_currency(record.promise, locale: :de),
+          I18n.l(record.start_date, format: :long),
+          I18n.l(record.end_date, format: :long),
           link_to(record.member.full_name, v.member_path(record.member_id)),
           link_to(record.donation.name, v.donation_path(record.donation_id)),
           link_to(v.budget_path(record.id), class: "", title: "Show") do
@@ -50,6 +50,7 @@ class BudgetDatatable < AjaxDatatablesRails::Base
   def_delegator :@view, :link_to
   def_delegator :@view, :html_safe
   def_delegator :@view, :content_tag
+  def_delegator :@view, :number_to_currency
 
   def v
     @view
