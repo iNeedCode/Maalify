@@ -24,7 +24,7 @@ set :unicorn_config_path, "/opt/www/maalify/current/config/unicorn.rb"
 
 # Clean up all older releases
 before :deploy, "unicorn:stop"
-after "deploy:publishing", "unicorn:start"
+after "deploy:publishing", "unicorn:restart"
 after "deploy:restart", "deploy:cleanup"
 
 
