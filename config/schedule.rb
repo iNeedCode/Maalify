@@ -27,7 +27,7 @@ set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log
 every 1.minute do
   command "gem install rake"
   command "RAILS_ENV=production"
-  rake 'cron:deliver_email'
+  rake 'cron:deliver_emails'
 end
 
 
