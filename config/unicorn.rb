@@ -6,7 +6,7 @@ working_directory "#{app_dir}/current"
 
 # Set unicorn options
 worker_processes 1
-preload_app false
+preload_app true
 timeout 30
 
 # Set up socket location
