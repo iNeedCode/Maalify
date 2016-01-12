@@ -15,6 +15,7 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 set :rbenv_roles, :all
 set :linked_files, %w{config/database.yml .rbenv-vars} # create these files manually ones on the server
+set :bundle_gemfile,  "#{fetch(:deploy_to)}/Gemfile"
 
 
 
@@ -22,22 +23,21 @@ set :linked_files, %w{config/database.yml .rbenv-vars} # create these files manu
 set :unicorn_pid, "/opt/www/maalify/current/shared/tmp/pids/unicorn.pid"
 set :unicorn_config_path, "/opt/www/maalify/current/config/unicorn.rb"
 
+
+#before :deploy, "unicorn:stop"
+#after "deploy:publishing", "unicorn:restart"
+
+after 'deploy:publishing', 'deploy:restart'
 # Clean up all older releases
-before :deploy, "unicorn:restart"
+after "deploy:restart", "deploy:cleanup"
+
 namespace :deploy do
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      execute :rake, 'cache:clear'
+    end
+  end
   task :restart do
     invoke 'unicorn:legacy_restart'
   end
 end
-# after "deploy:publishing", "unicorn:restart"
-# after "deploy:restart", "deploy:cleanup"
-
-
-# namespace :deploy do
-#   after :restart, :clear_cache do
-#     on roles(:web), in: :groups, limit: 3, wait: 10 do
-#       execute :rake, 'cache:clear'
-#     end
-#   end
-
-# end
