@@ -1,4 +1,3 @@
-
 # set path to application
 app_dir = "/opt/www/maalify"
 shared_dir = "#{app_dir}/shared"
