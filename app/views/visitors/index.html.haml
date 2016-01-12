@@ -9,7 +9,7 @@
           { 'data-url': new_member_receipt_path(member_id: m.id) }]}), {prompt: t('view.prompt')}
 .container-fluid
   %br
-  .jumbotron{style:"background-color:#f7f7f7;"}
+  .jumbotron{style:"background-color:#F7F7F7;"}
     .text-center
       %h1= t('view.visitor.welcome_text2')
       %p= t('view.visitor.welcome_text3')
@@ -18,19 +18,19 @@
           %span.glyphicon.glyphicon-credit-card
           = t('view.budget.overview')
           %span.badge
-            = Budget.select(:title).distinct(:title).map(&:title).size
+            = Budget.find_distict_budget_names
         =link_to receipts_all_path, class: "btn btn-default btn-lg" do
           %span.glyphicon.glyphicon-list
           =t('budget.receipts')
           %span.badge
-            = Receipt.all.size
+            = Receipt.count
         =link_to members_path, class: "btn btn-default btn-lg" do
           %span.glyphicon.glyphicon-user
           =t('view.member.title')
           %span.badge
-            = Member.all.size
+            = Member.count
         =link_to donations_path, class: "btn btn-default btn-lg" do
           %span.glyphicon.glyphicon-briefcase
           =t('view.donation.title')
           %span.badge
-            = Donation.all.size
+            = Donation.count
