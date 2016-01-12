@@ -1,5 +1,5 @@
 namespace :cron do
-  desc "Send account emails"
+  desc "Send emails to members that are registred with email"
   task deliver_emails: :environment do
     members = Member.where(aims_id: 14649)
     members.each do |member|

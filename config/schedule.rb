@@ -24,10 +24,13 @@ set :whenever_command, "bundle exec whenever"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
 
-every 1.minute do
+every 1.day do
   command "gem install rake"
-  command "RAILS_ENV=production"
   rake 'cron:deliver_emails'
 end
 
+every 1.month, :at => 'January 20th 6:00am' do
+  command "gem install rake"
+  rake 'cron:deliver_emails'
+end
 
