@@ -23,16 +23,21 @@ set :unicorn_pid, "/opt/www/maalify/current/shared/tmp/pids/unicorn.pid"
 set :unicorn_config_path, "/opt/www/maalify/current/config/unicorn.rb"
 
 # Clean up all older releases
-before :deploy, "unicorn:stop"
-after "deploy:publishing", "unicorn:restart"
-after "deploy:restart", "deploy:cleanup"
-
-
+before :deploy, "unicorn:restart"
 namespace :deploy do
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      execute :rake, 'cache:clear'
-    end
+  task :restart do
+    invoke 'unicorn:legacy_restart'
   end
-
 end
+# after "deploy:publishing", "unicorn:restart"
+# after "deploy:restart", "deploy:cleanup"
+
+
+# namespace :deploy do
+#   after :restart, :clear_cache do
+#     on roles(:web), in: :groups, limit: 3, wait: 10 do
+#       execute :rake, 'cache:clear'
+#     end
+#   end
+
+# end
