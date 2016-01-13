@@ -9,9 +9,7 @@ DATE=`date +%Y_%m_%d`
 DATABASE="maalify_production"
 FILENAME="backup/db_backup_maalify_production_$DATE.sql"
 
-
-find backup/* -mtime +1 -delete
-
+cd /var/lib/postgresql/
 
 # input date to file
 echo "-- Backup date: $DATE" > $FILENAME
