@@ -9,7 +9,7 @@ $(document).on 'ready page:load', ->
     pagingType: "simple"
     processing: true
     stateSave: true
-    "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]]
+    "lengthMenu": [[20, 50, 100], [20, 50, 100]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     dom: 'C<"clear">lfrtip'

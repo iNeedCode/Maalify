@@ -40,6 +40,7 @@ en:
       no_budget_period_available: "No corresponding budget for the selected date available"
     figures: "Figures"
     updated: "Updated"
+    items: "Items"
   member:
     last_name: "Lastname"
     first_name: "Firstname"

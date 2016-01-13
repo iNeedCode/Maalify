@@ -28,7 +28,7 @@
   .col-sm-3
     %p.text-center.lead
       = I18n.l(@budget.end_date, format: :long)
-  - unless @budget.description.nil?
+  - unless @budget.description.nil? || @budget.description.empty?
     .col-sm-12
       %p.text-center.lead.well
         %b= t('budget.remark')

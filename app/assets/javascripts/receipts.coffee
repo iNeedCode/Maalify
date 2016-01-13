@@ -29,11 +29,20 @@ $(document).on 'ready page:load', ->
       {data: '0' }
       {data: '1' }
       {data: '2' }
-      {data: '3' }
-      {data: '4' }
-      {data: '5' }
-      {data: '6' }
-      {data: '7' }
+      {data: '3', searchable: false, orderable: false }
+      { 'render': (data, type, row) ->
+        console.log(data)
+        console.log(Date.now())
+#        var i =0;
+#        for(; i < 9; i++) {}
+
+
+        data.split(', ').join '<br/>'
+      }
+      {data: '5', searchable: false, orderable: false }
+      {data: '6', searchable: false, orderable: false }
+      {data: '7', searchable: false, orderable: false }
+      {data: '8', searchable: false, orderable: false }
     ]
     autoWidth: true
     pagingType: "simple_numbers"
@@ -63,3 +72,13 @@ $(document).on 'ready page:load', ->
         return
       return
     return
+
+  $("#member-receipts").DataTable
+    processing: true
+    autoWidth: true
+    pagingType: "simple_numbers"
+    "lengthMenu": [[25, 100, 200, 500], [25, 100, 200, 500]]
+    stateSave: true
+    language:
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+    dom: 'C<"clear">lfrtip'

@@ -19,6 +19,7 @@ de:
       no_budget_period_available: "Kein passendes Budget für das ausgewählte Datum vorhanden"
     figures: "Beräge"
     updated: "Aktualisert"
+    items: "Einträge"
   member:
     last_name: "Nachname"
     first_name: "Vorname"
