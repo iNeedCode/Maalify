@@ -80,6 +80,7 @@ en:
       aktion: "Actions"
       all: "All Members"
       import: "Import member"
+      edit: "Edit Member"
     receipt:
       edit: "Edit receipt"
       new: "Add receipt"   

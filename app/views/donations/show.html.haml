@@ -1,3 +1,6 @@
+- content_for :title do
+  ="#{t('view.donation.title')}: #{@donation.name}"
+
 .container-fluid
   .col-ms-12
     %p#notice= notice

@@ -1,6 +1,8 @@
+- content_for :title do
+  ="#{t('view.receipt.new')} (#{@receipt.member.id})"
 %h1
-	= t('view.receipt.new')
-	%small= link_to @receipt.member.full_name, member_path(@receipt.member.id)
+  = t('view.receipt.new')
+  %small= link_to @receipt.member.full_name, member_path(@receipt.member.id)
 
 = render 'form'
 

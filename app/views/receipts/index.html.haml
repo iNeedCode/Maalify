@@ -1,3 +1,5 @@
+- content_for :title do
+  ="#{t('view.receipt.title')}: (#{@member.full_name})"
 %h1
   = t('view.receipt.title')
   = "(#{@receipts.size})"

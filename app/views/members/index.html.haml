@@ -1,3 +1,6 @@
+- content_for :title do
+  ="#{t('view.member.title')}"
+
 %p
   %ul.nav.nav-pills
     %li.active{:role => "presentation"}
@@ -9,7 +12,7 @@
   .col-lg-12
     %h1
       = t('view.member.title')
-      %small= "(#{Member.all.size})"
+      %small= "(#{Member.count})"
 
   .col-lg-12
     %table#tajnied-table.table.table-striped.table-bordered.table-hover.table-condensed.responsive.no-wrap.display{"data-source" => members_url(format: "json")}

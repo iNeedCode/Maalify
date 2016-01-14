@@ -1,3 +1,5 @@
+- content_for :title do
+  ="#{t('view.receipt.title')}: #{@receipt.id}"
 %h2
   = t('view.receipt.title')
   %small= link_to @receipt.member.full_name, member_path(@receipt.member)

@@ -1,6 +1,9 @@
+- content_for :title do
+  ="t('view.member.edit') (#{@member.full_name})"
+
 %h1
-	= t('view.member.edit')
-	%small= link_to @member.full_name, member_path(@member.id)
+  = t('view.member.edit')
+  %small= link_to @member.full_name, member_path(@member.id)
 
 = render 'form'
 

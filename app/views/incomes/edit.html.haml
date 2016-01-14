@@ -1,6 +1,8 @@
+- content_for :title do
+  ="#{t('view.income.edit')} (#{@income.member.id})"
 %h1
-	= t('view.income.edit')
-	%small= link_to @income.member.full_name, member_path(@income.member_id)
+  = t('view.income.edit')
+  %small= link_to @income.member.full_name, member_path(@income.member_id)
 
 = render 'form'
 

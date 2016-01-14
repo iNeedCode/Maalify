@@ -1,3 +1,6 @@
+- content_for :title do
+  ="#{t('view.budget.title')}"
+
 %h1= t('view.budget.title')
 
 = form_for @budget, url: {controller: 'budgets', action: 'preview'}, method: "post", html: {class: 'form-horizontal'} do |f|

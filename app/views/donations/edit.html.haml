@@ -1,3 +1,6 @@
+- content_for :title do
+  ="#{t('view.donation.edit')} (#{@donation.name})"
+
 %h1= t('view.donation.edit')
 
 = render 'form'
