@@ -46,7 +46,7 @@ $(document).on 'ready page:load', ->
     ]
     autoWidth: true
     pagingType: "simple_numbers"
-    "lengthMenu": [[25, 100, 200, 500], [25, 100, 200, 500]]
+    "lengthMenu": [[25, 50, 100, 200], [25, 50, 100, 200]]
     stateSave: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
@@ -77,7 +77,7 @@ $(document).on 'ready page:load', ->
     processing: true
     autoWidth: true
     pagingType: "simple_numbers"
-    "lengthMenu": [[25, 100, 200, 500], [25, 100, 200, 500]]
+    "lengthMenu": [[25, 50, 100, 200], [25, 50, 100, 200]]
     stateSave: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
