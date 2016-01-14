@@ -12,10 +12,27 @@ class Member < ActiveRecord::Base
   validates_uniqueness_of :aims_id
   validate :at_least_one_communication_chanel_is_given
   validates :email, allow_blank: true, format: {with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/}
-  validates :gender, inclusion: {in: %w(male female),
-                                 message: "'%{value}' is not a valid Gender"}, allow_nil: false
+  validates :gender, inclusion: {in: %w(male female), message: "'%{value}' is not a valid Gender"}, allow_nil: false
 
 # Methods
+
+  def list_currrent_budgets
+    enriched_budgets = []
+    budgets = Budget.joins(:donation, :member).where('members.aims_id = ? AND DATE(?) BETWEEN start_date AND end_date', self.id, Date.today).order('end_date ASC, title ASC')
+
+    budgets.each do |budget|
+      one_budget = {budget: nil, paid_amout: 0, rest_amount: 0, average_amount: 0}
+
+      one_budget[:budget] = budget
+      paid_amount = budget.paid_amount
+      one_budget[:paid_amout] = paid_amount
+      one_budget[:rest_amount] = budget.promise + budget.rest_promise_from_past_budget - one_budget[:paid_amout]
+      one_budget[:average_amount] = (one_budget[:rest_amount] / budget.remaining_months.to_f).ceil
+      enriched_budgets << one_budget
+    end
+    enriched_budgets
+  end
+
   def full_name
     "#{last_name}, #{first_name}"
   end
@@ -71,6 +88,7 @@ class Member < ActiveRecord::Base
   end
 
   def list_available_budgets
+    # TODO optimize TOOOO MUCH QUEREIES
     all_budget = Budget.select(:start_date, :end_date, :title, :donation_id).distinct(:title)
     budgets_of_member_title = budgets_of_member.map(&:title)
     budget_from_same_organization = all_budget.select do |budget|
@@ -115,12 +133,6 @@ class Member < ActiveRecord::Base
       end
 
       member.date_of_birth = nil if (member_hash[:date_of_birth] == '01.01.1970')
-
-      # ap "----------------------------------------------------------------------"
-      # ap member
-      # ap member.errors.to_s
-      # ap "----------------------------------------------------------------------"
-
       member.save
       imported += 1 if member.valid?
     end

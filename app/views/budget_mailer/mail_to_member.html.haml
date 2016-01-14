@@ -9,7 +9,10 @@
         %center
           %small Assalam o Alaikum Warahmatullah,
           %br
-        Sehr geehrter #{@member.first_name} #{@member.last_name} Sb.
+        - if @member.gender == 'male'
+          = t('mail.greeting.male', {name: "#{@member.first_name} #{@member.last_name}"})
+        - else
+          = t('mail.greeting.female', {name: "#{@member.first_name} #{@member.last_name}"})
       - unless @member.budgets.empty?
         %center
           %h2= t('member.current_budgets')
@@ -21,16 +24,15 @@
                 %th= t('budget.elapsed_time')
                 %th= t('budget.average_payment')
             %tbody
-              - @member.budgets.each do |budget|
-                - next unless (budget.start_date..budget.end_date).include?(Date.today)
+              - @member.list_currrent_budgets.each do |iter|
                 %tr
-                  %td= budget.donation.name
-                  %td= number_to_currency(budget.promise - budget.paid_amount + budget.rest_promise_from_past_budget, {locale: :de, precision: 0})
+                  %td= iter[:budget].donation.name
+                  %td= number_to_currency(iter[:rest_amount], {locale: :de, precision: 0})
                   %td
-                    = I18n.l(budget.start_date, format: :default)
+                    %small= I18n.l(iter[:budget].start_date, format: :default)
                     %br
-                    = I18n.l(budget.end_date, format: :default)
-                  %td= number_to_currency(budget.average_payment, {locale: :de, precision: 0})
+                    %i= I18n.l(iter[:budget].end_date, format: :default)
+                  %td= number_to_currency(iter[:average_amount], {locale: :de, precision: 0})
       %table.footer
         %tr
           Wassalam

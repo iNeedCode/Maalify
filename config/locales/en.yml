@@ -146,3 +146,6 @@ en:
   imported: "%{quantity} Members imported"
   mail:
     success: "Successfully send email to %{fullname}"
+    greeting:
+      female: "Dear %{name} Sahiba,"
+      male: "Dear %{name} Sahib,"

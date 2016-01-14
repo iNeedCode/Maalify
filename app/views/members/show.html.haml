@@ -54,22 +54,21 @@
             %th= t('budget.elapsed_time')
             %th= t('budget.average_payment')
         %tbody
-          - @member.budgets.each do |budget|
-            - next unless (budget.start_date..budget.end_date).include?(Date.today)
-            %tr{:class => ("danger" if budget.none_payer?)}
-              %td= link_to budget.title, budget_path(budget.id)
-              %td= link_to budget.donation.name, donation_path(budget.donation.id)
+          - @member.list_currrent_budgets.each do |iter|
+            %tr{:class => ("danger" if iter[:budget].none_payer?)}
+              %td= link_to iter[:budget].title, budget_path(iter[:budget].id)
+              %td= link_to iter[:budget].donation.name, donation_path(iter[:budget].donation.id)
               %td
-                = number_to_currency(budget.promise, locale: :de)
+                = number_to_currency(iter[:budget].promise, locale: :de)
                 %br
-                %small= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
-              %td= number_to_currency(budget.paid_amount, locale: :de)
-              %td= number_to_currency(budget.promise - budget.paid_amount + budget.rest_promise_from_past_budget, locale: :de)
+                %small= number_to_currency(iter[:budget].rest_promise_from_past_budget, locale: :de)
+              %td= number_to_currency(iter[:paid_amout], locale: :de)
+              %td= number_to_currency(iter[:rest_amount], locale: :de)
               %td
-                = I18n.l(budget.start_date, format: :default)
+                %small= I18n.l(iter[:budget].start_date, format: :default)
                 %br
-                = I18n.l(budget.end_date, format: :default)
-              %td= number_to_currency(budget.average_payment, locale: :de)
+                %b= I18n.l(iter[:budget].end_date, format: :default)
+              %td= number_to_currency(iter[:average_amount], locale: :de)
 
 .container-fluid
   %h3= t('view.member.aktion')

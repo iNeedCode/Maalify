@@ -328,3 +328,6 @@ de:
   imported: "%{quantity} Mitglieder importiert"
   mail:
     success: "Erfolgreich Email versand an %{fullname}"
+    greeting:
+      male: "Sehr geehrter Herr %{name} Sahib,"
+      female: "Sehr geehrte Frau %{name} Sahiba,"
