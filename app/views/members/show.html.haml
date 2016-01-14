@@ -82,7 +82,7 @@
       = t('budget.receipts')
   .col-sm-4
     = collection_select(:budget, :selector_for_member, @member.list_available_budgets,:title, :title,
-      options= {prompt: t('view.member.select_budget_box')}, html_options= {class: "selectpicker", data:{width:'auto'}})
+      options= {prompt: t('view.member.select_budget_box')}, html_options= {data:{width:'auto'}})
 .container-fluid
   .col-sm-4
     %br

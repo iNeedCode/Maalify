@@ -4,6 +4,10 @@
 
 
 $(document).on 'ready page:load', ->
+  $("#budget_selector_for_member").select2
+    theme: "bootstrap"
+    placeholder: "Füge dieses Mitglied zu einem Budget hinzu..."
+
   $("#tajnied-table").DataTable
     processing: true
     serverSide: true
