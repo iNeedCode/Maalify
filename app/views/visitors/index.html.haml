@@ -14,11 +14,6 @@
       %h1= t('view.visitor.welcome_text2')
       %p= t('view.visitor.welcome_text3')
       %p
-        =link_to budgets_path, class: "btn btn-lg btn-default" do
-          %span.glyphicon.glyphicon-credit-card
-          = t('view.budget.overview')
-          %span.badge
-            = Budget.find_distict_budget_names.size
         =link_to receipts_all_path, class: "btn btn-default btn-lg" do
           %span.glyphicon.glyphicon-list
           =t('budget.receipts')

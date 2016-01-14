@@ -63,7 +63,7 @@ class BudgetsController < ApplicationController
 
     unless @budget_validate_values.include?(false)
       @budgets.each { |b| b.save }
-      flash[:notice] = "Successfully created #{@budgets.size} budgets."
+      flash[:notice] = "Successfully created #{@budgets.size} Budgets."
       redirect_to all_budgets_budgets_path
     end
   end
@@ -82,7 +82,7 @@ class BudgetsController < ApplicationController
 
   def destroy
     @budget.destroy
-    respond_with(@budget)
+    redirect_to all_budgets_budgets_path, flash: {success: "Budget (#{@budget.title}) von #{@budget.member.full_name} gelöscht!"}
   end
 
   private
