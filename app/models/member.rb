@@ -88,8 +88,7 @@ class Member < ActiveRecord::Base
   end
 
   def list_available_budgets
-    # TODO optimize TOOOO MUCH QUEREIES
-    all_budget = Budget.select(:start_date, :end_date, :title, :donation_id).distinct(:title)
+    all_budget = Budget.includes(:donation).select(:start_date, :end_date, :title, :donation_id).distinct(:title).order('end_date DESC')
     budgets_of_member_title = budgets_of_member.map(&:title)
     budget_from_same_organization = all_budget.select do |budget|
       if (budget.donation.organization == self.tanzeem or budget.donation.organization == "All") and !budgets_of_member_title.include?(budget.title)
