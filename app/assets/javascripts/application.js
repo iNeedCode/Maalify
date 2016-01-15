@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/dataTables.colVis
-//= require dataTables/extras/dataTables.tableTools
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-multiselect
@@ -23,6 +22,7 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.de.js
 //= require dataTables/extras/dataTables.responsive
+//= require dataTables/extras/dataTables.tableTools
 //= require select2
 //= require select2_locale_de
 //= require_tree .

@@ -4,7 +4,7 @@ class MemberDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= %w(Member.aims_id Member.last_name Member.first_name Member.date_of_birth Member.street Member.city Member.email Member.plz Member.mobile_no Member.landline Member.occupation )
+    @sortable_columns ||= %w(Member.aims_id Member.last_name Member.first_name Member.street Member.city Member.email Member.plz Member.mobile_no Member.occupation )
   end
 
   def searchable_columns

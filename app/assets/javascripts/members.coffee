@@ -16,18 +16,18 @@ $(document).on 'ready page:load', ->
       {data: '0' }
       {data: '1' }
       {data: '2' }
-      {data: '3' }
-      {data: '4' }
-      {data: '5' }
+      {data: '3', searchable: false }
+      {data: '4', searchable: false }
+      {data: '5', searchable: false }
       {data: '6' }
       {data: '7' }
       {data: '8' }
-      {data: '9' }
+      {data: '9', searchable: false }
       {data: '10' }
       {data: '11' }
-      {data: '12' }
-      {data: '13' }
-      {data: '14' }
+      {data: '12', searchable: false, orderable: false }
+      {data: '13', searchable: false, orderable: false }
+      {data: '14', searchable: false, orderable: false }
     ]
     autoWidth: true
     pagingType: "simple_numbers"
@@ -35,7 +35,16 @@ $(document).on 'ready page:load', ->
     "lengthMenu": [[25, 50, 100, 200], [25, 50, 100, 200]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-    dom: 'C<"clear">lfrtip'
+    'sDom': 'CT<"clear">lfrtip'
+    'oTableTools':
+      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
+      'aButtons': [
+        'pdf'
+        'xls'
+      ]
+    "colVis": {
+      "buttonText": "Columns"
+    }
 
   $('.datepicker-member').datepicker
     format: "dd.mm.yyyy"

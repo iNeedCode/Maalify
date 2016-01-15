@@ -31,13 +31,15 @@ $(document).on 'ready page:load', ->
       {data: '2' }
       {data: '3', searchable: false, orderable: false }
       { 'render': (data, type, row) ->
-        console.log(data)
-        console.log(Date.now())
-#        var i =0;
-#        for(; i < 9; i++) {}
+        console.log("data",data)
+        data.split(',').join '<br/>'
 
-
-        data.split(', ').join '<br/>'
+        items = ''
+        i = 0
+        while i <= data[0].length
+          items = data[0][0] + ': ' + data[1][0]
+          i++
+          data = items
       }
       {data: '5', searchable: false, orderable: false }
       {data: '6', searchable: false, orderable: false }
@@ -50,7 +52,16 @@ $(document).on 'ready page:load', ->
     stateSave: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-    dom: 'C<"clear">lfrtip'
+    'sDom': 'CT<"clear">lfrtip'
+    'oTableTools':
+      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
+      'aButtons': [
+        'pdf'
+        'xls'
+      ]
+    "colVis": {
+      "buttonText": "Columns"
+    }
 
   calculateSum = ->
     sum = 0
@@ -81,4 +92,13 @@ $(document).on 'ready page:load', ->
     stateSave: true
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-    dom: 'C<"clear">lfrtip'
+    'sDom': 'CT<"clear">lfrtip'
+    'oTableTools':
+      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
+      'aButtons': [
+        'pdf'
+        'xls'
+      ]
+    "colVis": {
+      "buttonText": "Columns"
+    }
