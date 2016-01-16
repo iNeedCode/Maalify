@@ -10,7 +10,6 @@ class Member < ActiveRecord::Base
 # Validations
   validates_presence_of :first_name, :last_name, :date_of_birth, :aims_id, :gender
   validates_uniqueness_of :aims_id
-  validate :at_least_one_communication_chanel_is_given
   validates :email, allow_blank: true, format: {with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/}
   validates :gender, inclusion: {in: %w(male female), message: "'%{value}' is not a valid Gender"}, allow_nil: false
 
@@ -136,14 +135,6 @@ class Member < ActiveRecord::Base
       imported += 1 if member.valid?
     end
     imported
-  end
-
-  private
-
-  def at_least_one_communication_chanel_is_given
-    if (email.nil? && landline.nil? && mobile_no.nil?)
-      errors.add(:member, "You have to specify at least one communication chanel")
-    end
   end
 
 end

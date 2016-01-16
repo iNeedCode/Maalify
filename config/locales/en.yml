@@ -29,6 +29,8 @@ en:
     starting_date: "As of"
     recalculate_budget: "Calculate budget again"
     current: "Current income"
+    error:
+      newly_added_income_is_also_the_newest: "Newest income should be also the latest income of the member %{name}"
   receipt:
     date: "Date"
     id: "Receipt number"  

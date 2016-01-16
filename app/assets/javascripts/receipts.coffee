@@ -18,7 +18,7 @@ $(document).on 'ready page:load', ->
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
     triggerCalculate()
-    $( ".receipt-item" ).last().focus()
+    $(".receipt-item").last().focus()
     event.preventDefault()
 
   $("#all-receipts-table").DataTable
@@ -26,25 +26,19 @@ $(document).on 'ready page:load', ->
     serverSide: true
     ajax: $('#all-receipts-table').data('source')
     columns: [
-      {data: '0' }
-      {data: '1' }
-      {data: '2' }
-      {data: '3', searchable: false, orderable: false }
-      { 'render': (data, type, row) ->
-        console.log("data",data)
-        data.split(',').join '<br/>'
-
-        items = ''
-        i = 0
-        while i <= data[0].length
-          items = data[0][0] + ': ' + data[1][0]
-          i++
-          data = items
+      {data: '0'}
+      {data: '1'}
+      {data: '2'}
+      {data: '3', searchable: false, orderable: false}
+      {
+        'render': (data, type, row) ->
+          console.log("data", data)
+          data.split(',').join '<br/>'
       }
-      {data: '5', searchable: false, orderable: false }
-      {data: '6', searchable: false, orderable: false }
-      {data: '7', searchable: false, orderable: false }
-      {data: '8', searchable: false, orderable: false }
+      {data: '5', searchable: false, orderable: false}
+      {data: '6', searchable: false, orderable: false}
+      {data: '7', searchable: false, orderable: false}
+      {data: '8', searchable: false, orderable: false}
     ]
     autoWidth: true
     pagingType: "simple_numbers"

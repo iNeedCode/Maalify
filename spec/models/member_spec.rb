@@ -9,6 +9,10 @@ RSpec.describe Member, :type => :model do
       @member = FactoryGirl.create(:member)
     end
 
+    it "should display the right full_name" do
+      expect(@member.full_name).to eql("#{@member.last_name}, #{@member.first_name}")
+    end
+
     it "should fail if certain fields #{%w[ first_name last_name date_of_birth aims_id gender ]} are left blank" do
       expect(@member.valid?).to eq(true)
       @member.first_name = nil
@@ -24,13 +28,19 @@ RSpec.describe Member, :type => :model do
       end
     end
 
-    it 'should fail if no communication possiblity has been added to the member' do
-      @member.mobile_no = nil
-      expect(@member.valid?).to eq(true)
-      @member.email = nil
-      expect(@member.valid?).to eq(true)
-      @member.landline = nil
-      expect(@member.valid?).to eq(false)
+    it 'should select the most current income by date' do
+      inc1 = Income.create(amount: 1000, starting_date: '2014-01-03', member: @member)
+      inc2 = Income.create(amount: 1200, starting_date: '2014-05-05', member: @member)
+
+      expect(@member.current_income).to eql(inc2)
+    end
+
+    it 'should select the oldest income by date' do
+      inc1 = Income.create(amount: 1000, starting_date: '2014-01-03', member: @member)
+      inc2 = Income.create(amount: 1200, starting_date: '2014-04-01', member: @member)
+      inc3 = Income.create(amount: 1500, starting_date: '2015-04-01', member: @member)
+
+      expect(@member.oldest_income).to eql(inc1)
     end
 
     it 'should pass if gender is valid' do
@@ -114,7 +124,26 @@ RSpec.describe Member, :type => :model do
       expect(@member.list_available_budgets.length).to eql(1)
     end
 
+    it "should return list_currrent_budgets ------------------" do
+      Timecop.freeze(Date.parse("01-05-2015")) # freeze Date to 01.05.2015
 
+      expect(@member.list_available_budgets.size).to eql(1)
+      expect(@member.list_currrent_budgets.first[:budget].member_id).to eql(12345)
+      expect(@member.list_currrent_budgets.first[:budget].class).to eql(Budget)
+      expect(@member.list_currrent_budgets.first[:paid_amout]).to eql(0)
+      expect(@member.list_currrent_budgets[1][:budget].title).to eql('MKAD-14-15 majlis')
+      expect(@member.list_currrent_budgets[1][:budget].rest_promise_from_past_budget).to eql(0)
+
+      budget1 = Budget.find(1)
+      budget1.promise = 200
+      budget1.rest_promise_from_past_budget = 20
+      budget1.save
+      budget1.reload
+
+      expect(@member.list_currrent_budgets[1][:budget].promise).to eql(200)
+      expect(@member.list_currrent_budgets[1][:budget].rest_promise_from_past_budget).to eql(20)
+
+    end
   end
 
   describe 'Tanzeem Method' do
@@ -172,8 +201,7 @@ RSpec.describe Member, :type => :model do
 
     end
 
-
-      context "Kind" do
+    context "Kind" do
       it "should return 'Kind' for age < 7" do
         @member.date_of_birth = "2008-05-02"
         expect(@member.tanzeem).to eq('Kind')
@@ -225,10 +253,11 @@ RSpec.describe Member, :type => :model do
         expect(@member.tanzeem).to eq('Ansar')
       end
 
-      it "not should return 'Ansar' if member turn 40 on 01-01-2016" do
+      it "should not return 'Ansar' if member turn 40 on 01-01-2016" do
         Timecop.freeze(Date.parse("31-12-2015"))
         @member.date_of_birth = Date.parse("1976-01-01")
         expect(@member.tanzeem).not_to eq('Ansar')
+        expect(@member.tanzeem).to eq('Khuddam')
       end
     end
 

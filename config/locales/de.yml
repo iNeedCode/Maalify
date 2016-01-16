@@ -8,6 +8,8 @@ de:
     starting_date: "Beginn"
     recalculate_budget: "Budgets neu berechnen"
     current: "Aktuelles Einkommen"
+    error:
+      newly_added_income_is_also_the_newest: "Das angelegt Einkommmen muss auch gleichzeit das neueste sein von %{name}"
   receipt:
     date: "Datum"
     id: "Belegnummer"  
