@@ -49,6 +49,7 @@ de:
     import_text: "Daten von Khuddam Software"
     import_description: "Laden Sie die entsprechend exportierte CSV Datei hoch, um Mitglieder ohne selbst einzugeben im System aufzunehmen."
     send_mail: "Email senden"
+    all_budgets: "Alle Budgets"
   view:
     save: "Speichern"
     show: "Anzeigen"
@@ -316,7 +317,7 @@ de:
     elapsed_time: "Laufzeit"
     remaining_time: "Restlaufzeit"
     receipts: "Alle Belege"
-    average_payment: "Durchschnittliche Bezahlung"
+    average_payment: "Monatliche Bezahlung"
     paid: "Gezahlt"
     rest_current_budget: "Rest"
     description: "Bemerkung"

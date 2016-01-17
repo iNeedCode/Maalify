@@ -15,9 +15,14 @@ class Member < ActiveRecord::Base
 
 # Methods
 
-  def list_currrent_budgets
+  def list_currrent_budgets(with_previous = false)
     enriched_budgets = []
-    budgets = Budget.joins(:donation, :member).where('members.aims_id = ? AND DATE(?) BETWEEN start_date AND end_date', self.id, Date.today).order('end_date ASC, title ASC')
+
+    if with_previous
+      budgets = Budget.joins(:donation, :member).where('members.aims_id = ?', self.id).order('title ASC, end_date DESC')
+    else
+      budgets = Budget.joins(:donation, :member).where('members.aims_id = ? AND DATE(?) BETWEEN start_date AND end_date', self.id, Date.today).order('end_date ASC, title ASC')
+    end
 
     budgets.each do |budget|
       one_budget = {budget: nil, paid_amout: 0, rest_amount: 0, average_amount: 0}
@@ -26,7 +31,7 @@ class Member < ActiveRecord::Base
       paid_amount = budget.paid_amount
       one_budget[:paid_amout] = paid_amount
       one_budget[:rest_amount] = budget.promise + budget.rest_promise_from_past_budget - one_budget[:paid_amout]
-      one_budget[:average_amount] = (one_budget[:rest_amount] / budget.remaining_months.to_f).ceil
+      one_budget[:average_amount] = (one_budget[:rest_amount] / budget.remaining_months.to_f).ceil if budget.remaining_months.to_f > 0
       enriched_budgets << one_budget
     end
     enriched_budgets

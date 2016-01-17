@@ -8,6 +8,29 @@ $(document).on 'ready page:load', ->
     theme: "bootstrap"
     placeholder: "Füge dieses Mitglied zu einem Budget hinzu..."
 
+  $("#member-all-budgets").DataTable
+    autoWidth: true
+    pagingType: "simple_numbers"
+    stateSave: true
+    "lengthMenu": [[25, 50, 100], [25, 50, 100]]
+    language:
+      url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+    'sDom': 'CT<"clear">lfrtip'
+    'oTableTools':
+      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
+      'aButtons': [
+        {
+          "sExtends": "pdf"
+          "sPdfOrientation": "landscape"
+          "pageSize": "LEGAL"
+        }
+        'xls'
+      ]
+    "colVis": {
+      "buttonText": "Columns"
+    }
+
+
   $("#tajnied-table").DataTable
     processing: true
     serverSide: true

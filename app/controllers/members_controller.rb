@@ -16,6 +16,10 @@ class MembersController < ApplicationController
     end
   end
 
+  def budgets
+    @member = Member.includes(budgets:[:donation]).find(params[:id])
+  end
+
   def show
     @member = Member.includes(budgets:[:donation]).find(params[:id])
     respond_with(@member)

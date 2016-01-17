@@ -77,7 +77,7 @@
   %h3= t('view.member.aktion')
   .col-sm-4
     = link_to member_incomes_path(params[:id]), :class => "btn btn-default btn-block btn-lg"  do
-      %span.glyphicon.glyphicon-briefcase
+      %span.glyphicon.glyphicon-euro
       = t('view.income.title')
   .col-sm-4
     = link_to member_receipts_path(params[:id]), :class => "btn btn-default btn-block btn-lg"  do
@@ -87,8 +87,12 @@
     = collection_select(:budget, :selector_for_member, @member.list_available_budgets,:title, :title,
       options= {prompt: t('view.member.select_budget_box')}, html_options= {data:{width:'auto'}})
 .container-fluid
+  %br
   .col-sm-4
-    %br
+    = link_to budgets_member_path(params[:id]), :class => "btn btn-default btn-block btn-lg"  do
+      %span.glyphicon.glyphicon-briefcase
+      = t('member.all_budgets')
+  .col-sm-4
     = link_to send_mail_member_path, class: "btn btn-warning btn-block btn-lg", method: :post do
       %span.glyphicon.glyphicon-envelope
       = t('member.send_mail')

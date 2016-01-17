@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :members do
     member do
       post :send_mail
+      get :budgets
     end
 
     collection do
