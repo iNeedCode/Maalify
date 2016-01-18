@@ -30,11 +30,14 @@ $(document).on 'ready page:load', ->
       {data: '1'}
       {data: '2'}
       {data: '3', searchable: false, orderable: false}
-      {
-        'render': (data, type, row) ->
-          console.log("data", data)
-          data.split(',').join '<br/>'
-      }
+      {'render': (data, type, row) ->
+        i = 0;
+        items = [];
+        while i < data.length
+          items += "#{data[0][1]} € in #{data[i][0]} <br/>"
+          i++
+        data = items
+      ,searchable: false, orderable: false}
       {data: '5', searchable: false, orderable: false}
       {data: '6', searchable: false, orderable: false}
       {data: '7', searchable: false, orderable: false}

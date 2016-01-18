@@ -23,6 +23,10 @@ class Receipt < ActiveRecord::Base
     Receipt.includes(:items).where(receipt_id: self.id).order("receipt_items.updated_at DESC").collect(&:items).flatten.map(&:updated_at).first
   end
 
+  def list_items_with_donation
+    Donation.includes(:receipt_items).where(receipt_items:{receipt_id: self.id}).pluck(:name, :amount)
+  end
+
   private
   def single_donation_used_in_one_receipt
     unless items.map(&:donation_id).length == items.map(&:donation_id).uniq.length

@@ -21,7 +21,7 @@ class ReceiptDatatable < AjaxDatatablesRails::Base
           link_to(record.receipt_id, v.member_receipt_path(record.member_id, record.receipt_id)),
           I18n.l(record.date, format: :long),
           number_to_currency(record.total, locale: :de),
-          %Q[[#{record.items.collect(&:donation).map(&:name)}, #{record.items.map(&:amount)}]],
+          record.list_items_with_donation,
           I18n.l(record.date_of_last_change, format: :short),
           link_to(v.member_receipt_path(record.member_id, record.receipt_id), class: "", title: "Show") do
             content_tag(:span, "", class: "glyphicon glyphicon-search")
