@@ -34,7 +34,7 @@ $(document).on 'ready page:load', ->
         i = 0;
         items = [];
         while i < data.length
-          items += "#{data[0][1]} € in #{data[i][0]} <br/>"
+          items += "#{data[i][1]} € in #{data[i][0]} <br/>"
           i++
         data = items
       ,searchable: false, orderable: false}
