@@ -37,7 +37,7 @@ $(document).on 'ready page:load', ->
           items += "#{data[i][1]} € in #{data[i][0]} <br/>"
           i++
         data = items
-      ,searchable: false, orderable: false}
+      , searchable: false, orderable: false}
       {data: '5', searchable: false, orderable: false}
       {data: '6', searchable: false, orderable: false}
       {data: '7', searchable: false, orderable: false}
