@@ -25,6 +25,7 @@ gem 'yaml_db'
 gem 'seed_dump'
 gem 'kaminari'
 gem "select2-rails"
+gem "backup"
 
 group :development, :test do
   gem 'sqlite3'
