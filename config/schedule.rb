@@ -33,6 +33,7 @@ every 1.month, at: 'January 20th 6:00am' do
 end
 
 
-every 1.day, at: '11:30 pm' do
+# every 1.day, at: '11:30 pm' do
+every 5.minute do
   command "backup perform -t production_backup"
 end
