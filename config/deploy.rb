@@ -14,7 +14,7 @@ set :rbenv_path, "~/.rbenv"
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 set :rbenv_roles, :all
-set :linked_files, %w{config/database.yml .rbenv-vars} # create these files manually ones on the server
+set :linked_files, %w{config/database.yml .rbenv-vars application.yml} # create these files manually ones on the server
 set :backup_path, "/#{fetch(:user)}/Backup"
 
 
