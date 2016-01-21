@@ -33,6 +33,6 @@ every 1.month, :at => 'January 20th 6:00am' do
 end
 
 
-every 1.day, :at => '10:10 am' do
+every 1.day, :at => '10:25 am' do
   command "backup perform -t production_backup"
 end
