@@ -33,7 +33,6 @@ every 1.month, :at => 'January 20th 6:00am' do
 end
 
 
-every 1.day, :at => '11:10 am' do
-  command "gem install backup"
+every 5.minutes do
   command "backup perform -t production_backup"
 end
