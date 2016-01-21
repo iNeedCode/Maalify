@@ -13,9 +13,6 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:update_cron'
-end
-
-namespace :backup do
 
   desc "Upload backup config files."
   task :upload_config do
@@ -26,5 +23,5 @@ namespace :backup do
     end
   end
 
-  after :finishing, 'backup:upload_config'
+  after :finishing, 'deploy:upload_config'
 end
