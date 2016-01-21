@@ -50,6 +50,7 @@ de:
     import_description: "Laden Sie die entsprechend exportierte CSV Datei hoch, um Mitglieder ohne selbst einzugeben im System aufzunehmen."
     send_mail: "Email senden"
     all_budgets: "Alle Budgets"
+    wassiyyat_number: "Wassiyyat Number"
   view:
     save: "Speichern"
     show: "Anzeigen"

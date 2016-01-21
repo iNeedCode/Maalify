@@ -12,6 +12,11 @@
 
 .container-fluid
   .col-sm-6
+    - unless (@member.wassiyyat_number.nil? || @member.wassiyyat_number.empty?)
+      %b= t('member.wassiyyat_number')
+      = @member.wassiyyat_number
+      %br
+
     %b= t('member.date_of_birth')
     = I18n.l(@member.date_of_birth, format: :long)
     = "(#{@member.age})"

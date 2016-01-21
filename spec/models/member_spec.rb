@@ -68,10 +68,10 @@ RSpec.describe Member, :type => :model do
       @d4 = Donation.create name: "Majlis Atfal", budget: false, organization: "Atfal", formula: '13'
       @d5 = Donation.create name: "Ijtema Atfal", budget: false, organization: "Atfal", formula: '6'
       @d6 = Donation.create name: "Ijtema Ansar", budget: false, organization: "Ansar", formula: '6'
-      @member = FactoryGirl.create(:member)
-      @member1 = FactoryGirl.create(:member, aims_id: 999)
-      @member_atfal = FactoryGirl.create(:member, aims_id: 232323)
-      @member_ansar = FactoryGirl.create(:member, aims_id: 123123)
+      @member = FactoryGirl.create(:member, wassiyyat_number: Random.rand(100000).to_s)
+      @member1 = FactoryGirl.create(:member, aims_id: 999, wassiyyat_number: Random.rand(100000).to_s)
+      @member_atfal = FactoryGirl.create(:member, aims_id: 232323, wassiyyat_number: Random.rand(100000).to_s)
+      @member_ansar = FactoryGirl.create(:member, aims_id: 123123, wassiyyat_number: Random.rand(100000).to_s)
       Income.create(amount: 1000, starting_date: "2014-01-03", member: @member)
       Income.create(amount: 1000, starting_date: "2014-01-03", member: @member1)
       Income.create(amount: 1000, starting_date: "2014-01-03", member: @member_atfal)
@@ -124,7 +124,7 @@ RSpec.describe Member, :type => :model do
       expect(@member.list_available_budgets.length).to eql(1)
     end
 
-    it "should return list_currrent_budgets ------------------" do
+    it "should return list_currrent_budgets" do
       Timecop.freeze(Date.parse("01-05-2015")) # freeze Date to 01.05.2015
 
       expect(@member.list_available_budgets.size).to eql(1)
@@ -149,8 +149,8 @@ RSpec.describe Member, :type => :model do
   describe 'Tanzeem Method' do
 
     before(:each) do
-      @member = FactoryGirl.create(:member)
-      @female = FactoryGirl.create(:member, aims_id: 123, gender: 'female')
+      @member = FactoryGirl.create(:member, wassiyyat_number: Random.rand(100000).to_s)
+      @female = FactoryGirl.create(:member, aims_id: 123, gender: 'female', wassiyyat_number: Random.rand(100000).to_s)
       Timecop.freeze(Date.parse("01-05-2015"))
     end
 

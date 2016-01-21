@@ -70,6 +70,7 @@ en:
     import_description: "Upload the according exported CSV in order to import automatically member to maalify without entering data manually."
     send_mail: "Send mail"
     all_budgets: "All Budgets"
+    wassiyyat_number: "Wasssiyyat Number"
   view:
     save: "Save"
     show: "Show"

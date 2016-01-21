@@ -84,3 +84,14 @@ $(document).on 'ready page:load', ->
     $.get plzServiceUrl , (data) ->
       $('#member_city').val(data.places[0]["place name"])
       return
+
+  if($( "#member_wassiyyat:checked").val() != "1")
+    $('#wassiyyat_number_wrap').hide()
+
+  $("#member_wassiyyat").change ->
+    wassiyyatNoWrap = $('#wassiyyat_number_wrap')
+    if (this.checked )
+       wassiyyatNoWrap.show()
+    else
+       wassiyyatNoWrap.hide()
+

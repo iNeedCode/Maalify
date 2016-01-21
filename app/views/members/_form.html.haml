@@ -26,6 +26,10 @@
     = f.label :wassiyyat, t('member.wassiyyat'), class: "col-sm-2 control-label"
     .col-sm-10
       = f.check_box :wassiyyat, :class => "form-control"
+  .form-group#wassiyyat_number_wrap
+    = f.label :wassiyyat_number, t('member.wassiyyat_number'), class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :wassiyyat_number, :class => "form-control"
   .form-group
     = f.label :date_of_birth, t('member.date_of_birth'), class: "col-sm-2 control-label"
     .col-sm-10

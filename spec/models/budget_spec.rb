@@ -204,7 +204,7 @@ RSpec.describe Budget, :type => :model do
   describe 'budget, receipt and member interaction' do
     before(:each) do
       @member1 = FactoryGirl.create(:member)
-      @member2 = FactoryGirl.create(:member, aims_id: "98765")
+      @member2 = FactoryGirl.create(:member, aims_id: "98765", wassiyyat_number: Random.rand(100000).to_s)
       income = FactoryGirl.create(:income, member: @member1)
       donation1 = FactoryGirl.create(:majlis_khuddam_donation)
       donation2 = FactoryGirl.create(:ijtema_khuddam_donation)
@@ -359,7 +359,7 @@ RSpec.describe Budget, :type => :model do
       receipt1.items << ReceiptItem.create(id: 1, donation: donation1, amount: 10, receipt_id: 1)
       receipt2.items << ReceiptItem.create(id: 2, donation: donation1, amount: 20, receipt_id: 2)
 
-      member3 = FactoryGirl.create(:member, aims_id: "987653")
+      member3 = FactoryGirl.create(:member, aims_id: "987653", wassiyyat_number: Random.rand(100000).to_s)
 
       budget2 = FactoryGirl.build(:budget, title: 'MKAD-2015-16', start_date: '2015-11-01', end_date: '2016-10-31', donation: donation1, member: @member1)
 
