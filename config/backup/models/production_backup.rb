@@ -1,4 +1,3 @@
-# from git
 db_config = YAML.load_file('/opt/www/maalify/current/config/database.yml')['production']
 app_config = YAML.load_file('/opt/www/maalify/current/application.yml')
 
@@ -32,8 +31,8 @@ Model.new(:production_backup, 'backing up production database') do
   # See the documentation for other delivery options.
   #
   notify_by Mail do |mail|
-    mail.on_success           = true
-    mail.on_warning           = true
+    mail.on_success           = false
+    mail.on_warning           = false
     mail.on_failure           = true
 
     mail.from                 = app_config['email_username']
