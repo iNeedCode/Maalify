@@ -1,6 +1,6 @@
 # from git
 db_config = YAML.load_file('/opt/www/maalify/current/config/database.yml')['production']
-app_config = YAML.load_file('/opt/www/maalify/shared/application.yml')
+app_config = YAML.load_file('/opt/www/maalify/current/application.yml')
 
 Model.new(:production_backup, 'backing up production database') do
 
