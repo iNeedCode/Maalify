@@ -21,7 +21,7 @@
 
 set :environment, "production"
 set :whenever_command, "bundle exec whenever"
-set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
+set :output, {:error => "/opt/www/maalify/current/log/cron_error_log.log", :standard => "/opt/www/maalify/current/log/cron_log.log"}
 
 
 # monthly email to all members in system
