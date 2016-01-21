@@ -14,3 +14,17 @@ namespace :deploy do
 
   after :finishing, 'deploy:update_cron'
 end
+
+namespace :backup do
+
+  desc "Upload backup config files."
+  task :upload_config do
+    on roles(:app) do
+      execute "mkdir -p #{fetch(:backup_path)}/models"
+      upload! StringIO.new(File.read("config/backup/config.rb")), "#{fetch(:backup_path)}/config.rb"
+      upload! StringIO.new(File.read("config/backup/models/production_backup.rb")), "#{fetch(:backup_path)}/models/production_backup.rb"
+    end
+  end
+
+  after :finishing, 'backup:upload_config'
+end

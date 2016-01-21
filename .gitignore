@@ -86,3 +86,5 @@ db/data.yml
 
 # enviroment variables
 .rbenv-vars
+
+application.yml

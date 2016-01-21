@@ -24,13 +24,15 @@ set :whenever_command, "bundle exec whenever"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
 
-# ones a month on 20th
+# monthly email to all members in system
+# with budget overview
+# ones a month on 20th at 6 AM
 every 1.month, :at => 'January 20th 6:00am' do
   command "gem install rake"
   rake 'cron:deliver_emails'
 end
 
-every 1.day do
-  command "chmod 770 /opt/www/maalify/current/lib/tasks/backup_database.sh"
-  command ". /opt/www/maalify/current/lib/tasks/backup_database.sh"
+
+every 1.day, :at => '09:55 am' do
+  command "backup perform -t production_backup"
 end
