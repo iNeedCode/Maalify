@@ -78,6 +78,7 @@ de:
       title: "Chanda"
       new: "Neue Chanda"
       edit: "Chanda bearbeiten"
+      budget_count: "Anzahl von Budgets"
     budget:
       title: "Budget"
       new: "Neues Budget"
