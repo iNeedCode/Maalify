@@ -39,10 +39,15 @@
         %thead
           %tr
             %th= t('view.budget.title')
+            %th= t('budget.elapsed_time')
             %th= t('view.donation.budget_count')
-        - Budget.where(donation_id: @donation.id).group([:title]).count.each do |budget|
+        - Budget.where(donation_id: @donation.id).group([:title, :start_date, :end_date]).count.each do |budget|
           %tr
-            %td= budget.first
+            %td= budget.first[0]
+            %td
+              %small= I18n.l(budget.first[1], format: :long)
+              %br
+              %small= I18n.l(budget.first[2], format: :long)
             %td= budget.second
 
 .container-fluid
