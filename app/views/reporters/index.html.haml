@@ -1,0 +1,29 @@
+%h1 Listing reporters
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Donations
+      %th Tanzeems
+      %th Interval
+      %th Emails
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @reporters.each do |reporter|
+      %tr
+        %td= reporter.name
+        %td= reporter.donations
+        %td= reporter.tanzeems
+        %td= reporter.interval
+        %td= reporter.emails
+        %td= link_to 'Show', reporter
+        %td= link_to 'Edit', edit_reporter_path(reporter)
+        %td= link_to 'Destroy', reporter, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Reporter', new_reporter_path

@@ -1,0 +1,25 @@
+= form_for @reporter do |f|
+  - if @reporter.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@reporter.errors.count, "error")} prohibited this reporter from being saved:"
+      %ul
+        - @reporter.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :donations
+    = f.text_field :donations
+  .field
+    = f.label :tanzeems
+    = f.text_field :tanzeems
+  .field
+    = f.label :interval
+    = f.text_field :interval
+  .field
+    = f.label :emails
+    = f.text_field :emails
+  .actions
+    = f.submit 'Save'
