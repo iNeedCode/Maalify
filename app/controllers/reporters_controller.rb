@@ -42,6 +42,6 @@ class ReportersController < ApplicationController
     end
 
     def reporter_params
-      params.require(:reporter).permit(:name, :donations, :tanzeems, :interval, :emails)
+      params.require(:reporter).permit(:name, :interval, {donations: []}, {emails: []}, {tanzeems: []})
     end
 end

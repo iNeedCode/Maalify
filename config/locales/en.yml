@@ -155,3 +155,10 @@ en:
     greeting:
       female: "Dear %{name} Sahiba,"
       male: "Dear %{name} Sahib,"
+  reporter:
+    error:
+      not_valid_email: "Email '%{email}' is not valid"
+    interval:
+      monthly: "Monthly"
+      biweekly: "Biweekly"
+      weekly: "Weekly"

@@ -336,3 +336,10 @@ de:
     greeting:
       male: "Sehr geehrter Herr %{name} Sahib,"
       female: "Sehr geehrte Frau %{name} Sahiba,"
+  reporter:
+    error:
+      not_valid_email: "Email-Adresse '%{email}' ist ungültig"
+    interval:
+      monthly: "Monatlich"
+      biweekly: "Zweiwöchentlich"
+      weekly: "Wöchentlich"

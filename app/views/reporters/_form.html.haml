@@ -1,4 +1,4 @@
-= form_for @reporter do |f|
+= form_for @reporter, html: {class: 'form-horizontal reporter_form'} do |f|
   - if @reporter.errors.any?
     #error_explanation
       %h2= "#{pluralize(@reporter.errors.count, "error")} prohibited this reporter from being saved:"
@@ -6,20 +6,28 @@
         - @reporter.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :donations
-    = f.text_field :donations
-  .field
-    = f.label :tanzeems
-    = f.text_field :tanzeems
-  .field
-    = f.label :interval
-    = f.text_field :interval
-  .field
-    = f.label :emails
-    = f.text_field :emails
+  .field.form-group
+    = f.label :name, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.text_field :name, class: 'form-control'
+  .field.form-group
+    = f.label t('view.donation.title'), class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.collection_select(:donations, Donation.all.order("name"), :id, :name, {include_hidden:false}, {multiple: true, class: "form-control"})
+  .field.form-group
+    = f.label :tanzeems, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.select :tanzeems, %w(Atfal Khuddam Ansar All Nasirat Lajna),{include_hidden:false}, {multiple: true, class: "form-control"}
+  .field.form-group
+    = f.label :interval, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.select :interval, Reporter.list_available_intervals ,{prompt: true}, {class: "form-control selectpicker"}
+  .field.form-group
+    = f.label :emails, class: 'col-sm-2 control-label'
+    %div.col-sm-8
+      = f.select :emails, @reporter.emails, {include_hidden:false} ,{ multiple: true, class: 'form-control'}
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-success'
+
+
+
