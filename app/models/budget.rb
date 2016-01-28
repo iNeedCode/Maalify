@@ -117,8 +117,13 @@ class Budget < ActiveRecord::Base
 #   # => [ReceiptItem,ReceiptItem]
 #
 # Returns all receipt items in the budget period
-  def getAllReceiptsItemsfromBudgetPeriod
-    ReceiptItem.joins(:receipt, :donation).where(receipts: {date: self.start_date..self.end_date}, donations: {id: self.donation})
+  def getAllReceiptsItemsfromBudgetPeriod(members = nil)
+    if members.nil?
+      ReceiptItem.joins(:receipt, :donation).where(receipts: {date: self.start_date..self.end_date}, donations: {id: self.donation})
+    else
+      ReceiptItem.joins(:receipt, :donation).where(receipts: {date: self.start_date..self.end_date}, donations: {id: self.donation}).where("receipts.member_id IN (?)", members)
+    end
+
   end
 
 # Public: Get all receipt items from the budget period for A SPECIFIC member.
@@ -189,7 +194,7 @@ class Budget < ActiveRecord::Base
       total_sum_budget[:end_date] = same_budgets.first.end_date
       total_sum_budget[:rest_promise_from_past_budget] = same_budgets.map(&:rest_promise_from_past_budget).sum
       total_sum_budget[:promise] = same_budgets.map(&:promise).sum
-      total_sum_budget[:paid_amount] = Budget.includes(donation:[:receipt_items]).where(title: budget_title, start_date: same_budgets.first.start_date, end_date: same_budgets.first.end_date).all.collect(&:donation).collect(&:receipt_items).flatten.uniq.collect(&:amount).sum
+      total_sum_budget[:paid_amount] = Budget.includes(donation: [:receipt_items]).where(title: budget_title, start_date: same_budgets.first.start_date, end_date: same_budgets.first.end_date).all.collect(&:donation).collect(&:receipt_items).flatten.uniq.collect(&:amount).sum
 
       #TODO bug in `paid_amount` because it also getting receipt amount from past budget from same donation.
 

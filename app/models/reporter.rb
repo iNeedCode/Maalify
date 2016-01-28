@@ -28,8 +28,8 @@ class Reporter < ActiveRecord::Base
 
       @rueckgabe.each do |budget|
         sum_of_paid_budget = Budget.find_by(title: budget.title).getAllReceiptsItemsfromBudgetPeriod.map(&:amount).sum
-        budget.class_eval {attr_accessor :paid_amount}
-        budget.paid_amount = sum_of_paid_budget
+        budget.class_eval {attr_accessor :paid_amount_whole_budget}
+        budget.paid_amount_whole_budget = sum_of_paid_budget
         budget.class_eval {attr_accessor :paid_percent}
         budget.paid_percent = ((sum_of_paid_budget / budget.promise.to_f) * 100).round(2)
         budget.class_eval {attr_accessor :rest_amount}
@@ -42,7 +42,22 @@ class Reporter < ActiveRecord::Base
                        .select("budgets.title, SUM(budgets.promise) AS promise, SUM(budgets.rest_promise_from_past_budget) AS rest_promise_from_past_budget")
                        .where('donation_id IN (?) and member_id IN (?) and ? >= start_date and ? <= end_date', self.donations, members, Date.today, Date.today)
                        .group(:title)
+
+      @rueckgabe.each do |budget|
+        sum_of_paid_budget = Budget.find_by(title: budget.title).getAllReceiptsItemsfromBudgetPeriod(members).map(&:amount).sum
+        budget.class_eval {attr_accessor :paid_amount_whole_budget}
+        budget.paid_amount_whole_budget = sum_of_paid_budget
+        budget.class_eval {attr_accessor :paid_percent}
+        budget.paid_percent = ((sum_of_paid_budget / budget.promise.to_f) * 100).round(2)
+        budget.class_eval {attr_accessor :rest_amount}
+        budget.rest_amount = budget.promise + budget.rest_promise_from_past_budget - sum_of_paid_budget
+      end
+
+
     end
+
+
+
 
     ReceiptItem.joins(:receipt, donation:[:budgets]).where('? >= receipts.date AND ? <= receipts.date', Date.parse("2015-01-01"),Date.parse("2016-12-31"))
 
