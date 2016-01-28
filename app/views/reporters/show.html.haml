@@ -16,6 +16,18 @@
   %b Emails:
   = @reporter.emails
 
+%p
+  -@reporter.overview.each do |item|
+    .well
+      %h4= "title: #{item.title}"
+      %span= "promise: #{item.promise} €"
+      %small= "rest: #{item.rest_promise_from_past_budget} €"
+      %br
+      %span= "paid: #{item.paid_amount} €"
+      %small= "paid in percent: #{item.paid_percent} %"
+      %br
+      %span= "rest amount: #{item.rest_amount} €"
+
 = link_to 'Edit', edit_reporter_path(@reporter)
 \|
 = link_to 'Back', reporters_path

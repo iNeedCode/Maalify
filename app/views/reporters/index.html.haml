@@ -1,29 +1,20 @@
 %h1 Listing reporters
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Donations
-      %th Tanzeems
-      %th Interval
-      %th Emails
-      %th
-      %th
-      %th
-      
-  %tbody
-    - @reporters.each do |reporter|
-      %tr
-        %td= reporter.name
-        %td= reporter.donations
-        %td= reporter.tanzeems
-        %td= reporter.interval
-        %td= reporter.emails
-        %td= link_to 'Show', reporter
-        %td= link_to 'Edit', edit_reporter_path(reporter)
-        %td= link_to 'Destroy', reporter, :method => :delete, :data => { :confirm => 'Are you sure?' }
+.col-md-12
+  - @reporters.each do |reporter|
+    %div.img-rounded.card.col-md-3
+      %h4= reporter.name
+      = Donation.where(id: reporter.donations).map(&:name).join(", ")
+      %br
+      %p= reporter.interval.split(", ")
+      %small= reporter.emails.join(", ")
+      %br
+      = link_to edit_reporter_path(reporter), title: "#{t('table.edit')}", class: "btn btn-primary btn-xs" do
+        %span.glyphicon.glyphicon-edit
+      = link_to "#", title: "#{t('table.edit')}", class: "btn btn-warning btn-xs" do
+        %span.glyphicon.glyphicon-envelope
+      = link_to reporter_path(reporter), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t('table.delete')}", class: "btn btn-danger btn-xs" do
+        %span.glyphicon.glyphicon-trash
 
 %br
-
 = link_to 'New Reporter', new_reporter_path
