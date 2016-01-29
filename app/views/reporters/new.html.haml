@@ -1,5 +1,5 @@
-%h1 New reporter
+%h1= t('reporter.view.new_report')
 
 = render 'form'
-
-= link_to 'Back', reporters_path
+%br
+= link_to t('view.back'), reporters_path, class: "btn btn-xs btn-default"

@@ -37,7 +37,7 @@ every 1.day, at: '11:59 pm' do
 end
 
 # check
-every 1.day, at: '07:00 am' do
+every 1.day, at: '21:00 pm' do
   command "gem install rake"
   rake 'cron:deliver_emails_to_report_subscribers'
 end

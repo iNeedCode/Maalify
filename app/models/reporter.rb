@@ -10,9 +10,9 @@ class Reporter < ActiveRecord::Base
 
   def self.list_available_intervals()
     [
-        %W(#{I18n.t('reporter.interval.monthly')} [28]),
-        %W(#{I18n.t('reporter.interval.biweekly')} [14,28]),
-        %W(#{I18n.t('reporter.interval.weekly')} [7,14,21,28])
+        %W(#{I18n.t('reporter.interval.monthly')} 28),
+        %W(#{I18n.t('reporter.interval.biweekly')} 14,28),
+        %W(#{I18n.t('reporter.interval.weekly')} 7,14,21,28)
     ]
   end
 
@@ -53,13 +53,7 @@ class Reporter < ActiveRecord::Base
         budget.rest_amount = budget.promise + budget.rest_promise_from_past_budget - sum_of_paid_budget
       end
 
-
     end
-
-
-
-
-    ReceiptItem.joins(:receipt, donation:[:budgets]).where('? >= receipts.date AND ? <= receipts.date', Date.parse("2015-01-01"),Date.parse("2016-12-31"))
 
     @rueckgabe
   end

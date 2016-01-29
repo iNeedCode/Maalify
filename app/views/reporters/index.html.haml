@@ -1,20 +1,39 @@
-%h1 Listing reporters
+- content_for :title do
+  ="#{t('reporter.title')}"
+
+.col-md-12
+  %h1= t('reporter.title')
 
 .col-md-12
   - @reporters.each do |reporter|
     %div.img-rounded.card.col-md-3
-      %h4= reporter.name
-      = Donation.where(id: reporter.donations).map(&:name).join(", ")
-      %br
-      %p= reporter.interval.split(", ")
-      %small= reporter.emails.join(", ")
-      %br
-      = link_to edit_reporter_path(reporter), title: "#{t('table.edit')}", class: "btn btn-primary btn-xs" do
-        %span.glyphicon.glyphicon-edit
-      = link_to send_mail_reporter_path(reporter), title: "#{t('table.edit')}", class: "btn btn-warning btn-xs", method: :post do
-        %span.glyphicon.glyphicon-envelope
-      = link_to reporter_path(reporter), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t('table.delete')}", class: "btn btn-danger btn-xs" do
-        %span.glyphicon.glyphicon-trash
+      %h4
+        = "#{t('reporter.title')}: "
+        = reporter.name
+        %br
+        %small
+          %small
+            %b= t('reporter.interval.show_message', days: reporter.interval.split(',').join('., '))
+      %p
+        %h5
+          = "#{t('donation.name')}:"
+          %i= Donation.where(id: reporter.donations).map(&:name).join(", ")
+          %br
+          %small= t('reporter.tanzeem.show_message', tanzeems: reporter.tanzeems.join(", "))
+      %p
+        %b= "#{t('reporter.to')}:"
+        %small
+          %i= reporter.emails.join(", ")
+      .footer-actions
+        = link_to reporter_path(reporter), title: "#{t('table.show')}", class: "btn btn-default btn-sm" do
+          %span.glyphicon.glyphicon-search{title: "#{t('table.show')}"}
+        = link_to edit_reporter_path(reporter), title: "#{t('table.edit')}", class: "btn btn-default btn-sm" do
+          %span.glyphicon.glyphicon-edit{title: "#{t('table.edit')}"}
+        = link_to send_mail_reporter_path(reporter), class: "btn btn-warning btn-sm", method: :post do
+          %span.glyphicon.glyphicon-envelope{title: "#{t('member.send_mail')}"}
+        = link_to reporter_path(reporter), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" do
+          %span.glyphicon.glyphicon-trash{title: "#{t('table.delete')}"}
 
-%br
-= link_to 'New Reporter', new_reporter_path, class: "btn btn-primary btn-lg"
+.col-md-12
+  %br
+  = link_to 'New Reporter', new_reporter_path, class: "btn btn-primary"

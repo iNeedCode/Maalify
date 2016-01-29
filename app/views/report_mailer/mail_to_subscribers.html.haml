@@ -8,14 +8,19 @@
       %div
         %center
           %small Assalam o Alaikum Warahmatullah,
-          %h1 Bericht von Darmstadt-City
+          %h1
+            Bericht von Darmstadt-City
+            %br
+              %small= t('reporter.interval.show_message', days: "#{@report.interval.split(',').join('., ')}")
         %center
-          %h2= t('member.current_budgets')
+          %h2
+            = t('reporter.current_status')
+            %br
+            %small= t('reporter.tanzeem.show_message', tanzeems: @report.tanzeems.join(", "))
           %table.main{border: "1px"}
             %thead
               %tr
-                %th= t('view.donation.title')
-                %th= t('budget.rest_promise_from_past_budget')
+                %th= t('donation.budget')
                 %th
                   %b= t('budget.promise')
                 %th= t('budget.paid')
@@ -24,15 +29,25 @@
               - @report.overview.each do |iter|
                 %tr
                   %td= iter.title
-                  %td= number_to_currency(iter.rest_promise_from_past_budget, {locale: :de, precision: 0})
-                  %td= number_to_currency(iter.promise, {locale: :de, precision: 0})
+                  %td
+                    = number_to_currency(iter.promise, {locale: :de, precision: 0})
+                    - unless iter.rest_promise_from_past_budget == 0
+                      %br
+                      %small
+                        = "#{t('budget.rest_promise_from_past_budget')}: "
+                        = number_to_currency(iter.rest_promise_from_past_budget, {locale: :de, precision: 0})
                   %td
                     = number_to_currency(iter.paid_amount_whole_budget, {locale: :de, precision: 0})
                     %br
                     %small= "#{iter.paid_percent} %"
                   %td= number_to_currency(iter.rest_amount, {locale: :de, precision: 0})
-      %table.footer
-        %tr
+      %table.footer{border: "0px"}
+        %tr{border: "0px"}
           Wassalam
           %br
           Abteilung Maal
+
+      %center.maalify
+        = t('mail.message.maalify')
+        %br
+        build with &#9829; in Darmstadt

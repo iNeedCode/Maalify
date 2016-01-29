@@ -1,33 +1,40 @@
+- content_for :title do
+  ="#{t('reporter.title')} (#{@reporter.id})"
+
 %p#notice= notice
 
-%p
-  %b Name:
+%h2
+  = "#{t('reporter.title')}: "
   = @reporter.name
+
 %p
-  %b Donations:
-  = @reporter.donations
+  %h3= "#{t('donation.name')}:"
+  = Donation.where(id: @reporter.donations).map(&:name).join(", ")
+  %br
+  %small
+    %i= t('reporter.tanzeem.show_message', tanzeems: @reporter.tanzeems.join(", "))
 %p
-  %b Tanzeems:
-  = @reporter.tanzeems
+  %b= "#{t('reporter.interval.name')}:"
+  %small= t('reporter.interval.show_message', days: "#{@reporter.interval.split(',').join('., ')}")
 %p
-  %b Interval:
-  = @reporter.interval
-%p
-  %b Emails:
-  = @reporter.emails
+  %b= "#{t('reporter.to')}:"
+  = @reporter.emails.join(", ")
 
 %p
   -@reporter.overview.each do |item|
     .well
-      %h4= "title: #{item.title}"
-      %span= "promise: #{item.promise} €"
-      %small= "rest: #{item.rest_promise_from_past_budget} €"
+      %h4= "#{t('view.budget.title')}: #{item.title}"
+      %span= "#{t('budget.promise')}: #{item.promise} €"
+      %small
+        %i= "#{t('budget.rest_promise_from_past_budget')}: #{item.rest_promise_from_past_budget} €"
       %br
-      %span= "paid: #{item.paid_amount_whole_budget} €"
-      %small= "paid in percent: #{item.paid_percent} %"
+      %span
+        = "#{t('budget.paid')} #{item.paid_amount_whole_budget} €"
+        %small
+          %i= "#{t('budget.paid_percent')}: #{item.paid_percent} %"
       %br
-      %span= "rest amount: #{item.rest_amount} €"
+      %span= "#{t('budget.rest_current_budget')}: #{item.rest_amount} €"
 
-= link_to 'Edit', edit_reporter_path(@reporter)
-\|
-= link_to 'Back', reporters_path
+%br
+= link_to t('view.edit'), edit_reporter_path(@reporter), class: "btn btn-xs btn-default"
+= link_to t('view.back'), reporters_path, class: "btn btn-xs btn-default"

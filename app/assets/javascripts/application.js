@@ -31,8 +31,8 @@
 $(document).on('ready page:load', function() {
 
     $('span').tooltip({
-    	'placement': 'right',
-			delay: { "show": 1, "hide": 100 }
+    	'placement': 'bottom',
+			delay: { "bottom": 2, "hide": 100 }
     });
 
     //https://silviomoreto.github.io/bootstrap-select/

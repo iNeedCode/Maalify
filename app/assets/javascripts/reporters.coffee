@@ -6,7 +6,7 @@ $(document).on 'ready page:load', ->
 
   $("#reporter_emails").select2
     tags: true
-    placeholder: "Select an option"
+    placeholder: "test@example.com, test2@examaple.de"
     tokenSeparators: [',', ' ']
     multiple: true
 

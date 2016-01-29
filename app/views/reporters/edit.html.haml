@@ -1,7 +1,10 @@
-%h1 Editing reporter
+- content_for :title do
+  ="#{t('view.edit')}: #{t('reporter.title')} (#{@reporter.id})"
+
+%h1= t('reporter.view.edit_report')
 
 = render 'form'
 
-= link_to 'Show', @reporter
-\|
-= link_to 'Back', reporters_path
+%br
+= link_to t('view.show'), @reporter, class: "btn btn-xs btn-default"
+= link_to t('view.back'), reporters_path, class: "btn btn-xs btn-default"

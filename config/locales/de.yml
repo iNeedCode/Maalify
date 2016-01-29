@@ -301,7 +301,7 @@ de:
     formula: "Formel"
     budget: "Budget"
     name: "Chanda"
-    organization: "Unterorganisation"
+    organization: "Organisation"
     minimum: "Minimal Versprechen"
     minimum_budget: "Mindestens Budget"
     description: "Verwendungszweck"
@@ -327,6 +327,7 @@ de:
     member: "Mitglied"
     remark: "Notiz"
     description_placeholder: "Grund der nicht teilnahme an dem Budget?"
+    paid_percent: "In Prozent"
   receipt_item:
     number: "Nummer"
     total: "Summe"
@@ -336,6 +337,8 @@ de:
     greeting:
       male: "Sehr geehrter Herr %{name} Sahib,"
       female: "Sehr geehrte Frau %{name} Sahiba,"
+    message:
+      maalify: "Sie bekommen diese Email automatisch von maalify!"
   reporter:
     error:
       not_valid_email: "Email-Adresse '%{email}' ist ungültig"
@@ -343,3 +346,16 @@ de:
       monthly: "Monatlich"
       biweekly: "Zweiwöchentlich"
       weekly: "Wöchentlich"
+      show_message: "Automatische Benachrichtigung am %{days}. des Monats."
+      name: "Benachrichtigung"
+    mail:
+      success: "Erfolgreich Emails versand an: '%{emails}'"
+    title: "Bericht"
+    to: "An"
+    tanzeem:
+      show_message: "Generiert für: %{tanzeems}"
+    view:
+      name: "Bezeichnung"
+      new_report: "Neuer Bericht"
+      edit_report: "Bericht editieren"
+    current_status: "Aktueller Stand"

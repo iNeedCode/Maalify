@@ -7,27 +7,27 @@
           %li= msg
 
   .field.form-group
-    = f.label :name, class: 'col-sm-2 control-label'
+    = f.label t('reporter.view.name'), class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.text_field :name, class: 'form-control'
+      = f.text_field :name, class: 'form-control', placeholder: "Sadr Jamaat"
   .field.form-group
     = f.label t('view.donation.title'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.collection_select(:donations, Donation.all.order("name"), :id, :name, {include_hidden:false}, {multiple: true, class: "form-control"})
   .field.form-group
-    = f.label :tanzeems, class: 'col-sm-2 control-label'
+    = f.label t('donation.organization'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.select :tanzeems, %w(Atfal Khuddam Ansar All Nasirat Lajna),{include_hidden:false}, {multiple: true, class: "form-control"}
   .field.form-group
-    = f.label :interval, class: 'col-sm-2 control-label'
+    = f.label t('reporter.interval.name'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.select :interval, Reporter.list_available_intervals ,{prompt: true}, {class: "form-control selectpicker"}
   .field.form-group
-    = f.label :emails, class: 'col-sm-2 control-label'
+    = f.label t('reporter.to'), class: 'col-sm-2 control-label'
     %div.col-sm-8
       = f.select :emails, @reporter.emails, {include_hidden:false} ,{ multiple: true, class: 'form-control'}
   .actions
-    = f.submit 'Save', class: 'btn btn-success'
+    = f.submit t('view.save'), class: 'btn btn-success'
 
 
 

@@ -4,7 +4,7 @@ class ReportersController < ApplicationController
   respond_to :html
 
   def index
-    @reporters = Reporter.all
+    @reporters = Reporter.all.order("updated_at DESC")
     respond_with(@reporters)
   end
 
@@ -14,7 +14,7 @@ class ReportersController < ApplicationController
 
   def send_mail
     ReportMailer.mail_to_subscribers(@reporter).deliver_later
-    respond_with(@reporter)
+    redirect_to reporters_path, notice: t('reporter.mail.success', emails: @reporter.emails.join(", "))
   end
 
   def new

@@ -20,6 +20,24 @@
     padding: 0;
   }
 
+  h1, h2 {
+    small {
+      font-size: 10px;
+      color: #7C7C7C;
+      font-weight: 200;
+      font-style: italic;
+    }
+  }
+
+  .maalify {
+    margin-top: 3em;
+    line-height: 17px;
+    color: #7C7C7C;
+    font-weight: 200;
+    font-style: italic;
+    font-size: 7px;
+  }
+
   small {
     color: #7C7C7C;
     font-style: italic;
