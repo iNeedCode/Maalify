@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :reporters
+  resources :reporters do
+    member do
+      post :send_mail
+    end
+  end
 
   resources :budgets do
     post :preview, on: :collection

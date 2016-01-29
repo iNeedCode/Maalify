@@ -1,0 +1,38 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+      = stylesheet_link_tag :email
+  %body
+    .mail-wrapper
+      %div
+        %center
+          %small Assalam o Alaikum Warahmatullah,
+          %h1 Bericht von Darmstadt-City
+        %center
+          %h2= t('member.current_budgets')
+          %table.main{border: "1px"}
+            %thead
+              %tr
+                %th= t('view.donation.title')
+                %th= t('budget.rest_promise_from_past_budget')
+                %th
+                  %b= t('budget.promise')
+                %th= t('budget.paid')
+                %th= t('budget.rest_current_budget')
+            %tbody
+              - @report.overview.each do |iter|
+                %tr
+                  %td= iter.title
+                  %td= number_to_currency(iter.rest_promise_from_past_budget, {locale: :de, precision: 0})
+                  %td= number_to_currency(iter.promise, {locale: :de, precision: 0})
+                  %td
+                    = number_to_currency(iter.paid_amount_whole_budget, {locale: :de, precision: 0})
+                    %br
+                    %small= "#{iter.paid_percent} %"
+                  %td= number_to_currency(iter.rest_amount, {locale: :de, precision: 0})
+      %table.footer
+        %tr
+          Wassalam
+          %br
+          Abteilung Maal

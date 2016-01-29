@@ -11,10 +11,10 @@
       %br
       = link_to edit_reporter_path(reporter), title: "#{t('table.edit')}", class: "btn btn-primary btn-xs" do
         %span.glyphicon.glyphicon-edit
-      = link_to "#", title: "#{t('table.edit')}", class: "btn btn-warning btn-xs" do
+      = link_to send_mail_reporter_path(reporter), title: "#{t('table.edit')}", class: "btn btn-warning btn-xs", method: :post do
         %span.glyphicon.glyphicon-envelope
       = link_to reporter_path(reporter), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t('table.delete')}", class: "btn btn-danger btn-xs" do
         %span.glyphicon.glyphicon-trash
 
 %br
-= link_to 'New Reporter', new_reporter_path
+= link_to 'New Reporter', new_reporter_path, class: "btn btn-primary btn-lg"

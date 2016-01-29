@@ -1,5 +1,5 @@
 class ReportersController < ApplicationController
-  before_action :set_reporter, only: [:show, :edit, :update, :destroy]
+  before_action :set_reporter, only: [:show, :edit, :update, :destroy, :send_mail]
 
   respond_to :html
 
@@ -9,6 +9,11 @@ class ReportersController < ApplicationController
   end
 
   def show
+    respond_with(@reporter)
+  end
+
+  def send_mail
+    ReportMailer.mail_to_subscribers(@reporter).deliver_later
     respond_with(@reporter)
   end
 

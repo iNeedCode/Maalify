@@ -32,7 +32,12 @@ every 1.month, at: 'January 20th 6:00am' do
   rake 'cron:deliver_emails'
 end
 
-
 every 1.day, at: '11:59 pm' do
   command "backup perform -t production_backup"
+end
+
+# check
+every 1.day, at: '07:00 am' do
+  command "gem install rake"
+  rake 'cron:deliver_emails_to_report_subscribers'
 end
