@@ -178,3 +178,16 @@ en:
       new_report: "New Report"
       edit_report: "Edit Report"
     current_status: "Current status"
+  settings:
+    index:
+      title: "Configuration"
+      description: "Description"
+      value: "Value"
+      save_all: "Save"
+    attributes:
+      jamaat:
+        name: "Jamaat"
+      mail_contact_tag_for_male:
+        name: "Contact details for male members"
+      mail_contact_tag_for_female:
+        name: "Contact details for female members"

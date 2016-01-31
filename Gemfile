@@ -26,6 +26,8 @@ gem 'seed_dump'
 gem 'kaminari'
 gem "select2-rails"
 gem "backup"
+gem 'rails-settings-ui'
+gem 'rails-settings-cached'
 
 group :development, :test do
   gem 'sqlite3'

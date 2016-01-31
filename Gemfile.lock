@@ -251,6 +251,12 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.1)
       loofah (~> 2.0)
+    rails-settings-cached (0.5.3)
+      rails (>= 4.2.0)
+    rails-settings-ui (0.5.0)
+      haml-rails
+      i18n
+      rails (>= 3.0)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -411,6 +417,8 @@ DEPENDENCIES
   quiet_assets
   rack-mini-profiler
   rails (= 4.2.0)
+  rails-settings-cached
+  rails-settings-ui
   rails_12factor
   rails_layout
   rb-fchange

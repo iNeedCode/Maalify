@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount RailsSettingsUi::Engine, at: 'settings'
   resources :reporters do
     member do
       post :send_mail

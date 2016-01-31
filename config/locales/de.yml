@@ -359,3 +359,16 @@ de:
       new_report: "Neuer Bericht"
       edit_report: "Bericht editieren"
     current_status: "Aktueller Stand"
+  settings:
+    index:
+      title: "Einstellungen"
+      description: "Beschreibung"
+      value: "Wert"
+      save_all: "Sichern"
+    attributes:
+      jamaat:
+        name: "Jamaat"
+      mail_contact_tag_for_male:
+        name: "Kontaktdaten für Männliche Mitglieder"
+      mail_contact_tag_for_female:
+        name: "Kontaktdaten für Weibliche Mitglieder"
