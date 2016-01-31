@@ -181,7 +181,7 @@ en:
     current_status: "Current status"
   settings:
     index:
-      title: "Configuration"
+      title: "Configurations"
       description: "Description"
       value: "Value"
       save_all: "Save"
