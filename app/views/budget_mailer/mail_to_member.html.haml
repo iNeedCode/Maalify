@@ -33,11 +33,19 @@
                     %br
                     %i= I18n.l(iter[:budget].end_date, format: :default)
                   %td= number_to_currency(iter[:average_amount], {locale: :de, precision: 0})
+
       %table.footer
         %tr
-          Wassalam
-          %br
-          Abteilung Maal
+          %td
+            Wassalam
+            %br
+            = t('mail.message.department')
+        %tr
+          %td
+            - if @member.gender == 'male'
+              %pre= Setting.mail_contact_tag_for_male
+            -else
+              %pre= Setting.mail_contact_tag_for_female
 
       %center.maalify
         = t('mail.message.maalify')

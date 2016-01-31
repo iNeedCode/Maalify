@@ -43,9 +43,16 @@
                   %td= number_to_currency(iter.rest_amount, {locale: :de, precision: 0})
       %table.footer{border: "0px"}
         %tr{border: "0px"}
-          Wassalam
-          %br
-          Abteilung Maal
+          %td
+            Wassalam
+            %br
+            = t('mail.message.department')
+        %tr
+          %td
+            - if (@report.tanzeems & %W(Khuddam All Atfal Ansar)).present?
+              %pre= Setting.mail_contact_tag_for_male
+            -else
+              %pre= Setting.mail_contact_tag_for_female
 
       %center.maalify
         = t('mail.message.maalify')

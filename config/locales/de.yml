@@ -339,6 +339,7 @@ de:
       female: "Sehr geehrte Frau %{name} Sahiba,"
     message:
       maalify: "Sie bekommen diese Email automatisch von maalify!"
+      department: "Abteilung Maal"
   reporter:
     error:
       not_valid_email: "Email-Adresse '%{email}' ist ungültig"

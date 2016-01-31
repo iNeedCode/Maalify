@@ -158,6 +158,7 @@ en:
       male: "Dear %{name} Sahib,"
     message:
       maalify: "Your getting this message automatically by maalify!"
+      department: "Maal department"
   reporter:
     error:
       not_valid_email: "Email '%{email}' is not valid"
