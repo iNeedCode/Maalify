@@ -4,7 +4,7 @@ class BudgetsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @budget_overview = Budget.remaining_promise_for_whole_budget_title
+    @budget_overview = Budget.select(:title, :start_date, :end_date).group(:title, :start_date, :end_date).size
     respond_with(@budgets)
   end
 

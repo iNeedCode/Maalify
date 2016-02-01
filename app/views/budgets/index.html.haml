@@ -15,20 +15,14 @@
       %th= t('view.budget.title')
       %th= t('budget.start_date')
       %th= t('budget.end_date')
-      %th= t('budget.rest_promise_from_past_budget')
-      %th= t('budget.promise')
-      %th= t('budget.paid')
-      %th= t('budget.remainingPromise')
+      %th= t('view.donation.budget_count')
   %tbody
     - @budget_overview.each do |budget|
-      %tr{:class => ("success" if (budget[:start_date]..budget[:end_date]).include?(Date.today))}
-        %td= budget[:title]
-        %td= I18n.l(budget[:start_date], format: :default)
-        %td= I18n.l(budget[:end_date], format: :default)
-        %td= number_to_currency budget[:rest_promise_from_past_budget], {locale: :de, precision: 0}
-        %td= number_to_currency budget[:promise], {locale: :de, precision: 0}
-        %td= number_to_currency budget[:paid_amount], {locale: :de, precision: 0}
-        %td= number_to_currency (budget[:rest_promise_from_past_budget] + budget[:promise]) - budget[:paid_amount], {locale: :de, precision: 0}
+      %tr{:class => ("success" if (budget[0][1]..budget[0][2]).include?(Date.today))}
+        %td= budget[0][0]
+        %td= I18n.l(budget[0][1], format: :default)
+        %td= I18n.l(budget[0][2], format: :default)
+        %td= budget[1]
 
 .row
   .col-md-4
