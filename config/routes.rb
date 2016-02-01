@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     get :all_budgets, on: :collection
   end
 
+  controller :budgets do
+    get 'budget/summary/:title' => :summary
+  end
 
   resources :donations
 

@@ -204,6 +204,25 @@ class Budget < ActiveRecord::Base
     all_budget_overview
   end
 
+  def self.summary(title)
+    return false if title.nil? || title.empty?
+
+    summary={title: '', participants_count: 0, promise: 0, rest_promise_from_past_budget: 0,
+             paid_amount: 0, rest_amount:0, budgets:[]}
+    budgets = Budget.where(title: title)
+
+    summary[:title] = budgets.first.title
+    summary[:participants_count] = budgets.size
+    summary[:promise] = budgets.map(&:promise).sum
+    summary[:rest_promise_from_past_budget] = budgets.map(&:rest_promise_from_past_budget).sum
+    paid_amount = Budget.find_by(title: title).getAllReceiptsItemsfromBudgetPeriod.map(&:amount).sum
+    summary[:paid_amount] = paid_amount
+    summary[:rest_amount] = (summary[:promise] + summary[:rest_promise_from_past_budget])- summary[:paid_amount]
+    summary[:budgets] = budgets
+
+    return summary
+  end
+
 # Public: Gives the remaing months till end of the budget date
 # Returns: 1..12
   def remaining_months

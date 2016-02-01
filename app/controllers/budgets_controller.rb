@@ -4,8 +4,13 @@ class BudgetsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @budget_overview = Budget.select(:title, :start_date, :end_date).group(:title, :start_date, :end_date).size
+    @budget_overview = Budget.group(:title, :start_date, :end_date).size
     respond_with(@budgets)
+  end
+
+  def summary
+    @budget_summary = Budget.includes(:member).summary(params[:title])
+    # ap @budget_summary
   end
 
   def all_budgets

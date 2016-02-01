@@ -1,0 +1,36 @@
+%h3
+  Summary
+  = @budget_summary[:title]
+
+-#number_to_currency(@budget.promise, locale: :de)
+.well.lead
+  = t('view.donation.budget_count')
+  = @budget_summary[:participants_count]
+  %br
+  Rest aus vorjahr:
+  = number_to_currency(@budget_summary[:rest_promise_from_past_budget], locale: :de)
+  %br
+  Promise:
+  = number_to_currency(@budget_summary[:promise], locale: :de)
+  %br
+  Paid:
+  = number_to_currency(@budget_summary[:paid_amount], locale: :de)
+  %br
+  Rest:
+  = number_to_currency(@budget_summary[:rest_amount], locale: :de)
+
+.well.well-sm
+  %table.table.table-striped.table-bordered.table-hover.table-condensed
+    %thead
+      %tr
+        %th= t('receipt.id')
+        %th= t('receipt.date')
+        %th= t('receipt.amount')
+    %tbody
+    - @budget_summary[:budgets].each do |budget|
+      %tr
+        %td= budget.member.full_name
+        %td= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
+        %td= number_to_currency(budget.promise, locale: :de)
+
+
