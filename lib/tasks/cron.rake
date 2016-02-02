@@ -12,7 +12,7 @@ namespace :cron do
 
   desc "Send emails to report subscribers"
   task deliver_emails_to_report_subscribers: :environment do
-    reports = Reporter.where('interval LIKE ?', "%#{Date.today.day}%")
+    reports = Reporter.where('interval LIKE ?', "#{Date.today.day}")
     unless reports.empty?
       reports.each do |report|
 
