@@ -1,5 +1,7 @@
 .container-fluid
   .col-md-12
+    %br
+    = link_to t('view.back'), budgets_path, class: "btn btn-default"
     %h3= t('budget.summary.title', title: @budget_summary[:title])
 
   .col-sm-offset-3.col-md-6
