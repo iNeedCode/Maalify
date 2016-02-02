@@ -212,6 +212,8 @@ class Budget < ActiveRecord::Base
     budgets = Budget.where(title: title)
 
     summary[:title] = budgets.first.title
+    summary[:start_date] = budgets.first.start_date
+    summary[:end_date] = budgets.first.end_date
     summary[:participants_count] = budgets.size
     summary[:promise] = budgets.map(&:promise).sum
     summary[:rest_promise_from_past_budget] = budgets.map(&:rest_promise_from_past_budget).sum

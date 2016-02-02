@@ -147,6 +147,9 @@ en:
     remark: "Remark"
     description_placeholder: "Reason to not participate to the budget?"
     paid_percent: "In Percent"
+    summary:
+      none_payer: "%{member_name} is a none payer with the following cause: %{description}"
+      title: "Budget summary: %{title}"
   receipt_item:
     number: "Number"
     total: "Total"

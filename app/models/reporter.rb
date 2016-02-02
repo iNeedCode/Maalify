@@ -31,7 +31,7 @@ class Reporter < ActiveRecord::Base
         budget.class_eval {attr_accessor :paid_amount_whole_budget}
         budget.paid_amount_whole_budget = sum_of_paid_budget
         budget.class_eval {attr_accessor :paid_percent}
-        budget.paid_percent = ((sum_of_paid_budget / budget.promise.to_f) * 100).round(2)
+        budget.paid_percent = ((sum_of_paid_budget / (budget.promise + budget.rest_promise_from_past_budget).to_f) * 100).round(2)
         budget.class_eval {attr_accessor :rest_amount}
         budget.rest_amount = budget.promise + budget.rest_promise_from_past_budget - sum_of_paid_budget
       end

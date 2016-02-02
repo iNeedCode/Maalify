@@ -1,36 +1,54 @@
-%h3
-  Summary
-  = @budget_summary[:title]
+.container-fluid
+  .col-md-12
+    %h3= t('budget.summary.title', title: @budget_summary[:title])
 
--#number_to_currency(@budget.promise, locale: :de)
-.well.lead
-  = t('view.donation.budget_count')
-  = @budget_summary[:participants_count]
-  %br
-  Rest aus vorjahr:
-  = number_to_currency(@budget_summary[:rest_promise_from_past_budget], locale: :de)
-  %br
-  Promise:
-  = number_to_currency(@budget_summary[:promise], locale: :de)
-  %br
-  Paid:
-  = number_to_currency(@budget_summary[:paid_amount], locale: :de)
-  %br
-  Rest:
-  = number_to_currency(@budget_summary[:rest_amount], locale: :de)
+  .col-sm-offset-3.col-md-6
+    .well.well-lg
+      %b= t('view.donation.budget_count')
+      = @budget_summary[:participants_count]
+      %br
+      %b= t('budget.rest_promise_from_past_budget')
+      = number_to_currency(@budget_summary[:rest_promise_from_past_budget], locale: :de)
+      %br
+      %b= t('budget.promise')
+      = number_to_currency(@budget_summary[:promise], locale: :de)
+      %br
+      %b= t('budget.paid')
+      = number_to_currency(@budget_summary[:paid_amount], locale: :de)
+      %small= "#{t('budget.paid_percent')} #{(@budget_summary[:paid_amount] / (@budget_summary[:promise] + @budget_summary[:rest_promise_from_past_budget]).to_f * 100).round(2)} %"
+      %br
+      %b= t('budget.rest_current_budget')
+      = number_to_currency(@budget_summary[:rest_amount], locale: :de)
+      %br
+      %b= t('budget.elapsed_time')
+      = I18n.l(@budget_summary[:start_date], format: :long)
+      = "-"
+      = I18n.l(@budget_summary[:end_date], format: :long)
 
-.well.well-sm
-  %table.table.table-striped.table-bordered.table-hover.table-condensed
-    %thead
-      %tr
-        %th= t('receipt.id')
-        %th= t('receipt.date')
-        %th= t('receipt.amount')
-    %tbody
-    - @budget_summary[:budgets].each do |budget|
-      %tr
-        %td= budget.member.full_name
-        %td= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
-        %td= number_to_currency(budget.promise, locale: :de)
-
+  .col-md-12
+    %table.table.table-striped.table-bordered.table-hover.table-condensed.table-summary
+      %thead
+        %tr
+          %th= t('member.full_name')
+          %th= t('budget.rest_promise_from_past_budget')
+          %th= t('budget.promise')
+          %th= t('budget.paid')
+          %th= t('budget.rest_current_budget')
+      %tbody
+      - @budget_summary[:budgets].each do |budget|
+        %tr
+          %td= link_to budget.member.full_name, budget_path(budget.id)
+          %td= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
+          %td= number_to_currency(budget.promise, locale: :de)
+          - rest_current_budget = budget.remainingPromiseCurrentBudget
+          %td= number_to_currency((budget.rest_promise_from_past_budget + budget.promise) - rest_current_budget, locale: :de)
+          %td= number_to_currency(rest_current_budget, locale: :de)
+        - if budget.none_payer
+          %tr.warning
+            %td{:colspan => "5"}
+              %i= t('budget.summary.none_payer', member_name: budget.member.full_name, description: budget.description)
+        - if !budget.none_payer && !budget.description.empty?
+          %tr.info
+            %td{:colspan => "5"}
+              %i= budget.description
 

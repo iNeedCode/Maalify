@@ -325,9 +325,12 @@ de:
     description: "Bemerkung"
     title: "Name"
     member: "Mitglied"
-    remark: "Notiz"
+    remark: "Bemerkung"
     description_placeholder: "Grund der nicht teilnahme an dem Budget?"
     paid_percent: "In Prozent"
+    summary:
+      none_payer: "%{member_name} ist ein nicht zahlender mit der folgenden Begründung: %{description}"
+      title: "Budget Zusammenfassung: %{title}"
   receipt_item:
     number: "Nummer"
     total: "Summe"
