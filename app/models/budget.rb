@@ -208,7 +208,7 @@ class Budget < ActiveRecord::Base
     return false if title.nil? || title.empty?
 
     summary={title: '', participants_count: 0, promise: 0, rest_promise_from_past_budget: 0,
-             paid_amount: 0, rest_amount:0, budgets:[]}
+             paid_amount: 0, rest_amount:0, budgets:[], changed_incomes:[]}
     budgets = Budget.where(title: title)
 
     summary[:title] = budgets.first.title
@@ -221,8 +221,9 @@ class Budget < ActiveRecord::Base
     summary[:paid_amount] = paid_amount
     summary[:rest_amount] = (summary[:promise] + summary[:rest_promise_from_past_budget])- summary[:paid_amount]
     summary[:budgets] = budgets
+    summary[:changed_incomes] = Income.list_all_incomes_between_dates(summary[:start_date], summary[:end_date], budgets.map(&:member_id))
 
-    return summary
+    summary
   end
 
 # Public: Gives the remaing months till end of the budget date

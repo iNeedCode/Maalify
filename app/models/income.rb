@@ -15,7 +15,20 @@ class Income < ActiveRecord::Base
     end
   end
 
-private
+  def before_date(_date = self.starting_date)
+    last = Income.where("member_id = ? AND starting_date < ?",self.member_id, _date).order("starting_date ASC").last
+    last.nil? ? Income.new(amount: 0) : last
+  end
+
+  def self.list_all_incomes_between_dates(start_date, end_date, members = nil)
+    if members.nil?
+      Income.where("? <= starting_date AND ? >= starting_date", start_date, end_date).order(starting_date: :asc)
+    else
+      Income.joins(:member).where("? <= starting_date AND ? >= starting_date AND member_id IN (?)", start_date, end_date, members).order(starting_date: :asc)
+    end
+  end
+
+  private
 
   def newly_added_income_is_also_the_newest?
     latest_income_date = Income.where(member: member_id).maximum(:starting_date)

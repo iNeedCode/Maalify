@@ -150,6 +150,8 @@ en:
     summary:
       none_payer: "%{member_name} is a none payer with the following cause: %{description}"
       title: "Budget summary: %{title}"
+      changed_income_title: "Changed Income"
+      changed_income_msg: "From %{before_amount} changed to %{amount} on %{starting_date}"
   receipt_item:
     number: "Number"
     total: "Total"

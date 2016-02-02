@@ -331,6 +331,8 @@ de:
     summary:
       none_payer: "%{member_name} ist ein nicht zahlender mit der folgenden Begründung: %{description}"
       title: "Budget Zusammenfassung: %{title}"
+      changed_income_title: "Geändertes Einkommen"
+      changed_income_msg: "Von %{before_amount} auf %{amount} geändert am %{starting_date}"
   receipt_item:
     number: "Nummer"
     total: "Summe"

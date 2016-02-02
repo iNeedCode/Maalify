@@ -44,11 +44,24 @@
           %td= number_to_currency((budget.rest_promise_from_past_budget + budget.promise) - rest_current_budget, locale: :de)
           %td= number_to_currency(rest_current_budget, locale: :de)
         - if budget.none_payer
-          %tr.warning
+          %tr.darken
             %td{:colspan => "5"}
+              %b= "#{t('budget.none_payer')}: "
               %i= t('budget.summary.none_payer', member_name: budget.member.full_name, description: budget.description)
         - if !budget.none_payer && !budget.description.empty?
-          %tr.info
+          %tr.darken
             %td{:colspan => "5"}
+              %b= "#{t('budget.description')}: "
+              %br
               %i= budget.description
-
+        - if @budget_summary[:changed_incomes].map(&:member_id).include? budget.member_id
+          %tr.darken
+            %td{:colspan => "5"}
+              - show_title = false
+              - @budget_summary[:changed_incomes].each do |inc|
+                - if inc.member_id == budget.member_id
+                  %b= "#{t('budget.summary.changed_income_title')}: "unless show_title
+                  - show_title = true
+                  %br
+                  = t('budget.summary.changed_income_msg', before_amount: number_to_currency(inc.before_date.amount, locale: :de), amount: number_to_currency(inc.amount, locale: :de),
+                    starting_date: I18n.l(inc.starting_date, format: :long))
