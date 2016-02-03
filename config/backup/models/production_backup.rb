@@ -25,7 +25,7 @@ Model.new(:production_backup, 'backing up production database') do
     db.cache_path  = ".cache"
     # :app_folder (default) or :dropbox
     db.access_type = :app_folder
-    db.path        = "/root/backups"
+    db.path        = "backup/#{Setting.jamaat}"
     # Use a number or a Time object to specify how many backups to keep.
     db.keep        = 10
   end
