@@ -7,7 +7,7 @@ class BudgetMemberReportPDF < Prawn::Document
   SMALL_FONT_SIZE = 8
   TABLE_BORDER_STYLE = :grid
   # http://www.rubydoc.info/github/sandal/prawn/Prawn/Table
-  TABLE_WIDTHS = [120, 60, 60, 60, 60, 100, 60]
+  TABLE_WIDTHS = [120, 60, 60, 60, 60, 100, 100]
   TABLE_HEADERS = [
       I18n.t('donation.budget'), I18n.t('budget.rest_promise_from_past_budget'),
       I18n.t('budget.promise'), I18n.t('budget.paid'),
@@ -35,7 +35,10 @@ class BudgetMemberReportPDF < Prawn::Document
     #This inserts an image in the pdf file and sets the size of the image
     image "#{Rails.root}/public/maalify-logo.jpg", width: 62, height: 25, at: [8, 8]
     text "#{@member[0][:budget].member.full_name}", size: 12, style: :bold, align: :center
-    text "#{I18n.t('member.aims')}: #{@member[0][:budget].member.aims_id}", size: SMALL_FONT_SIZE, align: :center
+
+    aims_id = "#{I18n.t('member.aims')}: #{@member[0][:budget].member.aims_id}"
+    wassiyyat = "•\t #{I18n.t('member.wassiyyat_number')}: #{@member[0][:budget].member.wassiyyat_number}" if @member[0][:budget].member.wassiyyat
+    text "#{aims_id} #{wassiyyat}", size: SMALL_FONT_SIZE, align: :center
   end
 
   def text_content
@@ -45,15 +48,16 @@ class BudgetMemberReportPDF < Prawn::Document
     # The bounding_box takes the x and y coordinates for positioning its content and some options to style it
     bounding_box([0, y_position], width: PAGE_WIDTH, height: 55) do
       font_size SMALL_FONT_SIZE
-      text_box "#{I18n.t('member.email')}: #{@member[0][:budget].member.email}", at: [10, 50], size: SMALL_FONT_SIZE, align: :right unless @member[0][:budget].member.email.nil?
       text I18n.t('budget.individual_report'), size: 15, style: :bold, align: :center
 
-      wassiyyat = "#{I18n.t('member.wassiyyat_number')}: #{@member[0][:budget].member.wassiyyat_number}" if @member[0][:budget].member.wassiyyat
       place_of_residence = "#{@member[0][:budget].member.street}, #{@member[0][:budget].member.plz} #{@member[0][:budget].member.city}"
       date_of_birth = "#{I18n.t('member.date_of_birth')}: #{I18n.l(@member[0][:budget].member.date_of_birth, format: :default)}(#{@member[0][:budget].member.age})"
       tanzeem = "#{@member[0][:budget].member.tanzeem}"
+      mobil_no = "•\t #{I18n.t('member.mobile_no')}: #{@member[0][:budget].member.mobile_no}" unless @member[0][:budget].member.mobile_no.empty?
+      landline = "•\t #{I18n.t('member.landline')}: #{@member[0][:budget].member.landline}" unless @member[0][:budget].member.landline.empty?
+      email = "•\t #{I18n.t('member.email')}: #{@member[0][:budget].member.email}" unless @member[0][:budget].member.email.empty?
 
-      text "#{wassiyyat} \t| #{date_of_birth} \t| #{place_of_residence} \t| #{tanzeem}"
+      text "#{date_of_birth} •\t #{place_of_residence} •\t #{tanzeem} #{mobil_no} #{landline} #{email}", align: :center
     end
 
     # bounding_box([300, y_position], :width => 270, :height => 100) do
@@ -65,6 +69,8 @@ class BudgetMemberReportPDF < Prawn::Document
 
   def table_content
     font_size TABLE_FONT_SIZE
+
+    @two_dimensional_array = [["..."], ["subtable from an array"]]
 
     table member_rows do
       row(0).font_style = :bold
