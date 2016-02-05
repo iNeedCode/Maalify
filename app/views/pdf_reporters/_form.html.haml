@@ -1,0 +1,19 @@
+= form_for @pdf_reporter, html: {class: 'form-horizontal reporter_form'} do |f|
+  - if @pdf_reporter.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@pdf_reporter.errors.count, "error")} prohibited this pdf_reporter from being saved:"
+      %ul
+        - @pdf_reporter.errors.full_messages.each do |msg|
+          %li= msg
+
+  .col-md-12
+    .field.form-group
+      = f.label t('reporter.view.name'), class: 'col-sm-2 control-label'
+      %div.col-sm-8
+        = f.text_field :name, class: 'form-control', placeholder: 'Alle Mitglieder'
+    .field.form-group
+      = f.label :members, class: 'col-sm-2 control-label'
+      %div.col-sm-8
+        = f.collection_select(:members, Member.all.order("aims_id"), :id, :full_name, {include_hidden:false}, {multiple: true, class: "form-control"})
+    .actions
+      = f.submit t('view.save'), class: 'btn btn-success'

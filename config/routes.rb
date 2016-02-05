@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :pdf_reporters
+
   mount RailsSettingsUi::Engine, at: 'settings'
   resources :reporters do
     member do

@@ -28,6 +28,8 @@ gem "select2-rails"
 gem "backup"
 gem 'rails-settings-ui'
 gem 'rails-settings-cached'
+gem 'prawn'
+gem 'prawn-table', '~> 0.1.0'
 
 group :development, :test do
   gem 'sqlite3'

@@ -152,6 +152,7 @@ en:
       title: "Summary: %{title}"
       changed_income_title: "Changed Income"
       changed_income_msg: "From %{before_amount} changed to %{amount} on %{starting_date}"
+    individual_report: "Individual report"
   receipt_item:
     number: "Number"
     total: "Total"

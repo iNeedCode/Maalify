@@ -1,0 +1,2 @@
+module PdfReportersHelper
+end

@@ -1,0 +1,23 @@
+%h1 Listing pdf_reporters
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Members
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @pdf_reporters.each do |pdf_reporter|
+      %tr
+        %td= pdf_reporter.name
+        %td= pdf_reporter.members
+        %td= link_to 'Show', pdf_reporter
+        %td= link_to 'Edit', edit_pdf_reporter_path(pdf_reporter)
+        %td= link_to 'Destroy', pdf_reporter, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Pdf reporter', new_pdf_reporter_path

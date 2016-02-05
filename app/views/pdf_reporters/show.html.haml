@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @pdf_reporter.name
+%p
+  %b Members:
+  = @pdf_reporter.members
+
+= link_to 'Edit', edit_pdf_reporter_path(@pdf_reporter)
+\|
+= link_to 'Back', pdf_reporters_path
