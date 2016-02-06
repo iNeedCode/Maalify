@@ -1,13 +1,13 @@
 class BudgetMemberReportPDF < Prawn::Document
 
   TABLE_ROW_COLORS = ["FFFFFF", "e5e5e5"]
-  PAGE_WIDTH = 780
+  PAGE_WIDTH = 525
   TABLE_FONT_SIZE = 7
   DEFAULT_FONT_SIZE = 10
   SMALL_FONT_SIZE = 8
   TABLE_BORDER_STYLE = :grid
   # http://www.rubydoc.info/github/sandal/prawn/Prawn/Table
-  TABLE_WIDTHS = [120, 60, 60, 60, 60, 100, 100]
+  TABLE_WIDTHS = [120, 50, 50, 50, 50, 100, 50]
   TABLE_HEADERS = [
       I18n.t('donation.budget'), I18n.t('budget.rest_promise_from_past_budget'),
       I18n.t('budget.promise'), I18n.t('budget.paid'),
@@ -17,7 +17,7 @@ class BudgetMemberReportPDF < Prawn::Document
   # http://adamalbrecht.com/2014/01/14/generate-clean-testable-pdf-reports-in-rails-with-prawn/
 
   def initialize(members, view_context)
-    super(page_size: "A4", page_layout: :landscape)
+    super(page_size: "A4", page_layout: :portrait)
     @members = members
 
     @members.each do |member|
@@ -25,9 +25,9 @@ class BudgetMemberReportPDF < Prawn::Document
       @view = view_context
       font_size DEFAULT_FONT_SIZE
       header
-      text_content
-      table_content
-      start_new_page(size: "A4", page_layout: :landscape) unless @members.last == member
+      subheading
+      table_budget
+      start_new_page(size: "A4", page_layout: :portrait) unless @members.last == member
     end
   end
 
@@ -38,10 +38,12 @@ class BudgetMemberReportPDF < Prawn::Document
 
     aims_id = "#{I18n.t('member.aims')}: #{@member[0][:budget].member.aims_id}"
     wassiyyat = "•\t #{I18n.t('member.wassiyyat_number')}: #{@member[0][:budget].member.wassiyyat_number}" if @member[0][:budget].member.wassiyyat
-    text "#{aims_id} #{wassiyyat}", size: SMALL_FONT_SIZE, align: :center
+    tanzeem = "•\t #{@member[0][:budget].member.tanzeem}"
+    date_of_birth = "•\t #{I18n.t('member.date_of_birth')}: #{I18n.l(@member[0][:budget].member.date_of_birth, format: :default)} (#{@member[0][:budget].member.age})"
+    text "#{aims_id} #{wassiyyat} #{tanzeem} #{date_of_birth}", size: SMALL_FONT_SIZE, align: :center
   end
 
-  def text_content
+  def subheading
     # The cursor for inserting content starts on the top left of the page. Here we move it down a little to create more space between the text and the image inserted above
     y_position = cursor - 10
 
@@ -51,13 +53,11 @@ class BudgetMemberReportPDF < Prawn::Document
       text I18n.t('budget.individual_report'), size: 15, style: :bold, align: :center
 
       place_of_residence = "#{@member[0][:budget].member.street}, #{@member[0][:budget].member.plz} #{@member[0][:budget].member.city}"
-      date_of_birth = "#{I18n.t('member.date_of_birth')}: #{I18n.l(@member[0][:budget].member.date_of_birth, format: :default)}(#{@member[0][:budget].member.age})"
-      tanzeem = "#{@member[0][:budget].member.tanzeem}"
       mobil_no = "•\t #{I18n.t('member.mobile_no')}: #{@member[0][:budget].member.mobile_no}" unless @member[0][:budget].member.mobile_no.empty?
       landline = "•\t #{I18n.t('member.landline')}: #{@member[0][:budget].member.landline}" unless @member[0][:budget].member.landline.empty?
       email = "•\t #{I18n.t('member.email')}: #{@member[0][:budget].member.email}" unless @member[0][:budget].member.email.empty?
 
-      text "#{date_of_birth} •\t #{place_of_residence} •\t #{tanzeem} #{mobil_no} #{landline} #{email}", align: :center
+      text "#{place_of_residence} #{mobil_no} #{landline} #{email}", align: :center
     end
 
     # bounding_box([300, y_position], :width => 270, :height => 100) do
@@ -67,16 +67,21 @@ class BudgetMemberReportPDF < Prawn::Document
 
   end
 
-  def table_content
+  def table_budget
     font_size TABLE_FONT_SIZE
 
     @two_dimensional_array = [["..."], ["subtable from an array"]]
 
     table member_rows do
-      row(0).font_style = :bold
       self.header = true
       self.row_colors = TABLE_ROW_COLORS
       self.column_widths = TABLE_WIDTHS
+      self.cell_style = {padding: [3, 5, 3, 3]}
+      column(1..4).style(:align => :right)
+      column(5).style(:align => :center)
+      column(6).style(:align => :right)
+      row(0).font_style = :bold
+      row(0).style(:align => :center)
     end
   end
 
