@@ -380,3 +380,8 @@ de:
         name: "Kontaktdaten für Männliche Mitglieder"
       mail_contact_tag_for_female:
         name: "Kontaktdaten für Weibliche Mitglieder"
+  pdf_reporter:
+    members: "Mitglieder"
+    title: "Persönlicher Bericht"
+    new: "Neuer persönlicher Bericht"
+    download_pdf: "Download Pdf"

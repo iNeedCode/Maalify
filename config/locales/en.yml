@@ -199,3 +199,8 @@ en:
         name: "Contact details for male members"
       mail_contact_tag_for_female:
         name: "Contact details for female members"
+  pdf_reporter:
+    members: "Members"
+    title: "Personal report"
+    new: "New personal report"
+    download_pdf: "Download Pdf"

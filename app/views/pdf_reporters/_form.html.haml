@@ -12,7 +12,7 @@
       %div.col-sm-8
         = f.text_field :name, class: 'form-control', placeholder: 'Alle Mitglieder'
     .field.form-group
-      = f.label :members, class: 'col-sm-2 control-label'
+      = f.label t('pdf_reporter.members'), class: 'col-sm-2 control-label'
       %div.col-sm-8
         = f.collection_select(:members, Member.all.order("aims_id"), :id, :full_name, {include_hidden:false}, {multiple: true, class: "form-control"})
     .actions

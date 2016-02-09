@@ -1,23 +1,32 @@
-%h1 Listing pdf_reporters
+- content_for :title do
+  =t('pdf_reporter.title')
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Members
-      %th
-      %th
-      %th
-      
-  %tbody
-    - @pdf_reporters.each do |pdf_reporter|
-      %tr
-        %td= pdf_reporter.name
-        %td= pdf_reporter.members
-        %td= link_to 'Show', pdf_reporter
-        %td= link_to 'Edit', edit_pdf_reporter_path(pdf_reporter)
-        %td= link_to 'Destroy', pdf_reporter, :method => :delete, :data => { :confirm => 'Are you sure?' }
+.col-md-12
+  %h1= t('pdf_reporter.title')
 
-%br
+.col-md-12
+  - @pdf_reporters.each do |pdf_reporter|
+    %div.img-rounded.card.col-md-3
+      %h4
+        = "#{t('pdf_reporter.title')}: "
+        %br
+          %small= "#{pdf_reporter.name}.pdf"
+      %p
+        %h3
+          = "#{t('pdf_reporter.members')}:"
+          = pdf_reporter.members.size
 
-= link_to 'New Pdf reporter', new_pdf_reporter_path
+
+      .footer-actions
+        = link_to pdf_reporter_path(pdf_reporter), title: "#{t('table.show')}", class: "btn btn-default btn-sm" do
+          %span.glyphicon.glyphicon-search{title: "#{t('table.show')}"}
+        = link_to edit_pdf_reporter_path(pdf_reporter), title: "#{t('table.edit')}", class: "btn btn-default btn-sm" do
+          %span.glyphicon.glyphicon-edit{title: "#{t('table.edit')}"}
+        = link_to pdf_reporter_path(pdf_reporter, format: :pdf), class: "btn btn-success btn-sm" do
+          %span.glyphicon.glyphicon-download{title: t('pdf_reporter.download_pdf')}
+        = link_to pdf_reporter_path(pdf_reporter), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" do
+          %span.glyphicon.glyphicon-trash{title: "#{t('table.delete')}"}
+
+.col-md-12
+  %br
+  = link_to t('pdf_reporter.new'), new_pdf_reporter_path, class: "btn btn-primary"

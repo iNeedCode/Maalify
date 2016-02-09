@@ -34,7 +34,7 @@ class BudgetMemberReportPDF < Prawn::Document
 
   def header
     #This inserts an image in the pdf file and sets the size of the image
-    image "#{Rails.root}/public/maalify-logo.jpg", width: 62, height: 25, at: [8, 8]
+    image "#{Rails.root}/public/maalify-logo.jpg", width: 81, height: 26, at: [8, 8]
     text "#{@member[0][:budget].member.full_name}", size: 12, style: :bold, align: :center
 
     aims_id = "#{I18n.t('member.aims')}: #{@member[0][:budget].member.aims_id}"

@@ -1,12 +1,18 @@
-%p#notice= notice
+- content_for :title do
+  ="#{t('pdf_reporter.title')} (#{@pdf_reporter.id})"
 
-%p
-  %b Name:
+
+%h2
+  = "#{t('pdf_reporter.title')}: "
   = @pdf_reporter.name
-%p
-  %b Members:
-  = @pdf_reporter.members
 
-= link_to 'Edit', edit_pdf_reporter_path(@pdf_reporter)
-\|
-= link_to 'Back', pdf_reporters_path
+.well
+  %h3=t('pdf_reporter.members')
+  %ul
+  - Member.where(aims_id: @pdf_reporter.members).each do |m|
+    %li= "#{m.full_name}"
+
+
+%br
+= link_to t('view.edit'), edit_pdf_reporter_path(@pdf_reporter), class: "btn btn-xs btn-default"
+= link_to t('view.back'), pdf_reporters_path, class: "btn btn-xs btn-default"

@@ -1,5 +1,13 @@
-%h1 New pdf_reporter
+- content_for :title do
+  = t('pdf_reporter.new')
 
-= render 'form'
 
-= link_to 'Back', pdf_reporters_path
+.container-fluid
+  .col-md-12
+
+    %h1=t('pdf_reporter.new')
+
+    = render 'form'
+
+    %br
+      = link_to t('view.back'), pdf_reporters_path, class: "btn btn-xs btn-default"
