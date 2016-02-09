@@ -161,7 +161,13 @@ class Budget < ActiveRecord::Base
   end
 
   def paid_amount
-    ReceiptItem.includes(receipt: [:member]).joins(:donation, :receipt).where(receipts: {member_id: self.member.id, date: self.start_date..self.end_date}, donations: {id: self.donation}).sum(:amount)
+    ReceiptItem.includes(receipt: [:member]).joins(:donation, :receipt)
+        .where(receipts: {member_id: self.member.id, date: self.start_date..self.end_date}, donations: {id: self.donation}).sum(:amount)
+  end
+
+  def all_receipts_in_budget
+    Receipt.includes(:member).joins(items: [:donation])
+        .where(receipts: {member_id: self.member.id, date: self.start_date..self.end_date}, donations: {id: self.donation})
   end
 
   def remaining_promise_budget_title(_title)

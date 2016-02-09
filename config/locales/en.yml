@@ -43,6 +43,7 @@ en:
     figures: "Figures"
     updated: "Updated"
     items: "Items"
+    current: "Current Receipts"
   member:
     last_name: "Lastname"
     first_name: "Firstname"

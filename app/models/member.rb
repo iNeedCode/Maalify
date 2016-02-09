@@ -26,13 +26,14 @@ class Member < ActiveRecord::Base
     end
 
     budgets.each do |budget|
-      one_budget = {budget: nil, paid_amout: 0, rest_amount: 0, average_amount: 0}
+      one_budget = {budget: nil, paid_amout: 0, rest_amount: 0, average_amount: 0, receipts:[]}
 
       one_budget[:budget] = budget
       paid_amount = budget.paid_amount
       one_budget[:paid_amout] = paid_amount
       one_budget[:rest_amount] = budget.promise + budget.rest_promise_from_past_budget - one_budget[:paid_amout]
       one_budget[:average_amount] = (one_budget[:rest_amount] / budget.remaining_months.to_f).ceil if budget.remaining_months.to_f > 0
+      one_budget[:receipts] = budget.all_receipts_in_budget
       enriched_budgets << one_budget
     end
     enriched_budgets

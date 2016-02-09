@@ -1,20 +1,20 @@
 class BudgetMemberReportPDF < Prawn::Document
 
+  # http://www.rubydoc.info/github/sandal/prawn/Prawn/Table
+  # http://adamalbrecht.com/2014/01/14/generate-clean-testable-pdf-reports-in-rails-with-prawn/
   TABLE_ROW_COLORS = ["FFFFFF", "e5e5e5"]
   PAGE_WIDTH = 525
   TABLE_FONT_SIZE = 7
   DEFAULT_FONT_SIZE = 10
   SMALL_FONT_SIZE = 8
   TABLE_BORDER_STYLE = :grid
-  # http://www.rubydoc.info/github/sandal/prawn/Prawn/Table
-  TABLE_WIDTHS = [120, 50, 50, 50, 50, 100, 50]
+  TABLE_WIDTHS = [130, 50, 50, 50, 50, 110, 50]
   TABLE_HEADERS = [
       I18n.t('donation.budget'), I18n.t('budget.rest_promise_from_past_budget'),
       I18n.t('budget.promise'), I18n.t('budget.paid'),
       I18n.t('budget.rest_current_budget'), I18n.t('budget.elapsed_time'),
       I18n.t('budget.average_payment')
   ]
-  # http://adamalbrecht.com/2014/01/14/generate-clean-testable-pdf-reports-in-rails-with-prawn/
 
   def initialize(members, view_context)
     super(page_size: "A4", page_layout: :portrait)
@@ -27,6 +27,7 @@ class BudgetMemberReportPDF < Prawn::Document
       header
       subheading
       table_budget
+      table_receipts
       start_new_page(size: "A4", page_layout: :portrait) unless @members.last == member
     end
   end
@@ -60,19 +61,13 @@ class BudgetMemberReportPDF < Prawn::Document
       text "#{place_of_residence} #{mobil_no} #{landline} #{email}", align: :center
     end
 
-    # bounding_box([300, y_position], :width => 270, :height => 100) do
-    #   text "Duis vel", size: 15, style: :bold
-    #   text "justo ut fringilla. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut venenatis massa non eros venenatis aliquet. Suspendisse potenti. Mauris sed tincidunt mauris, et vulputate risus. Aliquam"
-    # end
-
   end
 
   def table_budget
     font_size TABLE_FONT_SIZE
+    text "#{I18n.t('member.current_budgets')}", size: 12, style: :bold, align: :center
 
-    @two_dimensional_array = [["..."], ["subtable from an array"]]
-
-    table member_rows do
+    table budget_rows do
       self.header = true
       self.row_colors = TABLE_ROW_COLORS
       self.column_widths = TABLE_WIDTHS
@@ -85,13 +80,55 @@ class BudgetMemberReportPDF < Prawn::Document
     end
   end
 
-  def member_rows
+  def budget_rows
     [TABLE_HEADERS] +
         @member.map do |budget_member|
-          [budget_member[:budget].title, @view.number_to_currency(budget_member[:budget].rest_promise_from_past_budget, locale: :de, precision: 0),
-           @view.number_to_currency(budget_member[:budget].promise, locale: :de, precision: 0), @view.number_to_currency(budget_member[:paid_amout], locale: :de, precision: 0),
-           @view.number_to_currency(budget_member[:rest_amount], locale: :de, precision: 0), "#{@view.l(budget_member[:budget].start_date, format: :default)} - #{@view.l(budget_member[:budget].end_date, format: :default)}",
-           @view.number_to_currency(budget_member[:average_amount], locale: :de, precision: 0)
+          [
+              budget_member[:budget].title,
+              @view.number_to_currency(budget_member[:budget].rest_promise_from_past_budget, locale: :de, precision: 0),
+              @view.number_to_currency(budget_member[:budget].promise, locale: :de, precision: 0),
+              @view.number_to_currency(budget_member[:paid_amout], locale: :de, precision: 0),
+              @view.number_to_currency(budget_member[:rest_amount], locale: :de, precision: 0),
+              "#{@view.l(budget_member[:budget].start_date, format: :default)} - #{@view.l(budget_member[:budget].end_date, format: :default)}",
+              @view.number_to_currency(budget_member[:average_amount], locale: :de, precision: 0)
+          ]
+        end
+  end
+
+  def table_receipts
+    move_down 15
+    font_size TABLE_FONT_SIZE
+    text "#{I18n.t('receipt.current')}", size: 12, style: :bold, align: :center
+
+    table receipt_rows do
+      self.header = true
+      self.row_colors = TABLE_ROW_COLORS
+      self.column_widths = [70, 80, 70, 270]
+      self.cell_style = {padding: [3, 5, 3, 3]}
+      column(2).style(:align => :right)
+      row(0).font_style = :bold
+      row(0).style(:align => :center)
+    end
+  end
+
+  def receipt_rows
+    @all_receipts = []
+    @member.select { |aa| !aa[:receipts].empty? }.each { |so| (@all_receipts << so[:receipts]) }
+    @all_receipts.flatten!.uniq!
+
+    [[
+         I18n.t('receipt.id'),
+         I18n.t('receipt.date'),
+         I18n.t('receipt.total'),
+         I18n.t('receipt.items'),
+
+     ]] +
+        @all_receipts.map do |receipt|
+          [
+              receipt.id,
+              @view.l(receipt.date, format: :long),
+              @view.number_to_currency(receipt.total, locale: :de, precision: 0),
+              receipt.list_items_with_donation.map { |dd| "#{dd.first}: #{@view.number_to_currency(dd.second, locale: :de, precision: 0)}" }.to_a.join(', ')
           ]
         end
   end

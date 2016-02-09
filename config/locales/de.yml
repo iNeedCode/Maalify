@@ -22,6 +22,7 @@ de:
     figures: "Beräge"
     updated: "Aktualisert"
     items: "Einträge"
+    current: "Aktuelle Belege"
   member:
     last_name: "Nachname"
     first_name: "Vorname"

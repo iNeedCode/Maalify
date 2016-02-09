@@ -9,14 +9,12 @@ class PdfReportersController < ApplicationController
   end
 
   def show
-    # @members = Member.all.limit(10)
-    # @members = Member.includes(budgets:[:donation]).where(aims_id: 14649)
     @members = Member.includes(budgets:[:donation]).where(aims_id: @pdf_reporter.members).map(&:list_currrent_budgets)
     respond_to do |format|
       format.html
       format.pdf do
         pdf = BudgetMemberReportPDF.new( @members, view_context )
-        send_data pdf.render, filename: "#{@pdf_reporter.name}.pdf", type: "application/pdf", disposition: "inline"
+        send_data pdf.render, filename: "#{@pdf_reporter.name}.pdf", type: "application/pdf"
       end
     end
 
