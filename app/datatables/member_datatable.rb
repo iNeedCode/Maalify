@@ -29,14 +29,14 @@ class MemberDatatable < AjaxDatatablesRails::Base
           link_to_telephone(record.landline),
           link_to_telephone(record.mobile_no),
           link_to_address(record.email),
-          link_to(v.member_path(record.aims_id), class: "", title: "Show") do
-            content_tag(:span, "", class: "glyphicon glyphicon-search")
+          link_to(v.member_path(record.aims_id), class: "") do
+            content_tag(:span, "", class: "glyphicon glyphicon-search", title: I18n.t('table.show') )
           end,
-          link_to(v.edit_member_path(record.aims_id), class: "", title: "Edit") do
-            content_tag(:span, "", class: "glyphicon glyphicon-edit")
+          link_to(v.edit_member_path(record.aims_id), class: "") do
+            content_tag(:span, "", class: "glyphicon glyphicon-edit", title: I18n.t('table.edit') )
           end,
-          link_to(v.member_path(record.aims_id), method: :delete, data: {confirm: 'Are you sure?'}, title: "Delete") do
-            content_tag(:span, "", class: "glyphicon glyphicon-trash color-red")
+          link_to(v.member_path(record.aims_id), method: :delete, data: {confirm: 'Are you sure?'}) do
+            content_tag(:span, "", class: "glyphicon glyphicon-trash color-red", title: I18n.t('table.delete') )
           end,
           'DT_RowClass': "danger",
           "DT_RowId": record.id

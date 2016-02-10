@@ -60,6 +60,12 @@ $(document).on 'ready page:load', ->
       "buttonText": "Columns"
     }
 
+  $('#all-receipts-table').on 'draw.dt', ->
+    $('span').tooltip({
+      'placement': 'bottom',
+      delay: { "bottom": 2, "hide": 100 }
+    });
+
   calculateSum = ->
     sum = 0
     #iterate through each textboxes and add the values

@@ -17,22 +17,20 @@ class BudgetDatatable < AjaxDatatablesRails::Base
   def data
     records.map do |record|
       [
-          # comma separated list of the values for each cell of a table row
-          # example: record.attribute,
           record.title,
           number_to_currency(record.promise, locale: :de),
           I18n.l(record.start_date, format: :long),
           I18n.l(record.end_date, format: :long),
           link_to(record.member.full_name, v.member_path(record.member_id)),
           link_to(record.donation.name, v.donation_path(record.donation_id)),
-          link_to(v.budget_path(record.id), class: "", title: "Show") do
-            content_tag(:span, "", class: "glyphicon glyphicon-search")
+          link_to(v.budget_path(record.id), class: "" ) do
+            content_tag(:span, "", class: "glyphicon glyphicon-search", title: I18n.t('table.show'))
           end,
-          link_to(v.edit_budget_path(record.id), class: "", title: "Edit") do
-            content_tag(:span, "", class: "glyphicon glyphicon-edit")
+          link_to(v.edit_budget_path(record.id), class: "" ) do
+            content_tag(:span, "", class: "glyphicon glyphicon-edit", title: I18n.t('table.edit'))
           end,
-          link_to(v.budget_path(record.id), method: :delete, data: {confirm: 'Are you sure?'}, title: "Delete") do
-            content_tag(:span, "", class: "glyphicon glyphicon-trash color-red")
+          link_to(v.budget_path(record.id), method: :delete, data: {confirm: 'Are you sure?'}) do
+            content_tag(:span, "", class: "glyphicon glyphicon-trash color-red", title: I18n.t('table.delete') )
           end,
           'DT_RowClass': "danger",
           "DT_RowId": record.id

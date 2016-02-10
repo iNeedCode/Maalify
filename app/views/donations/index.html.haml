@@ -24,14 +24,14 @@
         %td= number_to_currency(donation.minimum_budget, locale: :de)
         %td= donation.organization
         %td
-          =link_to donation, :title => "#{t('table.show')}" do
-            %span.glyphicon.glyphicon-search
+          =link_to donation do
+            %span.glyphicon.glyphicon-search{title: t('table.show')}
         %td
-          = link_to edit_donation_path(donation), :title => "#{t('table.edit')}" do
-            %span.glyphicon.glyphicon-edit
+          = link_to edit_donation_path(donation) do
+            %span.glyphicon.glyphicon-edit{title: t('table.edit')}
         %td
-          = link_to donation, :method => :delete, :data => { :confirm => 'Are you sure?' }, :title => "#{t('table.delete')}" do
-            %span.glyphicon.glyphicon-trash.color-red
+          = link_to donation, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+            %span.glyphicon.glyphicon-trash.color-red{title: t('table.delete')}
 
 %br
 

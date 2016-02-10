@@ -23,14 +23,14 @@ class ReceiptDatatable < AjaxDatatablesRails::Base
           number_to_currency(record.total, locale: :de),
           record.list_items_with_donation,
           I18n.l(record.date_of_last_change, format: :short),
-          link_to(v.member_receipt_path(record.member_id, record.receipt_id), class: "", title: "Show") do
-            content_tag(:span, "", class: "glyphicon glyphicon-search")
+          link_to(v.member_receipt_path(record.member_id, record.receipt_id), class: "") do
+            content_tag(:span, "", class: "glyphicon glyphicon-search", title: I18n.t('table.show') )
           end,
-          link_to(v.edit_member_receipt_path(record.member_id, record.receipt_id), class: "", title: "Edit") do
-            content_tag(:span, "", class: "glyphicon glyphicon-edit")
+          link_to(v.edit_member_receipt_path(record.member_id, record.receipt_id), class: "") do
+            content_tag(:span, "", class: "glyphicon glyphicon-edit", title: I18n.t('table.edit') )
           end,
-          link_to(v.member_receipt_path(record.member_id, record.receipt_id), method: :delete, data: {confirm: 'Are you sure?'}, title: "Delete") do
-            content_tag(:span, "", class: "glyphicon glyphicon-trash color-red")
+          link_to(v.member_receipt_path(record.member_id, record.receipt_id), method: :delete, data: {confirm: 'Are you sure?'}) do
+            content_tag(:span, "", class: "glyphicon glyphicon-trash color-red", title: I18n.t('table.delete') )
           end,
           "DT_RowId": record.receipt_id
       ]

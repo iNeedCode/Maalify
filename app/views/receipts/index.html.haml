@@ -33,11 +33,11 @@
               = number_to_currency(ri.amount, locale: :de)
             %br
         %td
-          =link_to member_receipt_path(params[:member_id], receipt.id), title: "#{t('table.show')}" do
-            %span.glyphicon.glyphicon-search
+          =link_to member_receipt_path(params[:member_id], receipt.id) do
+            %span.glyphicon.glyphicon-search{title: t('table.show')}
         %td
-          = link_to edit_member_receipt_path(params[:member_id], receipt.id), title: "#{t('table.edit')}" do
-            %span.glyphicon.glyphicon-edit
+          = link_to edit_member_receipt_path(params[:member_id], receipt.id) do
+            %span.glyphicon.glyphicon-edit{title: t('table.edit')}
         %td
-          = link_to member_receipt_path(params[:member_id], receipt.id), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t('table.delete')}" do
-            %span.glyphicon.glyphicon-trash.color-red
+          = link_to member_receipt_path(params[:member_id], receipt.id), method: :delete, data: { confirm: 'Are you sure?' } do
+            %span.glyphicon.glyphicon-trash.color-red{title: t('table.delete')}

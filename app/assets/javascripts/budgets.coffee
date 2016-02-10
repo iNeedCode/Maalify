@@ -55,6 +55,13 @@ $(document).on 'ready page:load', ->
       "buttonText": "Columns"
     }
 
+  $('#budget-table').on 'draw.dt', ->
+    $('span').tooltip({
+      'placement': 'bottom',
+      delay: { "bottom": 2, "hide": 100 }
+    });
+
+
   $('#budget_member_id').multiselect
     includeSelectAllOption: true,
     enableFiltering: true

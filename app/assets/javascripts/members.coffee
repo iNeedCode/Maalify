@@ -69,6 +69,13 @@ $(document).on 'ready page:load', ->
       "buttonText": "Columns"
     }
 
+  $('#tajnied-table').on 'draw.dt', ->
+    $('span').tooltip({
+      'placement': 'bottom',
+      delay: { "bottom": 2, "hide": 100 }
+    });
+
+
   $('.datepicker-member').datepicker
     format: "dd.mm.yyyy"
     weekStart: 1
