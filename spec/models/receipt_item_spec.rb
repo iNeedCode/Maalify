@@ -19,7 +19,7 @@ RSpec.describe ReceiptItem, :type => :model do
     it "should fails if amount is negativ" do
       @ri1.amount = -1
       expect(@ri1).to_not be_valid
-      expect(@ri1.errors[:amount].first).to eql("must be greater than 0")
+      expect(@ri1.errors[:amount].first).to eql("muss größer als 0 sein")
       expect(@ri1.errors.size).to eql(1)
     end
 
@@ -27,8 +27,8 @@ RSpec.describe ReceiptItem, :type => :model do
     it "should fails if amount is nil" do
       @ri1.amount = nil
       expect(@ri1).to_not be_valid
-      expect(@ri1.errors[:amount].first).to eql("can't be blank")
-      expect(@ri1.errors[:amount][1]).to eql("is not a number")
+      expect(@ri1.errors[:amount].first).to eql("muss ausgefüllt werden")
+      expect(@ri1.errors[:amount][1]).to eql("ist keine Zahl")
       expect(@ri1.errors.size).to eql(2)
     end
 

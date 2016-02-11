@@ -24,7 +24,7 @@ RSpec.describe Member, :type => :model do
       expect(@member.valid?).to eq(false)
 
       %w[ first_name last_name date_of_birth aims_id ].each do |field|
-        expect(@member.errors[field]).to eq(["can't be blank"])
+        expect(@member.errors[field]).to eq(["muss ausgefüllt werden"])
       end
     end
 

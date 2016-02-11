@@ -19,7 +19,7 @@ RSpec.describe Receipt, :type => :model do
       @r1.receipt_id = nil
       expect(@r1).to_not be_valid
       expect(@r1.errors.size).to eql(1)
-      expect(@r1.errors[:receipt_id].first).to eql("can't be blank")
+      expect(@r1.errors[:receipt_id].first).to eql("muss ausgefüllt werden")
     end
 
     it 'should be invalid if uniqueness of a receipt is not given' do
@@ -31,7 +31,7 @@ RSpec.describe Receipt, :type => :model do
       expect(@r1).to be_valid
       expect(r2).to_not be_valid
       expect(r2.errors.size).to eql(1)
-      expect(r2.errors[:receipt_id].first).to eql("has already been taken")
+      expect(r2.errors[:receipt_id].first).to eql("ist bereits vergeben")
     end
 
     it 'should be valid if uniqueness is given' do

@@ -29,7 +29,7 @@ RSpec.describe Income, :type => :model do
     @income.save
     income = Income.create(starting_date: '2014-01-01', member_id: '12345', amount: 900)
     expect(income).to_not be_valid
-    expect(income.errors[:income]).to eq(["Newest income should be also the latest income of the member #{income.member.full_name}"])
+    expect(income.errors[:income]).to eq(["Das angelegt Einkommmen muss auch gleichzeit das neueste sein von #{income.member.full_name}"])
   end
 
   describe "Tests for the Income methods" do
