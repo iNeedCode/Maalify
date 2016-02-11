@@ -17,7 +17,7 @@ $(document).on 'ready page:load', ->
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
     'sDom': 'CT<"clear">lfrtip'
     'oTableTools':
-      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
+      'sSwfPath': '/copy_csv_xls_pdf.swf'
       'aButtons': [
         {
           "sExtends": "pdf"
@@ -55,18 +55,18 @@ $(document).on 'ready page:load', ->
     autoWidth: true
     pagingType: "simple_numbers"
     stateSave: true
-    "lengthMenu": [[25, 50, 100, 200], [25, 50, 100, 200]]
+    lengthMenu: [[25, 50, 100, 200], [25, 50, 100, 200]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-    'sDom': 'CT<"clear">lfrtip'
-    'oTableTools':
-      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
-      'aButtons': [
+    sDom: 'CT<"clear">lfrtip'
+    oTableTools:
+      sSwfPath: '/copy_csv_xls_pdf.swf'
+      aButtons: [
         'pdf'
         'xls'
       ]
-    "colVis": {
-      "buttonText": "Columns"
+    colVis: {
+      buttonText: "Columns"
     }
 
   $('#tajnied-table').on 'draw.dt', ->

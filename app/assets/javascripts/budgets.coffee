@@ -9,18 +9,18 @@ $(document).on 'ready page:load', ->
     pagingType: "simple_numbers"
     processing: true
     stateSave: true
-    "lengthMenu": [[20, 50, 100, 500], [20, 50, 100, 500]]
+    lengthMenu: [[20, 50, 100, 500], [20, 50, 100, 500]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-    'sDom': 'CT<"clear">lfrtip'
-    'oTableTools':
-      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
-      'aButtons': [
+    sDom: 'CT<"clear">lfrtip'
+    oTableTools:
+      sSwfPath: '/copy_csv_xls_pdf.swf'
+      aButtons: [
         'pdf'
         'xls'
       ]
-    "colVis": {
-      "buttonText": "Columns"
+    colVis: {
+      buttonText: "Columns"
     }
 
   $("#budget-table").DataTable
@@ -41,18 +41,18 @@ $(document).on 'ready page:load', ->
     autoWidth: true
     pagingType: "simple_numbers"
     stateSave: true
-    "lengthMenu": [[25, 100, 200, 500], [25, 100, 200, 500]]
+    lengthMenu: [[25, 100, 200, 500], [25, 100, 200, 500]]
     language:
       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-    'sDom': 'CT<"clear">lfrtip'
-    'oTableTools':
-      'sSwfPath': 'http://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf' #http://stackoverflow.com/questions/34028491/jquery-datatables-rails-tabletools-or-buttons
-      'aButtons': [
+    sDom: 'CT<"clear">lfrtip'
+    oTableTools:
+      sSwfPath: '/copy_csv_xls_pdf.swf'
+      aButtons: [
         'pdf'
         'xls'
       ]
-    "colVis": {
-      "buttonText": "Columns"
+    colVis: {
+      buttonText: "Columns"
     }
 
   $('#budget-table').on 'draw.dt', ->
