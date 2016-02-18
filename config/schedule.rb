@@ -25,9 +25,7 @@ set :output, {:error => "/opt/www/maalify/current/log/cron_error_log.log", :stan
 
 
 # monthly email to all members in system
-# with budget overview
-# ones a month on 20th at 6 AM
-every 1.month, at: 'January 20th 6:00am' do
+every 1.day, at: '6:00am' do
   command "gem install rake"
   rake 'cron:deliver_emails'
 end

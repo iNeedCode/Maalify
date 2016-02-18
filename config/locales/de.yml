@@ -375,11 +375,13 @@ de:
       save_all: "Sichern"
     attributes:
       jamaat:
-        name: "Jamaat"
+        name: "Jamaat:"
       mail_contact_tag_for_male:
-        name: "Kontaktdaten für Männliche Mitglieder"
+        name: "Kontaktdaten für Männliche Mitglieder:"
       mail_contact_tag_for_female:
-        name: "Kontaktdaten für Weibliche Mitglieder"
+        name: "Kontaktdaten für Weibliche Mitglieder:"
+      monthly_mail:
+        name: "Monatliche Email an Mitglieder wird versendet am:"
   pdf_reporter:
     members: "Mitglieder"
     title: "Persönlicher Bericht"

@@ -194,11 +194,13 @@ en:
       save_all: "Save"
     attributes:
       jamaat:
-        name: "Jamaat"
+        name: "Jamaat:"
       mail_contact_tag_for_male:
-        name: "Contact details for male members"
+        name: "Contact details for male members:"
       mail_contact_tag_for_female:
-        name: "Contact details for female members"
+        name: "Contact details for female members:"
+      monthly_mail:
+        name: "Send monthly Email to members on:"
   pdf_reporter:
     members: "Members"
     title: "Personal report"

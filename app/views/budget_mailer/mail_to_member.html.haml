@@ -15,7 +15,11 @@
           = t('mail.greeting.female', {name: "#{@member.first_name} #{@member.last_name}"})
       - unless @member.budgets.empty?
         %center
-          %h2= t('member.current_budgets')
+          %h2
+            = t('member.current_budgets')
+            - if Date.today.day == Setting.monthly_mail
+              %br
+                %small= t('reporter.interval.show_message', days: Setting.monthly_mail)
           %table.main{border: "1px"}
             %thead
               %tr
@@ -40,6 +44,7 @@
             Wassalam
             %br
             = t('mail.message.department')
+            = Setting.jamaat
         %tr
           %td
             - if @member.gender == 'male'
@@ -48,6 +53,6 @@
               %pre= Setting.mail_contact_tag_for_female
 
       %center.maalify
-        = t('mail.message.maalify')
+        = t('mail.message.maalify') if Setting.monthly_mail == Date.today.day
         %br
         build with &#9829; in Darmstadt
