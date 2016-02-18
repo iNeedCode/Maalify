@@ -11,6 +11,9 @@ feature 'Home page' do
   scenario 'visit the home page' do
     visit root_path
     expect(page).to have_content 'Assalam-o-Alaikum'
+    expect(page).to have_content 'Mitglieder'
+    expect(page).to have_content 'Alle Belege'
+    expect(page).to have_content 'Chanda'
   end
 
 end

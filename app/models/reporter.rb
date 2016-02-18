@@ -8,7 +8,7 @@ class Reporter < ActiveRecord::Base
     end
   end
 
-  def self.list_available_intervals()
+  def self.list_available_intervals
     [
         %W(#{I18n.t('reporter.interval.monthly')} 28),
         %W(#{I18n.t('reporter.interval.biweekly')} 14,28),
