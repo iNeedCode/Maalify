@@ -26,4 +26,11 @@ namespace :cron do
     end
   end
 
+  desc "Saves the Jamaat in the settings to disk for the database backup"
+  task save_jamaat_to_disk: :environment do
+    directory = "/root/Backup/jamaat.txt"
+    content = Setting.jamaat.to_s
+    File.open(directory, "w+") {|f| f.write(content)}
+  end
+
 end

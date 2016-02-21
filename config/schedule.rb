@@ -31,6 +31,7 @@ every 1.day, at: '6:00am' do
 end
 
 every 1.day, at: '11:59 pm' do
+  rake 'cron:save_jamaat_to_disk'
   command "backup perform -t production_backup"
 end
 

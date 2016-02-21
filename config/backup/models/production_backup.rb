@@ -1,5 +1,6 @@
 db_config = YAML.load_file('/opt/www/maalify/current/config/database.yml')['production']
 app_config = YAML.load_file('/opt/www/maalify/current/application.yml')
+jamaat = File.open("/root/Backup/jamaat.txt", &:readline)
 
 Model.new(:production_backup, 'backing up production database') do
 
@@ -26,9 +27,9 @@ Model.new(:production_backup, 'backing up production database') do
     # :app_folder (default) or :dropbox
     db.access_type = :app_folder
     # TODO ERROR
-    db.path        = "backup/#{Setting.jamaat}"
+    db.path        = "backup/#{jamaat}"
     # Use a number or a Time object to specify how many backups to keep.
-    db.keep        = 10
+    db.keep        = 100
   end
 
   ##
