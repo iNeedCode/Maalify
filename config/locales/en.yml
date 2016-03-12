@@ -95,7 +95,7 @@ en:
       title: "Chanda"
       new: "New Chanda"
       edit: "Edit Donation"
-      budget_count: "Number of budgets"
+      budget_count: "Number of Members"
     budget:
       title: "Budget"
       new: "New Budget"

@@ -36,7 +36,10 @@
                     %small= I18n.l(iter[:budget].start_date, format: :default)
                     %br
                     %i= I18n.l(iter[:budget].end_date, format: :default)
-                  %td= number_to_currency(iter[:average_amount], {locale: :de, precision: 0})
+                  -if iter[:average_amount] > 0
+                    %td= number_to_currency(iter[:average_amount], locale: :de, precision: 0)
+                  - else
+                    %td= number_to_currency(0, locale: :de, precision: 0)
 
       %table.footer
         %tr

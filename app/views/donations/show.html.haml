@@ -34,7 +34,8 @@
 
   - unless @donation.budgets.empty?
     .col-ms-10
-      %h3= t('view.budget.all_budgets')
+      %center
+        %h3= t('view.budget.all_budgets')
       %table.table.table-striped.table-bordered.table-hover.table-condensed
         %thead
           %tr
@@ -43,7 +44,7 @@
             %th= t('view.donation.budget_count')
         - Budget.where(donation_id: @donation.id).group([:title, :start_date, :end_date]).count.each do |budget|
           %tr
-            %td= budget.first[0]
+            %td= link_to budget.first[0], controller: "budgets", action: "summary", title: budget.first[0]
             %td
               %small= I18n.l(budget.first[1], format: :long)
               %br

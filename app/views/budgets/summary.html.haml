@@ -1,3 +1,6 @@
+- content_for :title do
+  ="#{@budget_summary[:title]} - #{t('view.budget.overview')}"
+
 .container-fluid
   .col-md-12
     %br
@@ -6,31 +9,43 @@
 
   .col-sm-offset-3.col-md-6
     .well.well-lg
-      %b= t('view.donation.budget_count')
-      = @budget_summary[:participants_count]
-      %br
-      %b= t('budget.rest_promise_from_past_budget')
-      = number_to_currency(@budget_summary[:rest_promise_from_past_budget], locale: :de)
-      %br
-      %b= t('budget.promise')
-      = number_to_currency(@budget_summary[:promise], locale: :de)
-      %br
-      %b= t('budget.paid')
-      = number_to_currency(@budget_summary[:paid_amount], locale: :de)
-      %small= "#{t('budget.paid_percent')} #{(@budget_summary[:paid_amount] / (@budget_summary[:promise] + @budget_summary[:rest_promise_from_past_budget]).to_f * 100).round(2)} %"
-      %br
-      %b= t('budget.rest_current_budget')
-      = number_to_currency(@budget_summary[:rest_amount], locale: :de)
-      %br
-      %b= t('budget.elapsed_time')
-      = I18n.l(@budget_summary[:start_date], format: :long)
-      = "-"
-      = I18n.l(@budget_summary[:end_date], format: :long)
+      %table.table.table-hover.table-condensed.table-responsive
+        %tbody
+          %tr
+            %td
+              %b= t('view.donation.budget_count')
+            %td= @budget_summary[:participants_count]
+          %tr
+            %td
+              %b= t('budget.rest_promise_from_past_budget')
+            %td= number_to_currency(@budget_summary[:rest_promise_from_past_budget], locale: :de)
+          %tr
+            %td
+              %b= t('budget.promise')
+            %td= number_to_currency(@budget_summary[:promise], locale: :de)
+          %tr
+            %td
+              %b= t('budget.paid')
+            %td
+              = number_to_currency(@budget_summary[:paid_amount], locale: :de)
+              %small= "#{t('budget.paid_percent')} #{(@budget_summary[:paid_amount] / (@budget_summary[:promise] + @budget_summary[:rest_promise_from_past_budget]).to_f * 100).round(2)} %"
+          %tr
+            %td
+              %b= t('budget.rest_current_budget')
+            %td= number_to_currency(@budget_summary[:rest_amount], locale: :de)
+          %tr
+            %td
+              %b= t('budget.elapsed_time')
+            %td
+              = I18n.l(@budget_summary[:start_date], format: :long)
+              = "-"
+              = I18n.l(@budget_summary[:end_date], format: :long)
 
   .col-md-12
-    %table.table.table-striped.table-bordered.table-hover.table-condensed.table-summary
+    %table#budget-summary.table.table-striped.table-bordered.table-hover.table-condensed.table-summary
       %thead
         %tr
+          %th= t('member.tanzeem')
           %th= t('member.full_name')
           %th= t('budget.rest_promise_from_past_budget')
           %th= t('budget.promise')
@@ -39,6 +54,7 @@
       %tbody
       - @budget_summary[:budgets].each do |budget|
         %tr
+          %td= budget.member.tanzeem
           %td= link_to budget.member.full_name, budget_path(budget.id)
           %td= number_to_currency(budget.rest_promise_from_past_budget, locale: :de)
           %td= number_to_currency(budget.promise, locale: :de)
@@ -47,18 +63,18 @@
           %td= number_to_currency(rest_current_budget, locale: :de)
         - if budget.none_payer
           %tr.darken
-            %td{:colspan => "5"}
+            %td{:colspan => "6"}
               %b= "#{t('budget.none_payer')}: "
               %i= t('budget.summary.none_payer', member_name: budget.member.full_name, description: budget.description)
         - if !budget.none_payer && !budget.description.empty?
           %tr.darken
-            %td{:colspan => "5"}
+            %td{:colspan => "6"}
               %b= "#{t('budget.description')}: "
               %br
               %i= budget.description
         - if @budget_summary[:changed_incomes].map(&:member_id).include? budget.member_id
           %tr.darken
-            %td{:colspan => "5"}
+            %td{:colspan => "6"}
               - show_title = false
               - @budget_summary[:changed_incomes].each do |inc|
                 - if inc.member_id == budget.member_id

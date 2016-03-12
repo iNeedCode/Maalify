@@ -20,11 +20,17 @@
     %b= t('member.date_of_birth')
     = I18n.l(@member.date_of_birth, format: :long)
     = "(#{@member.age})"
+    %br
+    %b= t('member.occupation')
+    = @member.occupation
+
+    - if @member.current_income.present?
+      %p
+        %b= number_to_currency(@member.current_income.amount, locale: :de)
+        = t('income.current')
 
   .col-sm-6
     %address.text-right
-      %span.glyphicon.glyphicon-home
-      %br
       = @member.street
       %br
       = @member.plz
@@ -38,19 +44,13 @@
       = link_to_address(@member.email)
 
 .container-fluid
-  .col-sm-6
-    %b= t('member.occupation')
-    = @member.occupation
 
-    - if @member.current_income.present?
-      %p
-        %b= number_to_currency(@member.current_income.amount, locale: :de)
-        = t('income.current')
 
 - unless @member.budgets.empty?
   .container-fluid
     .col-sm-12
-      %h3= t('member.current_budgets')
+      %center
+        %h3= t('member.current_budgets')
       %table.table.table-striped.table-bordered.table-hover.table-condensed
         %thead
           %tr
@@ -68,15 +68,20 @@
               %td= link_to iter[:budget].donation.name, donation_path(iter[:budget].donation.id)
               %td
                 = number_to_currency(iter[:budget].promise, locale: :de)
-                %br
-                %small= number_to_currency(iter[:budget].rest_promise_from_past_budget, locale: :de)
+                - if (iter[:budget].rest_promise_from_past_budget > 0)
+                  %br
+                  %small= number_to_currency(iter[:budget].rest_promise_from_past_budget, locale: :de)
               %td= number_to_currency(iter[:paid_amout], locale: :de)
               %td= number_to_currency(iter[:rest_amount], locale: :de)
               %td
                 %small= I18n.l(iter[:budget].start_date, format: :default)
                 %br
                 %b= I18n.l(iter[:budget].end_date, format: :default)
-              %td= number_to_currency(iter[:average_amount], locale: :de)
+              -if iter[:average_amount] > 0
+                %td= number_to_currency(iter[:average_amount], locale: :de)
+              - else
+                %td= number_to_currency(0, locale: :de)
+
 
 .container-fluid
   %h3= t('view.member.aktion')
@@ -98,7 +103,7 @@
       %span.glyphicon.glyphicon-briefcase
       = t('member.all_budgets')
   .col-sm-4
-    = link_to send_mail_member_path, class: "btn btn-warning btn-block btn-lg", method: :post do
+    = link_to send_mail_member_path, class: "btn btn-warning btn-block btn-lg #{'disabled' if @member.email.empty?}", method: :post do
       %span.glyphicon.glyphicon-envelope
       = t('member.send_mail')
 

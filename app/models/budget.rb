@@ -215,7 +215,7 @@ class Budget < ActiveRecord::Base
 
     summary={title: '', participants_count: 0, promise: 0, rest_promise_from_past_budget: 0,
              paid_amount: 0, rest_amount:0, budgets:[], changed_incomes:[]}
-    budgets = Budget.where(title: title)
+    budgets = Budget.where(title: title).sort {|a,b| a.member.tanzeem <=> b.member.tanzeem}
 
     summary[:title] = budgets.first.title
     summary[:start_date] = budgets.first.start_date
