@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
 
     collection do
+      get :info
       get :get_all_members
       post :import
       get :import_page

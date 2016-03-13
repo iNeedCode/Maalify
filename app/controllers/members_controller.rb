@@ -16,6 +16,10 @@ class MembersController < ApplicationController
     end
   end
 
+  def info
+    
+  end
+
   def budgets
     @member = Member.includes(budgets:[:donation]).find(params[:id])
   end

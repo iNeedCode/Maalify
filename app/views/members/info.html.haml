@@ -1,0 +1,28 @@
+- content_for :title do
+  ="#{t('view.member.title')}"
+
+%p
+  %ul.nav.nav-pills
+    %li.active{:role => "presentation"}
+      =link_to t('view.member.info'), info_members_path
+    %li{:role => "presentation"}
+      =link_to t('view.member.all'), members_path
+    %li{:role => "presentation"}
+      =link_to t('view.member.import'), import_page_members_path
+
+
+= javascript_include_tag "https://www.google.com/jsapi", "chartkick"
+
+%div.col-md-12
+  %h1= t('view.member.info')
+
+%div.col-md-12.well
+  %h3= t('member.tanzeem')
+  %center
+    = pie_chart Member.all.map(&:tanzeem).each_with_object(Hash.new(0)) { |word,counts| counts[word] += 1 }, width: '40.625em', height: '25em'
+
+%div.col-md-12.well
+  %h3= t('member.occupation')
+  %center
+    = pie_chart Member.group(:occupation).count, width: '40.625em', height: '25em'
+
