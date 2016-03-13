@@ -66,6 +66,7 @@ de:
       aktion: "Aktionen"
       all: "Alle Mitglieder"
       import: "Miglieder importieren"
+      info: "Mitglieder Info"
     income:
       new: "Einkommen hinzufügen"    
       title: "Einkommen"
@@ -367,6 +368,7 @@ de:
       new_report: "Neuer Bericht"
       edit_report: "Bericht editieren"
     current_status: "Aktueller Stand"
+    new: "Neuer Bericht"
   settings:
     index:
       title: "Einstellungen"

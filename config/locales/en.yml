@@ -86,6 +86,7 @@ en:
       all: "All Members"
       import: "Import member"
       edit: "Edit Member"
+      info: "Members Info"
     receipt:
       edit: "Edit receipt"
       new: "Add receipt"   
@@ -186,6 +187,7 @@ en:
       new_report: "New Report"
       edit_report: "Edit Report"
     current_status: "Current status"
+    new: "New Report"
   settings:
     index:
       title: "Configurations"
