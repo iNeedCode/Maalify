@@ -52,6 +52,8 @@ de:
     send_mail: "Email senden"
     all_budgets: "Alle Budgets"
     wassiyyat_number: "Wassiyyat Number"
+    info:
+      monthly_proceeding: "Monatliche Einnahmen"
   view:
     save: "Speichern"
     show: "Anzeigen"

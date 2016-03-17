@@ -1,6 +1,12 @@
 - content_for :title do
   ="#{t('view.member.title')}"
 
+-#- content_for :head do
+  -#= javascript_include_tag 'https://www.google.com/jsapi', 'chartkick', async: true
+
+
+= javascript_include_tag "chartkick", "jsapi.js"
+
 %p
   %ul.nav.nav-pills
     %li.active{:role => "presentation"}
@@ -10,8 +16,6 @@
     %li{:role => "presentation"}
       =link_to t('view.member.import'), import_page_members_path
 
-
-= javascript_include_tag "https://www.google.com/jsapi", "chartkick"
 
 %div.col-md-12
   %h1= t('view.member.info')
@@ -25,4 +29,9 @@
   %h3= t('member.occupation')
   %center
     = pie_chart Member.group(:occupation).count, width: '40.625em', height: '25em'
+
+%div.col-md-12.well
+  %h3= t('member.info.monthly_proceeding')
+  %center
+    = bar_chart Receipt.includes(:items).all.map{|r| [r.total, r.date]}.each_with_object(Hash.new(0)) { |word,counts| counts[word[1].strftime("%Y-%m")] += word[0] }
 

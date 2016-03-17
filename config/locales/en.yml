@@ -72,6 +72,8 @@ en:
     send_mail: "Send mail"
     all_budgets: "All Budgets"
     wassiyyat_number: "Wasssiyyat Number"
+    info:
+      monthly_proceeding: "Monthly proceedings"
   view:
     save: "Save"
     show: "Show"
