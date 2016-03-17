@@ -9,7 +9,7 @@
   .form-group
     = f.label :receipt_id, t('receipt.id'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :receipt_id, :class => "form-control", placeholder: '123456'
+      = f.number_field :receipt_id, :class => "form-control", placeholder: '123456'
   .form-group
     = f.label :date, t('receipt.date'), class: "col-sm-2 control-label"
     .col-sm-10
