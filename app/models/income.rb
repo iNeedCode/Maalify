@@ -10,7 +10,7 @@ class Income < ActiveRecord::Base
 # Methods
   def recalculate_budget
     member.budgets.all.each do |b|
-      b.calculate_budget if b.budget_based_donation?
+      b.calculate_budget if b.donation.budget?
       b.save
     end
   end

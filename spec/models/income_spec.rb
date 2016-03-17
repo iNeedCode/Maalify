@@ -58,6 +58,23 @@ RSpec.describe Income, :type => :model do
       expect(Budget.find(2).promise).to eql(50)
     end
 
+    it "should recalculate the budget of member after adding a income only the budget based" do
+      d4 = Donation.create name: "Therikat", budget: false, organization: "All", formula: '0'
+      therikat = Budget.create(title: "Therikat 2000", start_date: "2014-11-01", end_date: "2015-10-30", member: @member, donation: d4, promise: 77)
+      @income1.recalculate_budget
+      expect(Budget.find(1).promise).to eql(120)
+      expect(Budget.find(2).promise).to eql(25)
+      Income.create(amount: 2000, starting_date: "2014-01-05", member: @member)
+
+
+      @member.reload
+      @income1.recalculate_budget
+      expect(Budget.find(1).promise).to eql(240)
+      expect(Budget.find(2).promise).to eql(50)
+      expect(Budget.find(3).promise).to eql(77)
+      expect(Budget.find(3).promise).to eql(77)
+    end
+
     it "should return incomes between to dates without members" do
       income2 = Income.create(amount: 1300, starting_date: "2015-01-01", member: @member)
       expect(Income.list_all_incomes_between_dates('2014-01-03', '2015-05-01').size).to eql(3)
