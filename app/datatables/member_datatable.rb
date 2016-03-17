@@ -19,7 +19,7 @@ class MemberDatatable < AjaxDatatablesRails::Base
       [
           record.aims_id,
           record.last_name,
-          record.first_name,
+          link_to(v.member_path(record.aims_id), record.first_name),
           record.tanzeem,
           show_boolean_value_as_glyphicon(record.wassiyyat),
           content_tag(:span, "#{record.age}" , title: record.date_of_birth.strftime("%d.%m.%Y"), data: {toggle: "toogle", placement: "placement"}),
