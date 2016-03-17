@@ -1,11 +1,8 @@
 - content_for :title do
   ="#{t('view.member.title')}"
 
--#- content_for :head do
-  -#= javascript_include_tag 'https://www.google.com/jsapi', 'chartkick', async: true
-
-
-= javascript_include_tag "chartkick", "jsapi.js"
+- content_for :head do
+  = javascript_include_tag "chartkick", "jsapi.js"
 
 %p
   %ul.nav.nav-pills

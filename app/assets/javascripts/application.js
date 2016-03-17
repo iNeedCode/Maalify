@@ -25,6 +25,7 @@
 //= require dataTables/extras/dataTables.tableTools
 //= require select2
 //= require select2_locale_de
+//= require chartkick
 //= require_tree .
 
 
