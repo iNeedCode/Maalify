@@ -22,11 +22,11 @@
   .field.form-group
     = f.label t('budget.start_date'), class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.text_field :start_date, class: "form-control datepicker", placeholder: '01.01.2016'
+      = f.text_field :start_date, value: (f.object.state_date.strftime('%d.%m.%Y') if f.object.state_date), class: "form-control datepicker", placeholder: '01.01.2016'
   .field.form-group
     = f.label t('budget.end_date'), class: 'col-sm-2 control-label'
     %div.col-sm-8
-      = f.text_field :end_date, class: "form-control datepicker", placeholder: '31.12.2016'
+      = f.text_field :end_date, value: (f.object.end_date.strftime('%d.%m.%Y') if f.object.end_date), class: "form-control datepicker", placeholder: '31.12.2016'
   .field.form-group#member_select_fields
     = f.label t('budget.member'), class: 'col-sm-2 control-label'
     %div.col-sm-8

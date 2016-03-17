@@ -13,7 +13,7 @@
   .form-group
     = f.label :date, t('receipt.date'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :date, :class => "form-control datepicker", placeholder: '01.01.2016'
+      = f.text_field :date, value: (f.object.date.strftime('%d.%m.%Y') if f.object.date), :class => "form-control datepicker", placeholder: '01.01.2016'
   .container
     .col-md-offset-1
       = f.fields_for :items do |builder|

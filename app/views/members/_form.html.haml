@@ -33,7 +33,7 @@
   .form-group
     = f.label :date_of_birth, t('member.date_of_birth'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :date_of_birth, :class => "form-control datepicker-member",:placeholder => "01.01.2000"
+      = f.text_field :date_of_birth, value: (f.object.date_of_birth.strftime('%d.%m.%Y') if f.object.date_of_birth), :class => "form-control datepicker-member",:placeholder => "01.01.2000"
   .form-group
     = f.label :street, t('member.street'), class: "col-sm-2 control-label"
     .col-sm-10

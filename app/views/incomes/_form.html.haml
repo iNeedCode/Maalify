@@ -13,7 +13,7 @@
   .form-group
     = f.label :starting_date, t('income.starting_date'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :starting_date, :class => "form-control datepicker-income", placeholder: '01.01.2016'
+      = f.text_field :starting_date, value: (f.object.starting_date.strftime('%d.%m.%Y') if f.object.starting_date), :class => "form-control datepicker-income", placeholder: '01.01.2016'
   .form-group
     = label_tag :recalculate, t('income.recalculate_budget'), class: "col-sm-2 control-label"
     .col-sm-10
