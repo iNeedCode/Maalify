@@ -15,11 +15,11 @@
   .form-group
     = f.label t('budget.promise'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :promise, class: "form-control"
+      = f.telephone_field :promise, class: "form-control"
   .form-group
     = f.label t('budget.rest_promise_from_past_budget'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :rest_promise_from_past_budget, :class => "form-control"
+      = f.telephone_field :rest_promise_from_past_budget, :class => "form-control"
   .form-group
     = f.label t('budget.start_date'), class: "col-sm-2 control-label"
     .col-sm-10

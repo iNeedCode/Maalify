@@ -24,11 +24,11 @@
         .form-group
           = label_tag '', t('budget.promise'), class: 'col-sm-2 control-label', for: "budgets_#{i}_promise"
           .col-sm-10
-            = number_field_tag "budgets[#{i}][promise]", budget.promise, class: 'form-control'
+            = telephone_field_tag "budgets[#{i}][promise]", budget.promise, class: 'form-control'
         .form-group
           = label_tag '', t('budget.rest_promise_from_past_budget'), class: 'col-sm-2 control-label', for: "budgets_#{i}_rest_promise_from_past_budget"
           .col-sm-10
-            = number_field_tag "budgets[#{i}][rest_promise_from_past_budget]", budget.rest_promise_from_past_budget, class: 'form-control'
+            = telephone_field_tag "budgets[#{i}][rest_promise_from_past_budget]", budget.rest_promise_from_past_budget, class: 'form-control'
       .form-group
         = label_tag '', t('budget.none_payer'), class: 'col-sm-2 control-label', for: "budgets_#{i}_none_payer"
         .col-sm-10

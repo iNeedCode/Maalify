@@ -13,7 +13,7 @@
   .form-group
     = f.label :aims_id, t('member.aims_id'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :aims_id, :class => "form-control", placeholder: '12345'
+      = f.telephone_field :aims_id, :class => "form-control", placeholder: '12345'
   .form-group
     = f.label :first_name, t('member.first_name'), class: "col-sm-2 control-label"
     .col-sm-10
@@ -29,7 +29,7 @@
   .form-group#wassiyyat_number_wrap
     = f.label :wassiyyat_number, t('member.wassiyyat_number'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :wassiyyat_number, :class => "form-control"
+      = f.telephone_field :wassiyyat_number, :class => "form-control"
   .form-group
     = f.label :date_of_birth, t('member.date_of_birth'), class: "col-sm-2 control-label"
     .col-sm-10
@@ -41,7 +41,7 @@
   .form-group
     = f.label :plz, t('member.plz'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :plz, :class => "form-control", placeholder: '64295'
+      = f.telephone_field :plz, :class => "form-control", placeholder: '64295'
   .form-group
     = f.label :city, t('member.city'), class: "col-sm-2 control-label"
     .col-sm-10
@@ -49,15 +49,15 @@
   .form-group
     = f.label :email, t('member.email'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :email, :class => "form-control", placeholder: 'text@example.com'
+      = f.email_field :email, :class => "form-control", placeholder: 'text@example.com'
   .form-group
     = f.label :landline, t('member.landline'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :landline, :class => "form-control", placeholder: '06151 123456'
+      = f.telephone_field :landline, :class => "form-control", placeholder: '06151 123456'
   .form-group
     = f.label :mobile_no, t('member.mobile_no'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_field :mobile_no, :class => "form-control", placeholder: '0174 2020200'
+      = f.telephone_field :mobile_no, :class => "form-control", placeholder: '0174 2020200'
   .form-group
     = f.label :occupation, t('member.occupation'), class: "col-sm-2 control-label"
     .col-sm-10

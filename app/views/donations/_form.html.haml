@@ -21,7 +21,7 @@
   .form-group#minimum_budget_fields
     = f.label t('donation.minimum'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :minimum_budget, class: "form-control", placeholder: '36'
+      = f.telephone_field :minimum_budget, class: "form-control", placeholder: '36'
   .form-group
     = f.label t('donation.organization'), class: "col-sm-2 control-label"
     .col-sm-10

@@ -9,7 +9,7 @@
   .form-group
     = f.label :amount, t('income.amount'), class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :amount, :class => "form-control", placeholder: '1000'
+      = f.telephone_field :amount, :class => "form-control", placeholder: '100'
   .form-group
     = f.label :starting_date, t('income.starting_date'), class: "col-sm-2 control-label"
     .col-sm-10
