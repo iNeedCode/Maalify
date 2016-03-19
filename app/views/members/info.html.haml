@@ -1,5 +1,5 @@
 - content_for :title do
-  ="#{t('view.member.title')}"
+  ="#{t('view.member.info')}"
 
 - content_for :head do
   = javascript_include_tag "chartkick", "jsapi.js"
@@ -20,15 +20,23 @@
 %div.col-md-12.well
   %h3= t('member.tanzeem')
   %center
-    = pie_chart Member.all.map(&:tanzeem).each_with_object(Hash.new(0)) { |word,counts| counts[word] += 1 }, width: '40.625em', height: '25em'
+    = pie_chart @tanzeem, height: '25em'
 
 %div.col-md-12.well
   %h3= t('member.occupation')
   %center
-    = pie_chart Member.group(:occupation).count, width: '40.625em', height: '25em'
+    = pie_chart @occupation, height: '25em'
 
 %div.col-md-12.well
   %h3= t('member.info.monthly_proceeding')
   %center
-    = bar_chart Receipt.includes(:items).all.map{|r| [r.total, r.date]}.each_with_object(Hash.new(0)) { |word,counts| counts[word[1].strftime("%Y-%m")] += word[0] }
+    = bar_chart chart_monthly_proceeding_members_path
+
+%div.col-md-12.well
+  %h3
+    = t('member.info.wassiyyat')
+    %small
+      = t('member.info.count_musi', quantity: @eligible_musi_count)
+  %center
+    = bar_chart chart_wassiyyat_data_members_path, stacked: true
 

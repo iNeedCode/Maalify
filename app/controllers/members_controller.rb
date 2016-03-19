@@ -16,16 +16,40 @@ class MembersController < ApplicationController
     end
   end
 
+  def chart_wassiyyat_data
+    @wassiyyat = []
+    tanzeems_for_wassiyyat = %W( Khuddam Ansar Lajna)
+
+    eligible_for_wassiyyat = Member.all.select { |member| tanzeems_for_wassiyyat.include?(member.tanzeem) }
+    khuddam = eligible_for_wassiyyat.select { |member| member.tanzeem == 'Khuddam' }.group_by(&:wassiyyat)
+    ansar = eligible_for_wassiyyat.select { |member| member.tanzeem == 'Ansar' }.group_by(&:wassiyyat)
+    lajna = eligible_for_wassiyyat.select { |member| member.tanzeem == 'Lajna' }.group_by(&:wassiyyat)
+
+    @wassiyyat << {name: 'Khuddam', data: [['Ja', khuddam[true].size], ['Nein', khuddam[false].size]]}
+    @wassiyyat << {name: 'Ansar', data: [['Ja', ansar[true].size], ['Nein', ansar[false].size]]}
+    @wassiyyat << {name: 'Lajna', data: [['Ja', lajna[true].size], ['Nein', lajna[false].size]]}
+
+    render json: @wassiyyat
+  end
+
+  def chart_monthly_proceeding
+    render json: Receipt.includes(:items).all.order(:date).map { |r| [r.total, r.date] }.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime("%Y-%m")] += word[0] }
+  end
+
   def info
-    
+    @tanzeem = Member.all.map(&:tanzeem).each_with_object(Hash.new(0)) { |word, counts| counts[word] += 1 }
+    @occupation = Member.group(:occupation).count
+
+    tanzeems_for_wassiyyat = %W( Khuddam Ansar Lajna)
+    @eligible_musi_count = Member.all.select { |member| tanzeems_for_wassiyyat.include?(member.tanzeem) }.size
   end
 
   def budgets
-    @member = Member.includes(budgets:[:donation]).find(params[:id])
+    @member = Member.includes(budgets: [:donation]).find(params[:id])
   end
 
   def show
-    @member = Member.includes(budgets:[:donation]).find(params[:id])
+    @member = Member.includes(budgets: [:donation]).find(params[:id])
     respond_with(@member)
   end
 
@@ -55,7 +79,7 @@ class MembersController < ApplicationController
 
   def import
     imported = Member.import(params[:file])
-    redirect_to members_path, notice: t(:imported, :quantity=> imported)
+    redirect_to members_path, notice: t(:imported, :quantity => imported)
   end
 
   def import_page
@@ -67,11 +91,11 @@ class MembersController < ApplicationController
   end
 
   private
-    def set_member
-      @member = Member.find(params[:id])
-    end
+  def set_member
+    @member = Member.find(params[:id])
+  end
 
-    def member_params
-      params.require(:member).permit(:gender, :last_name, :first_name, :aims_id, :wassiyyat, :wassiyyat_number, :date_of_birth, :street, :city, :email, :landline, :plz, :mobile_no, :occupation)
-    end
+  def member_params
+    params.require(:member).permit(:gender, :last_name, :first_name, :aims_id, :wassiyyat, :wassiyyat_number, :date_of_birth, :street, :city, :email, :landline, :plz, :mobile_no, :occupation)
+  end
 end

@@ -34,6 +34,8 @@ Rails.application.routes.draw do
 
     collection do
       get :info
+      get :chart_wassiyyat_data
+      get :chart_monthly_proceeding
       get :get_all_members
       post :import
       get :import_page

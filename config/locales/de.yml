@@ -54,6 +54,8 @@ de:
     wassiyyat_number: "Wassiyyat Number"
     info:
       monthly_proceeding: "Monatliche Einnahmen"
+      wassiyyat: "Wassiyyat Mitglieder"
+      count_musi: "Anzahl von Mitglieder %{quantity}"
   view:
     save: "Speichern"
     show: "Anzeigen"
