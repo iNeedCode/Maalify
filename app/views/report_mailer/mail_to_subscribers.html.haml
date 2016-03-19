@@ -7,11 +7,14 @@
     .mail-wrapper
       %div
         %center
-          %small Assalam o Alaikum Warahmatullah,
+          %small= t('mail.message.salam')
           %h1
             ="Bericht von #{Setting.jamaat}"
             %br
-              %small= t('reporter.interval.show_message', days: "#{@report.interval.split(',').join('., ')}")
+              - if @report.interval.split.include? (Date.today.day)
+                %small= t('reporter.interval.show_message', days: "#{@report.interval.split(',').join('., ')}")
+              - else
+                %small= t('reporter.interval.special')
         %center
           %h2
             = t('reporter.current_status')
@@ -44,15 +47,19 @@
       %table.footer{border: "0px"}
         %tr{border: "0px"}
           %td
-            Wassalam
+            = t('mail.message.wssalam')
             %br
-            = t('mail.message.department')
+            = t('mail.message.department', jamaat: Setting.jamaat)
         %tr
           %td
-            - if (@report.tanzeems & %W(Khuddam All Atfal Ansar)).present?
+            - if (@report.tanzeems & %W(Khuddam Atfal Ansar)).present?
               %pre= Setting.mail_contact_tag_for_male
-            -else
+            - elsif (@report.tanzeems & %W(Nasirat Lajna)).present?
               %pre= Setting.mail_contact_tag_for_female
+            - elsif ((@report.tanzeems & %W(All)).present? & Donation.where(id: @report.donations).map(&:organization).all?{|o| o.include? "Lajna" || "Nasirat"})
+              %pre= Setting.mail_contact_tag_for_female
+            - else
+              %pre= Setting.mail_contact_tag_for_male
 
       %center.maalify
         = t('mail.message.maalify')

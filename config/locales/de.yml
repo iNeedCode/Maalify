@@ -349,7 +349,9 @@ de:
       female: "Sehr geehrte Frau %{name} Sahiba,"
     message:
       maalify: "Sie bekommen diese Email automatisch von maalify!"
-      department: "Abteilung Maal"
+      department: "Abteilung Maal %{jamaat}"
+      wssalam: "Wassalam"
+      salam: "Assalam o Alaikum Warahmatullah"
   reporter:
     error:
       not_valid_email: "Email-Adresse '%{email}' ist ungültig"
@@ -359,6 +361,7 @@ de:
       weekly: "Wöchentlich"
       show_message: "Automatische Benachrichtigung am %{days}. des Monats."
       name: "Benachrichtigung"
+      special: "Sonderbericht"
     mail:
       success: "Erfolgreich Emails versand an: '%{emails}'"
     title: "Bericht"

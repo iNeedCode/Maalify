@@ -168,7 +168,9 @@ en:
       male: "Dear %{name} Sahib,"
     message:
       maalify: "Your getting this message automatically by maalify!"
-      department: "Maal department"
+      department: "Maal department of %{jamaat}"
+      wssalam: "Wassalam"
+      salam: "Assalam o Alaikum Warahmatullah"
   reporter:
     error:
       not_valid_email: "Email '%{email}' is not valid"
@@ -178,6 +180,7 @@ en:
       weekly: "Weekly"
       show_message: "Automatic reporting on %{days}. each month"
       name: "Notification"
+      special: "Special report"
     mail:
       success: "Successfully send emails to: '%{emails}'"
     title: "Report"
