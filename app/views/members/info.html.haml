@@ -23,6 +23,14 @@
     = pie_chart @tanzeem, height: '25em'
 
 %div.col-md-12.well
+  %h3
+    = t('member.info.wassiyyat')
+    %small
+      = t('member.info.count_musi', quantity: @eligible_musi_count)
+  %center
+    = bar_chart chart_wassiyyat_data_members_path, stacked: true
+
+%div.col-md-12.well
   %h3= t('member.occupation')
   %center
     = pie_chart @occupation, height: '25em'
@@ -32,11 +40,4 @@
   %center
     = bar_chart chart_monthly_proceeding_members_path
 
-%div.col-md-12.well
-  %h3
-    = t('member.info.wassiyyat')
-    %small
-      = t('member.info.count_musi', quantity: @eligible_musi_count)
-  %center
-    = bar_chart chart_wassiyyat_data_members_path, stacked: true
 

@@ -75,7 +75,7 @@ en:
     info:
       monthly_proceeding: "Monthly proceedings"
       wassiyyat: "Eligible for Wassiyyat"
-      count_musi: "Number of members  %{quantity}"
+      count_musi: "Total %{quantity}"
   view:
     save: "Save"
     show: "Show"

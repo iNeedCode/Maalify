@@ -37,8 +37,8 @@ class MembersController < ApplicationController
   end
 
   def info
-    @tanzeem = Member.all.map(&:tanzeem).each_with_object(Hash.new(0)) { |word, counts| counts[word] += 1 }
-    @occupation = Member.group(:occupation).count
+    @tanzeem = Member.all.order(:gender).map(&:tanzeem).each_with_object(Hash.new(0)) { |word, counts| counts[word] += 1 }
+    @occupation = Member.order(:occupation).where.not(occupation: '').group(:occupation).count
 
     tanzeems_for_wassiyyat = %W( Khuddam Ansar Lajna)
     @eligible_musi_count = Member.all.select { |member| tanzeems_for_wassiyyat.include?(member.tanzeem) }.size
