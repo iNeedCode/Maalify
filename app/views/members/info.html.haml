@@ -20,7 +20,7 @@
 %div.col-md-12.well
   %h3= t('member.tanzeem')
   %center
-    = pie_chart @tanzeem, height: '25em'
+    = pie_chart @tanzeem, height: '25em', library: {legend: {position: "top"}}
 
 %div.col-md-12.well
   %h3
@@ -28,7 +28,7 @@
     %small
       = t('member.info.count_musi', quantity: @eligible_musi_count)
   %center
-    = bar_chart chart_wassiyyat_data_members_path, stacked: true
+    = bar_chart chart_wassiyyat_data_members_path, stacked: true, library: {legend: {position: "top"}}
 
 %div.col-md-12.well
   %h3= t('member.occupation')
@@ -36,8 +36,10 @@
     = pie_chart @occupation, height: '25em'
 
 %div.col-md-12.well
-  %h3= t('member.info.monthly_proceeding')
+  %h3
+    = t('member.info.monthly_proceeding')
+    %small= t('member.info.monthly_proceeding_subtext')
   %center
-    = bar_chart chart_monthly_proceeding_members_path, stacked: true
+    = bar_chart chart_monthly_proceeding_members_path, stacked: true, library: {legend: {position: "top"}}
 
 

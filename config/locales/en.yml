@@ -76,6 +76,7 @@ en:
       monthly_proceeding: "Monthly proceedings"
       wassiyyat: "Eligible for Wassiyyat"
       count_musi: "Total %{quantity}"
+      monthly_proceeding_subtext: "after Chanda type"
   view:
     save: "Save"
     show: "Show"

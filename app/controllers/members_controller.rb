@@ -41,7 +41,6 @@ class MembersController < ApplicationController
     nasirat_donations = Donation.where(organization: "Nasirat").map(&:id)
     all_donations = Donation.where(organization: "All").map(&:id)
 
-
     @monthly_proceeding << {name: 'All', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: all_donations).order('receipts.date ASC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
     @monthly_proceeding << {name: 'Ansar', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: ansar_donations).order('receipts.date ASC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
     @monthly_proceeding << {name: 'Khuddam', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: khuddam_donations).order('receipts.date ASC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }

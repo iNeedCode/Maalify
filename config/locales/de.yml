@@ -56,6 +56,7 @@ de:
       monthly_proceeding: "Monatliche Einnahmen"
       wassiyyat: "Berechtigt für Wassiyyat"
       count_musi: "Insgesamt %{quantity}"
+      monthly_proceeding_subtext: "nach Chanda-Art"
   view:
     save: "Speichern"
     show: "Anzeigen"
