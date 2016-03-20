@@ -354,6 +354,7 @@ de:
       department: "Abteilung Maal %{jamaat}"
       wssalam: "Wassalam"
       salam: "Assalam o Alaikum Warahmatullah"
+      jamaat: "Bericht von %{jamaat}"
   reporter:
     error:
       not_valid_email: "Email-Adresse '%{email}' ist ungültig"

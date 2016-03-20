@@ -173,6 +173,7 @@ en:
       department: "Maal department of %{jamaat}"
       wssalam: "Wassalam"
       salam: "Assalam o Alaikum Warahmatullah"
+      jamaat: "Report of %{jamaat}"
   reporter:
     error:
       not_valid_email: "Email '%{email}' is not valid"

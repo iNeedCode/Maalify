@@ -10,7 +10,6 @@ class BudgetsController < ApplicationController
 
   def summary
     @budget_summary = Budget.includes(:member).summary(params[:title])
-    # ap @budget_summary
   end
 
   def all_budgets

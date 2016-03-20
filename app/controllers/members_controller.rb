@@ -33,7 +33,24 @@ class MembersController < ApplicationController
   end
 
   def chart_monthly_proceeding
-    render json: Receipt.includes(:items).all.order(:date).map { |r| [r.total, r.date] }.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime("%Y-%m")] += word[0] }
+    @monthly_proceeding = []
+    khuddam_donations = Donation.where(organization: "Khuddam").map(&:id)
+    atfal_donations = Donation.where(organization: "Atfal").map(&:id)
+    ansar_donations = Donation.where(organization: "Ansar").map(&:id)
+    lajna_donations = Donation.where(organization: "Lajna").map(&:id)
+    nasirat_donations = Donation.where(organization: "Nasirat").map(&:id)
+    all_donations = Donation.where(organization: "All").map(&:id)
+
+
+    @monthly_proceeding << {name: 'Khuddam', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: khuddam_donations).order('receipts.date DESC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
+
+    @monthly_proceeding << {name: 'Atfal', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: atfal_donations).order('receipts.date DESC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
+    @monthly_proceeding << {name: 'Ansar', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: ansar_donations).order('receipts.date DESC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
+    @monthly_proceeding << {name: 'Lajna', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: lajna_donations).order('receipts.date DESC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
+    @monthly_proceeding << {name: 'Nasirat', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: nasirat_donations).order('receipts.date DESC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
+    @monthly_proceeding << {name: 'All', data: ReceiptItem.includes(:receipt).joins(:receipt).where(donation: all_donations).order('receipts.date DESC').map{|ri| [ri.amount, ri.receipt.date]}.each_with_object(Hash.new(0)) { |word, counts| counts[word[1].strftime('%Y-%m')] += word[0] }.to_a }
+
+    render json: @monthly_proceeding
   end
 
   def info
