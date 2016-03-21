@@ -1,11 +1,17 @@
 - content_for :title do
   ="#{@budget_summary[:title]} - #{t('view.budget.overview')}"
 
+- content_for :head do
+  = javascript_include_tag "chartkick", "jsapi.js"
+
 .container-fluid
   .col-md-12
     %br
     = link_to t('view.back'), budgets_path, class: "btn btn-default"
     %h3= t('budget.summary.title', title: @budget_summary[:title])
+
+  .col-md-12
+    = line_chart ReceiptItem.joins(:receipt).where(donation_id: @budget_summary[:donation_id], receipts:{date: (@budget_summary[:start_date])..(@budget_summary[:end_date])}).group_by_month(:date).sum(:amount), library: {legend: {position: "hide"}}
 
   .col-sm-offset-3.col-md-6
     .well.well-lg

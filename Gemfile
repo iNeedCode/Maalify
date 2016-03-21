@@ -31,6 +31,7 @@ gem 'rails-settings-cached'
 gem 'prawn'
 gem 'prawn-table', '~> 0.1.0'
 gem "chartkick"
+gem 'groupdate'
 
 group :development, :test do
   gem 'sqlite3'

@@ -213,11 +213,12 @@ class Budget < ActiveRecord::Base
   def self.summary(title)
     return false if title.nil? || title.empty?
 
-    summary={title: '', participants_count: 0, promise: 0, rest_promise_from_past_budget: 0,
+    summary={title: '', donation_id: 0, participants_count: 0, promise: 0, rest_promise_from_past_budget: 0,
              paid_amount: 0, rest_amount:0, budgets:[], changed_incomes:[]}
     budgets = Budget.where(title: title).sort {|a,b| a.member.tanzeem <=> b.member.tanzeem}
 
     summary[:title] = budgets.first.title
+    summary[:donation_id] = budgets.first.donation_id
     summary[:start_date] = budgets.first.start_date
     summary[:end_date] = budgets.first.end_date
     summary[:participants_count] = budgets.size
