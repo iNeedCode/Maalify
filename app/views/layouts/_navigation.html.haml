@@ -11,3 +11,7 @@
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         = render 'layouts/navigation_links'
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to "mailto:maalifyprogramm@gmail.com?subject=Feedback" do
+            %span.glyphicon.glyphicon-info-sign{title: t('view.contact_developer')}

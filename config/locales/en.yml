@@ -122,6 +122,7 @@ en:
       edit: "Edit income"
     file:
       select: "Select file..."
+    contact_developer: "Contact the developer!"
   donation:
     formula: "Formula"
     organization: "Organization"

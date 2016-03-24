@@ -103,6 +103,7 @@ de:
     donations: "Chandajaat"
     file:
       select: "Datei auswählen..."
+    contact_developer: "Kontaktiere den Entwickler!"
   date:
     abbr_day_names:
     - So
