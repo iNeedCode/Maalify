@@ -24,6 +24,14 @@
             %td
               %b= t('view.donation.budget_count')
             %td= @budget_summary[:participants_count]
+          - if Donation.find_by(id: @budget_summary[:donation_id]).organization == 'All'
+            %tr
+              %td{colspan: '2'}
+                %center
+                  - Member.where(aims_id: @budget_summary[:members_id]).order(gender: :desc).map(&:tanzeem).each_with_object(Hash.new(0)) { |word, counts| counts[word] += 1 }.each do |tanzeem|
+                    %small
+                      %b= "#{tanzeem[0]}:"
+                      = "#{tanzeem[1]}"
           %tr
             %td
               %b= t('budget.rest_promise_from_past_budget')
@@ -49,6 +57,9 @@
               = I18n.l(@budget_summary[:start_date], format: :long)
               = "-"
               = I18n.l(@budget_summary[:end_date], format: :long)
+              asdf
+
+
 
   .col-md-12
     - @budget_based = true
@@ -74,18 +85,18 @@
           %td= number_to_currency(rest_current_budget, locale: :de)
         - if budget.none_payer
           %tr.darken
-            %td{:colspan => "6"}
+            %td{colspan: '6'}
               %b= "#{t('budget.none_payer')}: "
               %i= t('budget.summary.none_payer', member_name: budget.member.full_name, description: budget.description)
         - if !budget.none_payer && !budget.description.empty?
           %tr.darken
-            %td{:colspan => "6"}
+            %td{colspan: '6'}
               %b= "#{t('budget.description')}: "
               %br
               %i= budget.description
         - if (@budget_based && @budget_summary[:changed_incomes].map(&:member_id).include?(budget.member_id))
           %tr.darken
-            %td{:colspan => "6"}
+            %td{colspan: '6'}
               - show_title = false
               - @budget_summary[:changed_incomes].each do |inc|
                 - if inc.member_id == budget.member_id
