@@ -7,13 +7,16 @@
 .container-fluid
   .col-md-12
     %br
-    = link_to t('view.back'), budgets_path, class: "btn btn-default"
-    %h3= t('budget.summary.title', title: @budget_summary[:title])
+    = link_to budgets_path, class: "btn btn-default btn-xs" do
+      %span.glyphicon.glyphicon-arrow-left{title: t('view.back')}
+    %center
+      %h2= t('budget.summary.title', title: @budget_summary[:title])
 
-  .col-md-12
-    = line_chart ReceiptItem.joins(:receipt).where(donation_id: @budget_summary[:donation_id], receipts:{date: (@budget_summary[:start_date])..(@budget_summary[:end_date])}).group_by_month(:date).sum(:amount), library: {legend: {position: "hide"}}
+  .col-md-12.well
+    %h4= t('member.info.monthly_proceeding')
+    = line_chart ReceiptItem.joins(:receipt).where(donation_id: @budget_summary[:donation_id], receipts:{date: (@budget_summary[:start_date])..(@budget_summary[:end_date])}).group_by_month(:date).sum(:amount)
 
-  .col-sm-offset-3.col-md-6
+  .col-sm-offset-2.col-md-8
     .well.well-lg
       %table.table.table-hover.table-condensed.table-responsive
         %tbody
@@ -48,6 +51,7 @@
               = I18n.l(@budget_summary[:end_date], format: :long)
 
   .col-md-12
+    - @budget_based = true
     %table#budget-summary.table.table-striped.table-bordered.table-hover.table-condensed.table-summary
       %thead
         %tr
@@ -59,6 +63,7 @@
           %th= t('budget.rest_current_budget')
       %tbody
       - @budget_summary[:budgets].each do |budget|
+      - @budget_based = false unless budget.donation.budget
         %tr
           %td= budget.member.tanzeem
           %td= link_to budget.member.full_name, budget_path(budget.id)
@@ -78,7 +83,7 @@
               %b= "#{t('budget.description')}: "
               %br
               %i= budget.description
-        - if @budget_summary[:changed_incomes].map(&:member_id).include? budget.member_id
+        - if (@budget_based && @budget_summary[:changed_incomes].map(&:member_id).include?(budget.member_id))
           %tr.darken
             %td{:colspan => "6"}
               - show_title = false
@@ -89,3 +94,13 @@
                   %br
                   = t('budget.summary.changed_income_msg', before_amount: number_to_currency(inc.before_date.amount, locale: :de), amount: number_to_currency(inc.amount, locale: :de),
                     starting_date: I18n.l(inc.starting_date, format: :long))
+.row
+  .col-md-12
+    %table
+      %tr
+        %td
+          %small
+            %i.pull-left{style: "padding-top: 4px;"} powered by
+          =image_tag('/maalify-logo-long.png', width: '80px', class: 'pull-left')
+
+

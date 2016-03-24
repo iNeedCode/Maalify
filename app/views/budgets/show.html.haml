@@ -13,7 +13,7 @@
   .col-sm-12
     %h3
       = "#{t('donation.name')}: "
-      = link_to @budget.donation.name, donations_path(@budget.donation_id)
+      = link_to @budget.donation.name, donation_path(@budget.donation_id)
 
 .container-fluid
   .col-sm-6
