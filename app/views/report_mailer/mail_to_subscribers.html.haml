@@ -11,7 +11,7 @@
           %h1
             ="Bericht von #{Setting.jamaat}"
             %br
-              - if @report.interval.split.include? (Date.today.day)
+              - if @report.interval.split(',').include? (Date.today.day)
                 %small= t('reporter.interval.show_message', days: "#{@report.interval.split(',').join('., ')}")
               - else
                 %small= t('reporter.interval.special')
@@ -56,7 +56,7 @@
               %pre= Setting.mail_contact_tag_for_male
             - elsif (@report.tanzeems & %W(Nasirat Lajna)).present?
               %pre= Setting.mail_contact_tag_for_female
-            - elsif ((@report.tanzeems & %W(All)).present? & Donation.where(id: @report.donations).map(&:organization).all?{|o| o.include? "Lajna" || "Nasirat"})
+            - elsif ((@report.tanzeems & %W(All)).present? & Donation.where(id: @report.donations).map(&:organization).all?{ |o| o == "Lajna" || o == "Nasirat" })
               %pre= Setting.mail_contact_tag_for_female
             - else
               %pre= Setting.mail_contact_tag_for_male
