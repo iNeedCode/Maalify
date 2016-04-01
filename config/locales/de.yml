@@ -379,6 +379,7 @@ de:
       edit_report: "Bericht editieren"
     current_status: "Aktueller Stand"
     new: "Neuer Bericht"
+    report_of: "Bericht von %{jamaat}"
   settings:
     index:
       title: "Einstellungen"

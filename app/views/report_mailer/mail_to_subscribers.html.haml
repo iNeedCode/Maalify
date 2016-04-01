@@ -9,7 +9,7 @@
         %center
           %small= t('mail.message.salam')
           %h1
-            ="Bericht von #{Setting.jamaat}"
+            = t('reporter.report_of', jamaat: Setting.jamaat)
             %br
               - if @report.interval.split(',').include? (Date.today.day)
                 %small= t('reporter.interval.show_message', days: "#{@report.interval.split(',').join('., ')}")
@@ -62,6 +62,6 @@
               %pre= Setting.mail_contact_tag_for_male
 
       %center.maalify
-        = t('mail.message.maalify')
+        = t('mail.message.maalify') if @report.interval.split(',').include? (Date.today.day)
         %br
         build with &#9829; in Darmstadt

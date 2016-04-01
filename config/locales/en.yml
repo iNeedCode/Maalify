@@ -198,6 +198,7 @@ en:
       edit_report: "Edit Report"
     current_status: "Current status"
     new: "New Report"
+    report_of: "Report of %{jamaat}"
   settings:
     index:
       title: "Configurations"

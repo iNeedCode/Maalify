@@ -29,7 +29,15 @@
     }
   }
 
-  .footer{
+  .grayBaackground {
+    background-color: #FAFAFA;
+    small {
+      color: #212121;
+    }
+  }
+
+  .footer {
+    border: 0px;
     font-size: 13px;
     font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif;
     pre {
@@ -101,8 +109,8 @@
 
   table {
     thead {
-      background-color: #d5d5d5;
-      color: #4b4b4b;
+      background-color: #898989;
+      color: #F5F5F5;
     }
     td {
       padding: 0.1em 0.2em 0em 0.2em;
@@ -116,7 +124,6 @@
 
   a {
     color: #0a8cce;
-    text-decoration: none;
     text-decoration: none !important;
   }
 
