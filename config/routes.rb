@@ -46,6 +46,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'visitors#index'
-  devise_for :users
+  devise_for :users, path_names: {sign_up: 'cmon_let_me_in', sign_in: 'login'}
   resources :users
 end

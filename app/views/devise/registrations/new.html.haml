@@ -1,0 +1,25 @@
+.container
+  .row.clearfix
+    .col-md-6.col-md-offset-3.column
+      =image_tag("/maalify-logo-long.png", style: "margin-top: 3em")
+      %h2 Sign up
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {role: "form"}) do |f|
+        = devise_error_messages!
+        .form-group
+          = f.label :email
+          %br/
+          = f.email_field :email, autofocus: true, class: "form-control"
+        .form-group
+          = f.label :password
+          - if @validatable
+            %em
+              (#{@minimum_password_length} characters minimum)
+          %br/
+          = f.password_field :password, autocomplete: "off", class: "form-control"
+        .form-group
+          = f.label :password_confirmation
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+        .actions
+          = f.submit "Sign up", class: "btn btn-default"
+      %small= render "devise/shared/links"
