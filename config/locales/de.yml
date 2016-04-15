@@ -395,6 +395,10 @@ de:
         name: "Kontaktdaten für Weibliche Mitglieder:"
       monthly_mail:
         name: "Monatliche Email an Mitglieder wird versendet am:"
+      reply_to_male:
+        name: 'Email-Adresse für Antworten der Männer'
+      reply_to_female:
+        name: 'Email-Adresse für Antworten der Frauen'
   pdf_reporter:
     members: "Mitglieder"
     title: "Persönlicher Bericht"

@@ -52,11 +52,7 @@
             = t('mail.message.department', jamaat: Setting.jamaat)
         %tr
           %td
-            - if (@report.tanzeems & %W(Khuddam Atfal Ansar)).present?
-              %pre= Setting.mail_contact_tag_for_male
-            - elsif (@report.tanzeems & %W(Nasirat Lajna)).present?
-              %pre= Setting.mail_contact_tag_for_female
-            - elsif ((@report.tanzeems & %W(All)).present? & Donation.where(id: @report.donations).map(&:organization).all?{ |o| o == "Lajna" || o == "Nasirat" })
+            - if @contact_block == 'female'
               %pre= Setting.mail_contact_tag_for_female
             - else
               %pre= Setting.mail_contact_tag_for_male

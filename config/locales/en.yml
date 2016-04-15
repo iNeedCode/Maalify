@@ -214,6 +214,10 @@ en:
         name: "Contact details for female members:"
       monthly_mail:
         name: "Send monthly Email to members on:"
+      reply_to_male:
+        name: 'Email address for reply of mens'
+      reply_to_female:
+        name: 'Email address for reply of females'
   pdf_reporter:
     members: "Members"
     title: "Personal report"
