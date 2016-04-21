@@ -60,5 +60,7 @@
 
 
 
-= link_to t('view.edit'), edit_budget_path(@budget), class: 'btn btn-primary btn-xs'
 = link_to t('view.back'), all_budgets_budgets_path, class: 'btn btn-default btn-xs'
+= link_to budget_path(@budget), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default btn-xs btn-danger' do
+  %span.glyphicon.glyphicon-trash{title: t('table.delete')}
+= link_to t('view.edit'), edit_budget_path(@budget), class: 'btn btn-primary btn-xs'
