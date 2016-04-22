@@ -28,19 +28,27 @@
 .container-fluid
   -@reporter.overview.each do |item|
     .col-md-6
-      .well
-        %h4= "#{t('view.budget.title')}: #{item.title}"
-        %span= "#{t('budget.promise')}: #{item.promise} €"
-        %small
-          %i= "#{t('budget.rest_promise_from_past_budget')}: #{item.rest_promise_from_past_budget} €"
-        %br
-        %span
-          = "#{t('budget.paid')} #{item.paid_amount_whole_budget} €"
-          %small
-            %i= "#{t('budget.paid_percent')}: #{item.paid_percent} %"
-        %br
-        %span= "#{t('budget.rest_current_budget')}: #{item.rest_amount} €"
+      .well.well-sm
+        %h4.text-center= "#{t('view.budget.title')}: #{item.title}"
+        %table.table.table-hover.table-condensed.table-bordered
+          %tbody
+            %tr
+              %td= t('budget.rest_promise_from_past_budget')
+              %td.text-right= number_to_currency(item.rest_promise_from_past_budget, locale: :de, precision:0)
+            %tr
+              %td= t('budget.promise')
+              %td.text-right= number_to_currency(item.promise, locale: :de, precision:0)
+            %tr
+              %td= t('budget.paid')
+              %td.text-right
+                = number_to_currency(item.paid_amount_whole_budget, locale: :de, precision:0)
+                %br
+                %small
+                  %i= "(#{t('budget.paid_percent')}: #{item.paid_percent}%)"
 
-%br
+            %tr
+              %td= t('budget.rest_current_budget')
+              %td.text-right= number_to_currency(item.rest_amount, locale: :de, precision:0)
+
 = link_to t('view.edit'), edit_reporter_path(@reporter), class: "btn btn-xs btn-default"
 = link_to t('view.back'), reporters_path, class: "btn btn-xs btn-default"
