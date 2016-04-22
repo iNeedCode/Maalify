@@ -2,37 +2,44 @@
   ="#{t('reporter.title')} (#{@reporter.id})"
 
 
-%h2
-  = "#{t('reporter.title')}: "
-  = @reporter.name
+.container-fluid
+  .col-md-12
+    %h2
+      = "#{t('reporter.title')}: "
+      = @reporter.name
 
-%p
-  %h3= "#{t('donation.name')}:"
-  = Donation.where(id: @reporter.donations).map(&:name).join(", ")
-  %br
-  %small
-    %i= t('reporter.tanzeem.show_message', tanzeems: @reporter.tanzeems.join(", "))
-%p
-  %b= "#{t('reporter.interval.name')}:"
-  %small= t('reporter.interval.show_message', days: "#{@reporter.interval.split(',').join('., ')}")
-%p
-  %b= "#{t('reporter.to')}:"
-  = @reporter.emails.join(", ")
-
-%p
-  -@reporter.overview.each do |item|
-    .well
-      %h4= "#{t('view.budget.title')}: #{item.title}"
-      %span= "#{t('budget.promise')}: #{item.promise} €"
+.container-fluid
+  .col-md-12.text-center
+    %h4
+      = "#{t('donation.name')}:"
+      = Donation.where(id: @reporter.donations).map(&:name).join(", ")
+      %br
       %small
-        %i= "#{t('budget.rest_promise_from_past_budget')}: #{item.rest_promise_from_past_budget} €"
-      %br
-      %span
-        = "#{t('budget.paid')} #{item.paid_amount_whole_budget} €"
+        %i= t('reporter.tanzeem.show_message', tanzeems: @reporter.tanzeems.join(", "))
+
+.container-fluid
+  .col-md-12
+    %b= "#{t('reporter.interval.name')}:"
+    %small= t('reporter.interval.show_message', days: "#{@reporter.interval.split(',').join('., ')}")
+    %p
+      %b= "#{t('reporter.to')}:"
+      = @reporter.emails.join(", ")
+
+.container-fluid
+  -@reporter.overview.each do |item|
+    .col-md-6
+      .well
+        %h4= "#{t('view.budget.title')}: #{item.title}"
+        %span= "#{t('budget.promise')}: #{item.promise} €"
         %small
-          %i= "#{t('budget.paid_percent')}: #{item.paid_percent} %"
-      %br
-      %span= "#{t('budget.rest_current_budget')}: #{item.rest_amount} €"
+          %i= "#{t('budget.rest_promise_from_past_budget')}: #{item.rest_promise_from_past_budget} €"
+        %br
+        %span
+          = "#{t('budget.paid')} #{item.paid_amount_whole_budget} €"
+          %small
+            %i= "#{t('budget.paid_percent')}: #{item.paid_percent} %"
+        %br
+        %span= "#{t('budget.rest_current_budget')}: #{item.rest_amount} €"
 
 %br
 = link_to t('view.edit'), edit_reporter_path(@reporter), class: "btn btn-xs btn-default"
