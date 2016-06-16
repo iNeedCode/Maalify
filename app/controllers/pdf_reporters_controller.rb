@@ -9,11 +9,11 @@ class PdfReportersController < ApplicationController
   end
 
   def show
-    @members = Member.includes(budgets:[:donation]).where(aims_id: @pdf_reporter.members).map(&:list_currrent_budgets)
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = BudgetMemberReportPDF.new( @members, view_context )
+        @members = Member.includes(receipts: [:items], budgets: [:donation]).where(aims_id: @pdf_reporter.members).map(&:list_currrent_budgets)
+        pdf = BudgetMemberReportPDF.new(@members, view_context)
         send_data pdf.render, filename: "#{@pdf_reporter.name}.pdf", type: "application/pdf"
       end
     end
@@ -46,11 +46,11 @@ class PdfReportersController < ApplicationController
   end
 
   private
-    def set_pdf_reporter
-      @pdf_reporter = PdfReporter.find(params[:id])
-    end
+  def set_pdf_reporter
+    @pdf_reporter = PdfReporter.find(params[:id])
+  end
 
-    def pdf_reporter_params
-      params.require(:pdf_reporter).permit(:name, members:[])
-    end
+  def pdf_reporter_params
+    params.require(:pdf_reporter).permit(:name, members: [])
+  end
 end

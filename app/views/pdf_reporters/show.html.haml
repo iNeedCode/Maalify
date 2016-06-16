@@ -7,10 +7,12 @@
   = @pdf_reporter.name
 
 .well
-  %h3=t('pdf_reporter.members')
+  %h3
+    =t('pdf_reporter.members')
+    %small= "(#{@pdf_reporter.members.count})"
   %ul
   - Member.where(aims_id: @pdf_reporter.members).each do |m|
-    %li= "#{m.full_name}"
+    %li= link_to m.full_name, member_path(m.id)
 
 
 %br
