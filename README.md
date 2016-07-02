@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/iNeedCode/Maalify.svg?branch=master)](https://travis-ci.org/iNeedCode/Maalify)
 Maalify
 ================
 
