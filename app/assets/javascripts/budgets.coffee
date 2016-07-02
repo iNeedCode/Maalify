@@ -28,15 +28,15 @@ $(document).on 'ready page:load', ->
     serverSide: true
     ajax: $('#budget-table').data('source')
     columns: [
-      {data: '0' }
-      {data: '1' }
-      {data: '2' }
-      {data: '3' }
-      {data: '4' }
-      {data: '5' }
-      {data: '6', searchable: false, orderable: false }
-      {data: '7', searchable: false, orderable: false }
-      {data: '8', searchable: false, orderable: false }
+      {data: '0'}
+      {data: '1'}
+      {data: '2'}
+      {data: '3'}
+      {data: '4'}
+      {data: '5'}
+      {data: '6', searchable: false, orderable: false}
+      {data: '7', searchable: false, orderable: false}
+      {data: '8', searchable: false, orderable: false}
     ]
     autoWidth: true
     pagingType: "simple_numbers"
@@ -58,7 +58,7 @@ $(document).on 'ready page:load', ->
   $('#budget-table').on 'draw.dt', ->
     $('span').tooltip({
       'placement': 'bottom',
-      delay: { "bottom": 2, "hide": 100 }
+      delay: {"bottom": 2, "hide": 100}
     });
 
 
@@ -76,7 +76,10 @@ $(document).on 'ready page:load', ->
       options = ""
       for key of data
         if data[key].tanzeem == organization || organization == "All"
-          options += "<option value='#{data[key].id}'> #{data[key].full_name}</option> "
+          wassiyyyat_block = ''
+          wassiyyyat_block = "(W)" if data[key].wassiyyat && organization == "All"
+          options += "<option value='#{data[key].id}'> #{data[key].full_name} [#{data[key].id}] #{wassiyyyat_block}</option>"
+
       $("#budget_member_id").html(options)
       $('#budget_member_id').multiselect('rebuild');
 

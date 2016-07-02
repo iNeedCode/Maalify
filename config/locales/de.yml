@@ -404,3 +404,9 @@ de:
     title: "Persönlicher Bericht"
     new: "Neuer persönlicher Bericht"
     download_pdf: "Download Pdf"
+  navbar:
+    options: "Optionen"
+    language: "Sprache"
+  user:
+    logout: "Ausloggen"
+    login: "Einloggen"

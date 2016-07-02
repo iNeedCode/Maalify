@@ -223,3 +223,9 @@ en:
     title: "Personal report"
     new: "New personal report"
     download_pdf: "Download Pdf"
+  navbar:
+    options: "Options"
+    language: "Language"
+  user:
+    logout: "Logout"
+    login: "Login"
