@@ -10,6 +10,8 @@ feature 'Home page' do
   #   Then I see "Welcome"
   scenario 'visit the home page' do
     visit root_path
+    user = FactoryGirl.create(:user)
+    signin(user.email, user.password)
     expect(page).to have_content 'Assalam-o-Alaikum'
     expect(page).to have_content 'Mitglieder'
     expect(page).to have_content 'Alle Belege'

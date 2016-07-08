@@ -28,6 +28,7 @@
                 %th= t('budget.elapsed_time')
                 %th= t('budget.average_payment')
             %tbody
+              - @a = 0
               - @member.list_currrent_budgets.each do |iter|
                 %tr
                   %td= iter[:budget].donation.name
@@ -38,6 +39,7 @@
                     %i= I18n.l(iter[:budget].end_date, format: :default)
                   -if iter[:average_amount] > 0
                     %td= number_to_currency(iter[:average_amount], locale: :de, precision: 0)
+                    - @a += iter[:average_amount]
                   - else
                     %td= number_to_currency(0, locale: :de, precision: 0)
                 - unless iter[:budget].donation.description == ''
@@ -45,6 +47,7 @@
                     %td.grayBaackground{colspan: '4'}
                       %center
                         %small= iter[:budget].donation.description
+          %h3= "#{t('budget.total_average_payment', amount: number_to_currency(@a, locale: :de, precision: 0))}"
 
       %table.footer
         %tr
