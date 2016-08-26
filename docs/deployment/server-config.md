@@ -238,6 +238,35 @@ esac
 - `chmod 755 /etc/init.d/unicorn_maalify`  
 - `service unicorn_maalify start`
 
+
+## Start Unicorn on OS start up
+
+There are 3 options to start unicorn on start up of the OS.
+
+**1)** Edit the crontab list
+
+    sudo crontab -e
+    # put the following line into file
+    @reboot sh /root/script.sh
+
+**2)** make the unicon_maalify start by default
+
+    sudo update-rc.d unicorn_maalify defaults 
+    
+**3)** Edit `/etc/rc.local` file
+    
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+    cd /opt/www/maalify/current && RAILS_ENV=production bundle exec unicorn -E production -c config/unicorn.rb -D 
+
+#### The Content of the script.sh file is:
+ 
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+    cd /opt/www/maalify/current && RAILS_ENV=production bundle exec unicorn -E production -c config/unicorn.rb -D
+
 ## troubleshooting
 
 ##### master failed to start, check stderr log for details
