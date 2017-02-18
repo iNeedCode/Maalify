@@ -1,0 +1,22 @@
+---
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+- name: Install list of packages
+  apt: name={{item}} state=present
+  with_items:
+    - git-core
+    - curl
+    - build-essential
+    - nodejs
+    - sqlite3
+    - zlib1g-dev
+    - libssl-dev
+    - libreadline-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libsqlite3-dev
+    - libffi-dev
+    - libpq-dev
+

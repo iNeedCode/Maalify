@@ -1,0 +1,12 @@
+---
+- name: Download rbenv from github
+  git: repo=https://github.com/sstephenson/rbenv.git
+       dest=~/.rbenv
+
+- name: Add rbenv-build plugin to rbenv
+  git: repo=https://github.com/sstephenson/ruby-build.git
+       dest=~/.rbenv/plugins/ruby-build
+
+- name: Add rbenv-vars plugin to rbenv
+  git: repo=https://github.com/sstephenson/rbenv-vars.git
+       dest=~/.rbenv/plugins/rbenv-vars

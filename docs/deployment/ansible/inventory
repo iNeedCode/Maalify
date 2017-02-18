@@ -1,0 +1,5 @@
+pi ansible_host=192.168.178.65 ansible_user=root
+
+
+[webservers]
+pi
