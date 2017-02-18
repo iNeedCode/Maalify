@@ -88,3 +88,5 @@ db/data.yml
 .rbenv-vars
 
 application.yml
+
+site.retry
