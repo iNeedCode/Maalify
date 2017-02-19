@@ -1,0 +1,37 @@
+---
+- name: Install list of packages
+  apt: name={{item}} state=present
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - python-psycopg2
+  notify: Postgres Restart
+
+- name: Backup the original pg_hba.conf file
+  copy: remote_src=True src=/etc/postgresql/9.4/main/pg_hba.conf dest=/etc/postgresql/9.4/main/pg_hba.conf.original
+
+- name: Update hba configuration
+  template: src=pg_hba.conf.j2 dest=/etc/postgresql/9.4/main/pg_hba.conf
+  notify: Postgres Restart
+
+- name: Create user -> {{ pg_user_name }}
+  postgresql_user:
+    name={{ pg_user_name }}
+    password={{ pg_user_password }}
+    role_attr_flags=CREATEDB,SUPERUSER,CREATEROLE,REPLICATION
+    state=present
+  become: true
+  become_user: postgres
+  tags:
+      - postgres
+
+- name: Create database -> {{ pg_db_maalify }}
+  postgresql_db:
+    name={{ pg_db_maalify }}
+    owner={{ pg_user_name }}
+    state=present
+  become: true
+  become_user: postgres
+
+
+

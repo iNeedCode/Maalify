@@ -90,3 +90,4 @@ db/data.yml
 application.yml
 
 site.retry
+/docs/deployment/ansible/vault_pass.txt

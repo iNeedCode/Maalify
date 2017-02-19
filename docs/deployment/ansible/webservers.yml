@@ -3,6 +3,7 @@
 - hosts: webservers
   roles:
     - server-common
+    - postgres
     - webserver
   sudo: yes
   gather_facts: no

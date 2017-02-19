@@ -15,6 +15,7 @@ Test reachablity to host with ping module `ansible webservers -m ping -k`
 ````bash
 ansible-playbook site.yml -k
 ansible-playbook site.yml -k --tags "ruby"
+ansible-playbook site.yml -k --vault-password-file vault_pass.txt
 ````
 
 
