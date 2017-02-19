@@ -30,6 +30,15 @@
   tags:
     - ruby
 
+- name: add no doc for gem config
+  lineinfile:
+    dest=~/.gemrc
+    line="gem{{':'}} --no-ri --no-rdoc"
+    create=yes
+    state=present
+  tags:
+    - ruby
+
 - name: install rbenv {{ ruby_version }}
   shell: /bin/bash /root/.rbenv/bin/rbenv install {{ ruby_version }} --skip-existing
   args:
@@ -50,3 +59,13 @@
       executable: /bin/bash
   tags:
     - ruby
+
+- name: install the gem => bundler
+  gem:
+    name: bundler
+    executable: /root/.rbenv/shims/gem
+    state: latest
+  tags:
+    - ruby
+
+#    TODO fix bundler is is not available

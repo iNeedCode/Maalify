@@ -1,4 +1,3 @@
 ---
 - name: Postgres Restart
   service: name=postgresql state=restarted enabled=yes
-  service: name=postgresql state=reloaded enabled=yes
