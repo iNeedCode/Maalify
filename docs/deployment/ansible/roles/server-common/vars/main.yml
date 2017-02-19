@@ -1,3 +1,3 @@
 ---
-name: maalify
+ruby_version: 2.2.1
 syslog_server: 1.2.3.4

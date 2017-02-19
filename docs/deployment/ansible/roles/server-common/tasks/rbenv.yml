@@ -22,3 +22,31 @@
     dest=~/.bashrc
     line='eval "$(rbenv init -)"'
     state=present
+
+- name: source the bashrc file
+  shell: source /root/.bashrc
+  args:
+      executable: /bin/bash
+  tags:
+    - ruby
+
+- name: install rbenv {{ ruby_version }}
+  shell: /bin/bash /root/.rbenv/bin/rbenv install {{ ruby_version }} --skip-existing
+  args:
+      executable: /bin/bash
+  tags:
+    - ruby
+
+- name: use ruby version {{ ruby_version }}
+  shell: /bin/bash /root/.rbenv/bin/rbenv global {{ ruby_version }}
+  args:
+      executable: /bin/bash
+  tags:
+    - ruby
+
+- name: refresh rbenv with rehash
+  shell: /bin/bash /root/.rbenv/bin/rbenv rehash
+  args:
+      executable: /bin/bash
+  tags:
+    - ruby
