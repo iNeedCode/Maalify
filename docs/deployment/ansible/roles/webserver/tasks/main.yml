@@ -2,3 +2,25 @@
 - name: Install Nginx
   apt: name=nginx state=present
   notify: Nginx Restart
+
+- name: Delete default
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  tags:
+    - nginx
+
+- name: push maalify to sites-available
+  template: src=maalify.nginx.j2 dest=/etc/nginx/sites-available/maalify
+  tags:
+    - nginx
+
+- name: create symlink maalify as default site
+  file: src=/etc/nginx/sites-available/maalify dest=/etc/nginx/sites-enabled/maalify state=link
+  notify: Nginx Restart
+  tags:
+    - nginx
+
+- name: push unicorn init script
+  template: src=unicorn_maalify.j2 dest=/etc/init.d/unicorn_maalify mode=755
+  notify: Start Unicorn
+  tags:
+    - nginx
