@@ -22,8 +22,6 @@
     state=present
   become: true
   become_user: postgres
-  tags:
-      - postgres
 
 - name: Create database -> {{ pg_db_maalify }}
   postgresql_db:

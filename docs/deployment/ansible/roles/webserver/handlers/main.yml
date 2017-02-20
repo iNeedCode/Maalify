@@ -1,6 +1,3 @@
 ---
 - name: Nginx Restart
   service: name=nginx state=restarted enabled=yes
-
-- name: Start Unicorn
-  service: name=unicorn_maalify state=started enabled=yes

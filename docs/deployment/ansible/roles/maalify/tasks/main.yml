@@ -1,0 +1,30 @@
+---
+- name: push unicorn init script
+  template: src=unicorn_maalify.j2 dest=/etc/init.d/unicorn_maalify mode=755
+  notify: Start Unicorn
+  tags:
+    - app
+
+- name: create target folder for database.yml
+  file:
+    path: "/opt/www/maalify/shared/config/"
+    state: directory
+    recurse: yes
+  tags:
+      - app
+
+- name: push database.yml to host
+  template: src=database.yml.j2 dest={{ maalify_shared }}/config/database.yml
+  tags:
+    - app
+
+- name: push database.yml to host
+  template: src=rbenv-vars.j2 dest={{ maalify_shared }}/.rbenv-vars
+  tags:
+    - app
+
+- name: push application.yml to host
+  template: src=application.j2 dest={{ maalify_shared }}/application.yml
+  tags:
+    - app
+

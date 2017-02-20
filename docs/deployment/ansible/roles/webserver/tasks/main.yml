@@ -18,9 +18,3 @@
   notify: Nginx Restart
   tags:
     - nginx
-
-- name: push unicorn init script
-  template: src=unicorn_maalify.j2 dest=/etc/init.d/unicorn_maalify mode=755
-  notify: Start Unicorn
-  tags:
-    - nginx

@@ -1,9 +1,9 @@
 ---
-## Web Servers
 - hosts: webservers
   roles:
     - server-common
-    - postgres
+    - { role: postgres, tags: [ 'postgres' ] }
     - webserver
+    - { role: maalify, tags: [ 'maalify' ] }
   gather_facts: no
 
