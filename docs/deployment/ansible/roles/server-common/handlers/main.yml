@@ -1,6 +1,3 @@
 ---
-#- name: SNMP Restart
-#  service: name=snmpd state=restarted
-#
-#- name: Syslog Restart
-#  service: name=rsyslog state=restarted
+- name: rbenv rehash
+  shell: /bin/bash /root/.rbenv/bin/rbenv rehash

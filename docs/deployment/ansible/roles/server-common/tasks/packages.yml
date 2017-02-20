@@ -1,11 +1,11 @@
 ---
-- name: Check apt last update
-  stat: path=/var/cache/apt
-  register: apt_cache_stat
+#- name: Check apt last update
+#  stat: path=/var/cache/apt
+#  register: apt_cache_stat
 
-- name: Run the equivalent of "apt-get update" as a separate step
-  apt: update_cache=yes
-  when: ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > 60*60*12
+#- name: Run the equivalent of "apt-get update" as a separate step
+#  apt: update_cache=yes
+#  when: ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > 60*60*12
 
 - name: Install list of packages
   apt: name={{item}} state=present

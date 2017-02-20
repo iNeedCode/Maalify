@@ -52,20 +52,11 @@
       executable: /bin/bash
   tags:
     - ruby
+  notify: rbenv rehash
 
-- name: refresh rbenv with rehash
-  shell: /bin/bash /root/.rbenv/bin/rbenv rehash
-  args:
-      executable: /bin/bash
+- name: Install Bundler
+  shell: /root/.rbenv/shims/gem install bundler
   tags:
     - ruby
+  notify: rbenv rehash
 
-- name: install the gem => bundler
-  gem:
-    name: bundler
-    executable: /root/.rbenv/shims/gem
-    state: latest
-  tags:
-    - ruby
-
-#    TODO fix bundler is is not available
