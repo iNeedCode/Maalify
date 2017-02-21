@@ -11,6 +11,15 @@
   git: repo=https://github.com/sstephenson/rbenv-vars.git
        dest=~/.rbenv/plugins/rbenv-vars
 
+- name: add env variables to system profile.d
+  blockinfile:
+    dest: /etc/profile.d/rbenv.sh
+    create: yes
+    state: present
+    block: |
+      export PATH="$HOME/.rbenv/bin:$PATH"
+      eval "$(rbenv init -)"
+
 - name: add path to rbenv in .bashrc file
   lineinfile:
     dest=~/.bashrc
@@ -27,8 +36,6 @@
   shell: source /root/.bashrc
   args:
       executable: /bin/bash
-  tags:
-    - ruby
 
 - name: add no doc for gem config
   lineinfile:
@@ -36,33 +43,23 @@
     line="gem{{':'}} --no-ri --no-rdoc"
     create=yes
     state=present
-  tags:
-    - ruby
 
 - name: install rbenv {{ ruby_version }}
   shell: /bin/bash /root/.rbenv/bin/rbenv install {{ ruby_version }} --skip-existing
   args:
       executable: /bin/bash
-  tags:
-    - ruby
 
 - name: use ruby version {{ ruby_version }}
   shell: /bin/bash /root/.rbenv/bin/rbenv global {{ ruby_version }}
   args:
       executable: /bin/bash
-  tags:
-    - ruby
   notify: rbenv rehash
 
 - name: Install Bundler
   shell: /root/.rbenv/shims/gem install bundler
-  tags:
-    - ruby
   notify: rbenv rehash
 
 - name: Install backup gem
   shell: /root/.rbenv/shims/gem install backup
-  tags:
-    - ruby
   notify: rbenv rehash
 
