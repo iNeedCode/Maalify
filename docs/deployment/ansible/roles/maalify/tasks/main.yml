@@ -19,7 +19,7 @@
   template: src=application.j2 dest={{ maalify_shared }}/application.yml
 
 - name: push reboot.sh file to host
-  template: src=reboot.sh.j2 dest=/root/reboot.sh
+  template: src=reboot.sh.j2 dest=/root/reboot.sh mode=777
 
 - name: add reboot job to cronjob
   cron:
