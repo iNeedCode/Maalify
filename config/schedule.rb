@@ -23,6 +23,9 @@ set :environment, "production"
 set :whenever_command, "bundle exec whenever"
 set :output, {:error => "/opt/www/maalify/current/log/cron_error_log.log", :standard => "/opt/www/maalify/current/log/cron_log.log"}
 
+# for rbenv
+set :rbenv_root, '/root/.rbenv'
+env 'RBENV_ROOT', rbenv_root
 
 # monthly email to all members in system
 every 1.day, at: '6:00am' do
