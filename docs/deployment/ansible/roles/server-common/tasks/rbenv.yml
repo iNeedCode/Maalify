@@ -60,3 +60,9 @@
     - ruby
   notify: rbenv rehash
 
+- name: Install backup gem
+  shell: /root/.rbenv/shims/gem install backup
+  tags:
+    - ruby
+  notify: rbenv rehash
+
