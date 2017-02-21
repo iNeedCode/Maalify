@@ -22,7 +22,7 @@
 set :environment, "production"
 set :whenever_command, "bundle exec whenever"
 set :output, {:error => "/opt/www/maalify/current/log/cron_error_log.log", :standard => "/opt/www/maalify/current/log/cron_log.log"}
-env :GEM_PATH, ENV['GEM_PATH']
+env :GEM_PATH, ENV['/root/.rbenv/shims/gem']
 
 
 # monthly email to all members in system
