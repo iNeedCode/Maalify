@@ -224,6 +224,13 @@ RSpec.describe Member, :type => :model do
         expect(@member.tanzeem).not_to eq('Khuddam')
       end
 
+      it "should return 'Atfal' if member turn 15 before new year begin" do
+        Timecop.freeze(Date.parse("09-10-2016"))
+        @member.date_of_birth = "2001-06-13"
+        expect(@member.tanzeem).to eq('Atfal')
+        expect(@member.tanzeem).not_to eq('Khuddam')
+      end
+
       it "should return 'Atfal'" do
         Timecop.freeze(Date.parse("24-01-2016"))
         @member.date_of_birth = "2001-06-13"
