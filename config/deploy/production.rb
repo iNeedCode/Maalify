@@ -1,6 +1,6 @@
-role :app, %w{root@192.168.178.65}
-role :web, %w{root@192.168.178.65}
-role :db,  %w{root@192.168.178.65}
+role :app, %w{root@192.168.178.100}
+role :web, %w{root@192.168.178.100}
+role :db,  %w{root@192.168.178.100}
 
 namespace :deploy do
   desc "Update crontab with whenever"

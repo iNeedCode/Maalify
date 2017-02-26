@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203104047) do
+ActiveRecord::Schema.define(version: 20170226151244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20160203104047) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "receipt_items", ["amount"], name: "index_receipt_items_on_amount", using: :btree
   add_index "receipt_items", ["donation_id"], name: "index_receipt_items_on_donation_id", using: :btree
   add_index "receipt_items", ["receipt_id"], name: "index_receipt_items_on_receipt_id", using: :btree
 
@@ -100,6 +101,7 @@ ActiveRecord::Schema.define(version: 20160203104047) do
   end
 
   add_index "receipts", ["member_id"], name: "index_receipts_on_member_id", using: :btree
+  add_index "receipts", ["receipt_id"], name: "index_receipts_on_receipt_id", unique: true, using: :btree
 
   create_table "reporters", force: :cascade do |t|
     t.string   "name"
@@ -142,14 +144,9 @@ ActiveRecord::Schema.define(version: 20160203104047) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "budgets", "donations"
-  add_foreign_key "budgets", "donations"
-  add_foreign_key "budgets", "members", primary_key: "aims_id"
   add_foreign_key "budgets", "members", primary_key: "aims_id"
   add_foreign_key "incomes", "members", primary_key: "aims_id"
-  add_foreign_key "incomes", "members", primary_key: "aims_id"
   add_foreign_key "receipt_items", "donations"
-  add_foreign_key "receipt_items", "donations"
-  add_foreign_key "receipt_items", "receipts", primary_key: "receipt_id"
   add_foreign_key "receipt_items", "receipts", primary_key: "receipt_id"
   add_foreign_key "receipts", "members", primary_key: "aims_id"
   add_foreign_key "receipts", "members", primary_key: "aims_id"
