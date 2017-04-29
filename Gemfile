@@ -25,7 +25,7 @@ gem 'yaml_db'
 gem 'seed_dump'
 gem 'kaminari'
 gem "select2-rails"
-gem "backup"
+gem "backup", '~> 4.4.0'
 gem 'rails-settings-ui'
 gem 'rails-settings-cached'
 gem 'prawn'
