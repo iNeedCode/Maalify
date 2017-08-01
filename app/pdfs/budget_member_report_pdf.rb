@@ -114,7 +114,7 @@ class BudgetMemberReportPDF < Prawn::Document
   def receipt_rows
     @all_receipts = []
     @member.select { |aa| !aa[:receipts].empty? }.each { |so| (@all_receipts << so[:receipts]) }
-    @all_receipts.flatten!.uniq!
+    @all_receipts.flatten!.uniq! unless @all_receipts.empty?
 
     [[
          I18n.t('receipt.id'),
