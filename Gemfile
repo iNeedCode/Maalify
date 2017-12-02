@@ -21,6 +21,7 @@ gem 'haml-rails'
 gem 'bootstrap-multiselect-rails'
 gem "js-routes"
 gem 'pg'
+gem "mailjet"
 gem 'yaml_db'
 gem 'seed_dump'
 gem 'kaminari'

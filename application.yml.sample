@@ -5,3 +5,5 @@ email_password:
 email_to:
 dropbox_key:
 dropbox_secret:
+mailjet_api_key:
+mailjet_sec:
