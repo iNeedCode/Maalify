@@ -76,7 +76,7 @@ class Budget < ActiveRecord::Base
   def transfer_old_remaining_promise_to_current_budget
     budgets = get_all_budget_from_the_same_donation_type_before_current_budget
     return self.rest_promise_from_past_budget = 0 if budgets.nil?
-    rest = budgets[0].remainingPromiseCurrentBudget
+    rest = budgets.first.remainingPromiseCurrentBudget
     self.rest_promise_from_past_budget = rest.abs
   end
 
