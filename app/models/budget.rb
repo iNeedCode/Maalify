@@ -76,10 +76,7 @@ class Budget < ActiveRecord::Base
   def transfer_old_remaining_promise_to_current_budget
     budgets = get_all_budget_from_the_same_donation_type_before_current_budget
     return self.rest_promise_from_past_budget = 0 if budgets.nil?
-    rest = 0
-    unless budgets.nil?
-      budgets.each { |b| rest += b.remainingPromiseCurrentBudget }
-    end
+    rest = budgets[0].remainingPromiseCurrentBudget
     self.rest_promise_from_past_budget = rest.abs
   end
 
@@ -251,7 +248,9 @@ class Budget < ActiveRecord::Base
 #
 # Returns Array of budget models
   def get_all_budget_from_the_same_donation_type_before_current_budget
-    Budget.where('donation_id = ? and end_date < ? and member_id = ?', self.donation_id, self.start_date, self.member_id)
+    budgets = Budget
+                  .where('donation_id = ? and end_date < ? and member_id = ?', self.donation_id, self.start_date, self.member_id)
+                  .order(end_date: :desc)
   end
 
 # Public: check if the related "donation" is budget based donation type
